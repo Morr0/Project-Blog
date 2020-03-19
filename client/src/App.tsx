@@ -1,18 +1,29 @@
 import React from 'react';
+import Articles from "./Articles";
+import "./styles/styles.css"
 
-let message: any = null;
+import ArticleModel from "./Models/Article"
+
+let article: ArticleModel = {
+  content: "This content is content",
+  title: "qlihgnkqwr"
+}
+
+let article2: ArticleModel = {
+  content: "TITITITITIITLE",
+  title: "qlihgnkqwr"
+}
 
 async function awaiter(){
     let res = await fetch("http://localhost:3400", {});
-    message = JSON.stringify(await res.json());
-    console.log(message);
 }
 
 function App() {
 awaiter();
+
 return (
     <div className="App">
-      {message}
+      <Articles articles={[article, article2]} />
     </div>
 );
 }

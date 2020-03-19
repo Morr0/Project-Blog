@@ -1,0 +1,14 @@
+body {
+    margin: 0;
+}
+
+.article {
+    background-color: aqua;
+}
+
+.art_title {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #994843;
+    margin: 50px;
+
+}
