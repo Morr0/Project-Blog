@@ -1,7 +1,7 @@
 import React from "react";
-import ArticleModel from "./Models/Article"
+import ArticleModel from "../Models/Article"
 
-import Article from "./Components/Article"
+import Article from "./Article"
 
 interface Props {
     articles: ArticleModel[]

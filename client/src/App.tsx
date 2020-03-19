@@ -1,5 +1,5 @@
 import React from 'react';
-import Articles from "./Articles";
+import Articles from "./Components/Articles";
 import "./styles/styles.css"
 
 import ArticleModel from "./Models/Article"
