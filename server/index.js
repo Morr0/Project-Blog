@@ -4,7 +4,12 @@ const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
 
+// Models
 const models = require("./models/DBModels");
+
+// Routes
+const usersRouter = require("./routes/users");
+const postsRouter = require("./routes/posts");
 
 // Inits
 require("dotenv").config();
@@ -22,8 +27,6 @@ console.log(process.env.PORT);
 mongoose.connect(DB_URL, { useNewUrlParser: true, useUnifiedTopology: true});
 mongoose.connection.on("connected", () => console.log("Connected"));
 
-user1.save();
-
 app.listen(PORT);
 
 // Middleware
@@ -31,25 +34,6 @@ app.listen(PORT);
 app.use(cors());
 
 // Routing 
-app.get("/", (req, res) => {
-    // res.send("<h1>Hello</h1>");
-    let x = [{x:"f"}]
-    res.json(x);
-});
-
-// Temporary router
-app.get("/users", (req, res) => {
-    models.User.find((error, docs) => {
-        if (error) console.log("ERROR");
-        else{
-            console.log("FREE");
-            res.send(docs);
-        } 
-    });
-});
-
-app.post("/", (req, res) => {
-    let x = [{x:"f"}]
-    res.json(x);
-});
+app.use("/users", usersRouter);
+app.use("/posts", postsRouter);
 

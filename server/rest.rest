@@ -1,1 +1,1 @@
-GET http://localhost:3400/users
+GET http://localhost:3400/posts
