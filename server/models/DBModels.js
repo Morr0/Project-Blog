@@ -3,18 +3,18 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const Objectid = Schema.ObjectId;
 
-const User = new Schema({
+const user = new Schema({
     name: {
         type: String,
-        required = true
+        required: true
     },
     email: {
         type: String,
-        required = true
+        required: true
     },
     password: {
         type: String,
-        required = true
+        required: true
     },
     bio: {
         type: String
@@ -32,16 +32,18 @@ const User = new Schema({
     }
 });
 
-const Post = new Schema({
+const User = mongoose.model("Users", user);
+
+const post = new Schema({
     author: Objectid,
     title: {
         type: String,
-        required = true
+        required: true
 
     },
     content: {
         type: String,
-        required = true
+        required: true
     },
     postDate: {
         type: Date,
@@ -49,6 +51,14 @@ const Post = new Schema({
     },
     updateDate: {
         type: Date
+    },
+    hidden: {
+        type: Boolean,
+        default: false
     }
 });
 
+const Post = mongoose.model("Posts", post);
+
+exports.User = User;
+exports.Post = Post;
