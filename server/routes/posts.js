@@ -4,12 +4,19 @@ const route = express.Router();
 const models = require("../models/DBModels");
 
 route.get("/", (req, res) => {
-    const posts = models.Post.find((error, data) => {
+    const posts = models.Post.find({},(error, data) => {
+        res.json(data);
+    });
+});
+
+route.get("/draft", (req, res) => {
+    const posts = models.Post.find({draft: true},(error, data) => {
         res.json(data);
     });
 });
 
 route.post("/", (req, res) => {
+    // TODO make sure to grab the user id for the post 
     const newArticle = new models.Post({
         title: req.headers.title,
         content: req.headers.content

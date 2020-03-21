@@ -45,9 +45,12 @@ const post = new Schema({
         type: String,
         required: true
     },
+    draft: {
+        type: Boolean,
+        default: false
+    },
     postDate: {
-        type: Date,
-        default: Date.now
+        type: Date
     },
     updateDate: {
         type: Date
