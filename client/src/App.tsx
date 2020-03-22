@@ -1,29 +1,18 @@
 import React from 'react';
-import Articles from "./Components/Articles";
 import "./styles/styles.css"
 
+// Components
+import Articles from "./Components/Articles";
+import Header from "./Components/Header";
+
 import ArticleModel from "./Models/Article"
-
-let article: ArticleModel = {
-  content: "This content is content",
-  title: "qlihgnkqwr"
-}
-
-let article2: ArticleModel = {
-  content: "TITITITITIITLE",
-  title: "qlihgnkqwr"
-}
-
-async function awaiter(){
-    let res = await fetch("http://localhost:3400", {});
-}
+import LoginForm from './Components/LoginForm';
+import RegisterForm from './Components/RegisterForm';
 
 function App() {
-awaiter();
-
 return (
     <div className="App">
-      <Articles articles={[article, article2]} />
+      <RegisterForm />
     </div>
 );
 }
