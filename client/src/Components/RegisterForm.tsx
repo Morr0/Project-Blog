@@ -1,12 +1,5 @@
 import React from "react";
 
-interface Props {}
-
-interface State {
-    username: string,
-    password: string
-}
-
 let name: string = "";
 let email: string = "";
 let password: string = "";

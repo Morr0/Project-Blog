@@ -24,7 +24,7 @@ const {
 console.log(process.env.PORT);
 
 // Connection
-mongoose.connect(DB_URL, { useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect(DB_URL, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true});
 mongoose.connection.on("connected", () => console.log("Connected"));
 
 app.listen(PORT);
