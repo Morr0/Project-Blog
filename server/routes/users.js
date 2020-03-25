@@ -24,8 +24,14 @@ route.get("/", (req, res) => {
     });
 });
 
+function redirectIfLoggedIn (req, res, next){
+    if (req.session){
+        res.redirect("../");
+    } else next();
+}
+
 // TO BE CALLED BEFORE REGISTERING TO CHECK FOR EMAIL AVAILABILITY
-route.post("/preregister", (req, res) => {
+route.post("/preregister", redirectIfLoggedIn, (req, res) => {
     console.log("PREREGISTER CALLED");
     if (req.headers.email){
         models.User.find({email: req.headers.email}).exec().
@@ -41,7 +47,7 @@ route.post("/preregister", (req, res) => {
 });
 
 // THIS ASSUMES PREREGISTER IS CALLED RIGHT BEFORE IT
-route.post("/register", (req, res) => {
+route.post("/register", redirectIfLoggedIn, (req, res) => {
     console.log("REGISTER");
     // Checking if the email is already registered
 
@@ -68,7 +74,7 @@ route.post("/register", (req, res) => {
     
 });
 
-route.post("/login", (req, res) => {
+route.post("/login", redirectIfLoggedIn, (req, res) => {
     console.log("LOGIN");
     if (req.headers.email && req.headers.password){
         models.User.findOne({email: req.headers.email}).exec().then(data => {
@@ -95,7 +101,20 @@ route.post("/login", (req, res) => {
     }
 });
 
-
-
+route.post("/logout", 
+// Checking if the user is logged in, if not will ask him to login
+(req, res, next) => {
+    if (req.session){
+        next();
+    } else {
+        res.redirect("/login");
+    }
+}, // Destroy the cookie
+(req, res) => {
+    req.session.destroy((error) => {
+        if (error) res.status(500).json({error: "Cannot logout"});
+        else res.end();
+    });
+});
 
 module.exports = route;

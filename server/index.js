@@ -56,7 +56,6 @@ app.use("/posts", postsRouter);
 
 // Temporary
 app.get("/", (req, res) => {
-    console.log(req.session);
-    res.end();
+    res.json({loggedIn: "hello"});
 });
 
