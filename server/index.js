@@ -4,6 +4,9 @@ const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
 
+const session = require("express-session");
+const MongoStore = require("connect-mongo")(session);
+
 // Models
 const models = require("./models/DBModels");
 
@@ -18,22 +21,42 @@ const app = express();
 // Constants
 const {
     PORT = 3400,
-    DB_URL
+    SESSION_LIFE = 300,
+    DB_URL,
+    SECRET_KEY = "test"
 } = process.env;
 
-console.log(process.env.PORT);
-
 // Connection
-mongoose.connect(DB_URL, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true});
+const connection = mongoose.connect(DB_URL, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true});
 mongoose.connection.on("connected", () => console.log("Connected"));
 
 app.listen(PORT);
 
 // Middleware
 
+app.use(session({
+    secret: SECRET_KEY,
+    resave: false,
+    saveUninitialized: true,
+    store: new MongoStore({
+        mongooseConnection: mongoose.connection,
+        collection: "sessions"
+    }),
+    cookie: {
+        httpOnly: true,
+        maxAge: Number.parseInt(SESSION_LIFE)
+    }
+}));
+
 app.use(cors());
 
 // Routing 
 app.use("/users", usersRouter);
 app.use("/posts", postsRouter);
+
+// Temporary
+app.get("/", (req, res) => {
+    console.log(req.session);
+    res.end();
+});
 

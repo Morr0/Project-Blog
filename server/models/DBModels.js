@@ -29,8 +29,7 @@ const user = new Schema({
         type: Date
     },
     lastOnline: {
-        type: Date,
-        default: Date.now
+        type: Date
     }
 });
 

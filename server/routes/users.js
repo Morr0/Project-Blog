@@ -60,15 +60,39 @@ route.post("/register", (req, res) => {
                 if (error) return res.status(500).json({error: error});
                 else return res.status(201).json({error: ""});
             });
-        
-        }).catch(error => res.status(400).json({error: "Incomplete request"}));
+        });
+    } else {
+        return res.status(400).json({error: "Incomplete request"});
     }
 
     
 });
 
 route.post("/login", (req, res) => {
-
+    console.log("LOGIN");
+    if (req.headers.email && req.headers.password){
+        models.User.findOne({email: req.headers.email}).exec().then(data => {
+            if (!data){
+                return res.status(404).json({error: "E-mail or Password are incorrect."});
+            } else {
+                console.log(data);
+                bcrypt.compare(req.headers.password, data.password, (error, same) => {
+                    if (!error){
+                        if (same){
+                            console.log("Logging in");
+                            
+                        } else {
+                            return res.status(404).json({error: "E-mail or Password are incorrect."});
+                        }
+                    } else {
+                        return res.status(500).json({error: error});
+                    }
+                });
+            }
+        });
+    } else {
+        return res.status(400).json({error: "Incomplete request"});
+    }
 });
 
 
