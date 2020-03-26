@@ -4,7 +4,9 @@ const route = express.Router();
 const models = require("../models/DBModels");
 
 route.get("/", (req, res) => {
-    const posts = models.Post.find({},(error, data) => {
+    console.log("REQUEST");
+    models.Post.find({},(error, data) => {
+        console.log("SENDING DATA");
         res.json(data);
     });
 });

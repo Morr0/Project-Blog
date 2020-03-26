@@ -25,6 +25,24 @@ export default class RegisterForm extends React.Component {
 
     handleSubmission(event: any) {
         event.preventDefault();
-        console.log(name);
+
+        if (name === "" || email === "" || password === ""){
+            return alert("All fields are to be filled");
+        }
+
+        fetch("http://localhost:3400/users/register", {
+            method: "POST",
+            headers: {
+                "name": name,
+                "email": email,
+                "password": password
+            },
+            credentials: "same-origin",
+            mode: "cors",
+            redirect: "follow"
+        }).then((res) => res.json())
+        .then(data => {
+            console.log(data);
+        });
     }
 }

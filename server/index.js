@@ -7,9 +7,6 @@ const mongoose = require("mongoose");
 const session = require("express-session");
 const MongoStore = require("connect-mongo")(session);
 
-// Models
-const models = require("./models/DBModels");
-
 // Routes
 const usersRouter = require("./routes/users");
 const postsRouter = require("./routes/posts");
@@ -34,21 +31,22 @@ app.listen(PORT);
 
 // Middleware
 
+app.use(cors());
+
 app.use(session({
     secret: SECRET_KEY,
     resave: false,
-    saveUninitialized: true,
+    saveUninitialized: false,
     store: new MongoStore({
         mongooseConnection: mongoose.connection,
         collection: "sessions"
     }),
     cookie: {
+        secure: true,
         httpOnly: true,
         maxAge: Number.parseInt(SESSION_LIFE)
     }
 }));
-
-app.use(cors());
 
 // Routing 
 app.use("/users", usersRouter);
@@ -56,6 +54,9 @@ app.use("/posts", postsRouter);
 
 // Temporary
 app.get("/", (req, res) => {
-    res.json({loggedIn: "hello"});
+    if (req.session.userId)
+        return res.json({loggedIn: "hello"});
+    else 
+        return res.redirect("/users/login");
 });
 

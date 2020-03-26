@@ -25,33 +25,24 @@ route.get("/", (req, res) => {
 });
 
 function redirectIfLoggedIn (req, res, next){
-    if (req.session){
-        res.redirect("../");
+    if (req.session.userId){
+        res.json({error: "LoggedIn"});
     } else next();
 }
 
-// TO BE CALLED BEFORE REGISTERING TO CHECK FOR EMAIL AVAILABILITY
-route.post("/preregister", redirectIfLoggedIn, (req, res) => {
-    console.log("PREREGISTER CALLED");
-    if (req.headers.email){
-        models.User.find({email: req.headers.email}).exec().
-        then(data => {
-            if (data.length > 0)
-                return res.status(409).json({error: "Exists"});
-
-            return res.status(202).json({error: ""});
-        }).catch(error => {
-            return res.status(500).json({error: "Mongo Error"});
-        })
-    }
-});
-
-// THIS ASSUMES PREREGISTER IS CALLED RIGHT BEFORE IT
 route.post("/register", redirectIfLoggedIn, (req, res) => {
     console.log("REGISTER");
     // Checking if the email is already registered
 
     if (req.headers.name && req.headers.email && req.headers.password){
+        // Check for email
+        models.User.find({email: req.headers.email}).exec().
+        then(data => {
+            if (data.length > 0) return res.status(409).json({error: "Exists"});
+        }).catch(error => {
+            return res.status(500).json({error: error});
+        });
+
         // Make a new password
         let textPassword = req.headers.password;
         bcrypt.hash(textPassword, salt).then((hash) => {
@@ -64,14 +55,15 @@ route.post("/register", redirectIfLoggedIn, (req, res) => {
 
             user.save((error) => {
                 if (error) return res.status(500).json({error: error});
-                else return res.status(201).json({error: ""});
+                else {  
+                    req.session.userId = req.headers.email;
+                    return res.status(201).json({error: ""});
+                 }
             });
         });
     } else {
         return res.status(400).json({error: "Incomplete request"});
     }
-
-    
 });
 
 route.post("/login", redirectIfLoggedIn, (req, res) => {
@@ -85,6 +77,7 @@ route.post("/login", redirectIfLoggedIn, (req, res) => {
                 bcrypt.compare(req.headers.password, data.password, (error, same) => {
                     if (!error){
                         if (same){
+                            req.session.userId = req.headers.email;
                             console.log("Logging in");
                             
                         } else {
@@ -101,16 +94,7 @@ route.post("/login", redirectIfLoggedIn, (req, res) => {
     }
 });
 
-route.post("/logout", 
-// Checking if the user is logged in, if not will ask him to login
-(req, res, next) => {
-    if (req.session){
-        next();
-    } else {
-        res.redirect("/login");
-    }
-}, // Destroy the cookie
-(req, res) => {
+route.post("/logout", (req, res) => {
     req.session.destroy((error) => {
         if (error) res.status(500).json({error: "Cannot logout"});
         else res.end();
