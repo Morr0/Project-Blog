@@ -1,31 +1,29 @@
 <template>
-    <p>{}</p>
+    <div class="row">
+    <div class="col s12 ">
+      <div class="card blue-grey darken-1">
+        <div class="card-content white-text">
+          <span class="card-title">{{this.data.title}}</span>
+          <p>{{this.data.content}}</p>
+        </div>
+        <div class="card-action" v-if="this.individualPage">
+            <router-link to="/">Like</router-link>
+            <a href="#">Comment</a>
+            <a href="#">Share</a>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
 export default {
   name: 'Article',
   props: {
-    title: String,
-    content: String
+    data: Object,
+    // false -> viewed on the homescreen with other views
+    // true -> viewed on it's own page
+    individualPage: Boolean = true
   }
 }
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
-</style>
