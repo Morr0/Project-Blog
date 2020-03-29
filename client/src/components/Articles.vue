@@ -7,8 +7,6 @@
 <script>
 import Article from "./Article.vue";
 
-
-
 export default {
     components: {
         Article
@@ -23,7 +21,6 @@ export default {
         fetch("http://localhost:3400/posts").then((res) => res.json())
         .then(posts => {
             this.posts = posts;
-            console.log(posts);
         });
         console.log(this.posts);
     }

@@ -11,6 +11,14 @@ route.get("/", (req, res) => {
     });
 });
 
+route.get("/:id", (req, res) => {
+    console.log("REQUEST");
+    models.Post.find({_id: req.params.id},(error, data) => {
+        console.log(data);
+        res.json(data);
+    });
+});
+
 route.get("/draft", (req, res) => {
     const posts = models.Post.find({draft: true},(error, data) => {
         res.json(data);

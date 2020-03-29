@@ -3,11 +3,11 @@
     <div class="col s12 ">
       <div class="card blue-grey darken-1">
         <div class="card-content white-text">
-          <span class="card-title">{{this.data.title}}</span>
-          <p>{{this.data.content}}</p>
+          <span class="card-title">{{this.post.title}}</span>
+          <p>{{this.post.content}}</p>
         </div>
         <div class="card-action" v-if="this.individualPage">
-            <router-link to="/">Like</router-link>
+            <a href="#">Like</a>
             <a href="#">Comment</a>
             <a href="#">Share</a>
         </div>
@@ -18,12 +18,12 @@
 
 <script>
 export default {
-  name: 'Article',
+  name: "Article",
   props: {
-    data: Object,
+    post: Object,
     // false -> viewed on the homescreen with other views
     // true -> viewed on it's own page
-    individualPage: Boolean = true
+    individualPage: Boolean = true,
   }
 }
 </script>
