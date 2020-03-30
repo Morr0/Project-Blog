@@ -24,7 +24,7 @@ const {
 } = process.env;
 
 // Connection
-const connection = mongoose.connect(DB_URL, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true});
+const connection = mongoose.connect(DB_URL, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true, useFindAndModify: false});
 mongoose.connection.on("connected", () => console.log("Connected"));
 
 app.listen(PORT);

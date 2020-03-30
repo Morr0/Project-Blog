@@ -1,10 +1,11 @@
 <template>
-    <div class="container">
+    <div class="container" v-if="now">
         <Article v-for="(post) in posts" :data="post" :key="post._id" :individualPage="individualPage" />
     </div>
 </template>
 
 <script>
+import {} from "vue";
 import Article from "./Article.vue";
 
 export default {
@@ -14,14 +15,30 @@ export default {
     data(){
         return {
             posts: [],
-            individualPage: false
+            individualPage: false,
+            now: false
         };
     },
-    created(){
-        fetch("http://localhost:3400/posts").then((res) => res.json())
-        .then(posts => {
-            this.posts = posts;
-        });
+    methods: {
+        fetchPosts: async function (){
+            fetch("http://localhost:3400/posts/").then((res) => res.json())
+            .then ((data) => {
+                this.posts = data;
+                this.now = true;
+            });
+        }
+    }
+    ,
+    async created(){
+        // fetch("http://localhost:3400/posts").then((res) => res.json())
+        // .then(posts => {
+        //     // this.posts = posts;
+            
+        //     console.log(posts);
+        //     console.log(this.posts);
+        // });
+
+        this.fetchPosts();
         console.log(this.posts);
     }
 }

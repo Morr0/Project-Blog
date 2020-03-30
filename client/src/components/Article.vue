@@ -1,12 +1,12 @@
 <template>
-    <div class="row">
+    <div class="row" v-if="post">
     <div class="col s12 ">
       <div class="card blue-grey darken-1">
         <div class="card-content white-text">
-          <span class="card-title">{{this.post.title}}</span>
-          <p>{{this.post.content}}</p>
+          <span class="card-title">{{post.title}}</span>
+          <p>{{post.content}}</p>
         </div>
-        <div class="card-action" v-if="this.individualPage">
+        <div class="card-action" v-if="individualPage">
             <a href="#">Like</a>
             <a href="#">Comment</a>
             <a href="#">Share</a>

@@ -19,7 +19,8 @@ const user = new Schema({
         required: true
     },
     bio: {
-        type: String
+        type: String,
+        default: ""
     },
     creationTime: {
         type: Date,
@@ -30,6 +31,10 @@ const user = new Schema({
     },
     lastOnline: {
         type: Date
+    },
+    image_url: {
+        type: String,
+        default: ""
     }
 });
 
@@ -43,12 +48,17 @@ const post = new Schema({
     },
     content: {
         type: String,
-        required: true
+        default: ""
     },
     draft: {
         type: Boolean,
-        default: false
+        default: true
     },
+    draftDate: {
+        type: Date,
+        default: Date.now
+    },
+    // When it goes from draft = false to true
     postDate: {
         type: Date
     },
@@ -57,8 +67,15 @@ const post = new Schema({
     },
     hidden: {
         type: Boolean,
-        default: false
+        default: true
     }
+});
+post.pre("updateOne",  (next) => {
+    console.log("Got called");
+    this.set ({
+        updateDate: Date.now()
+    });
+    next();
 });
 
 const Post = mongoose.model("Posts", post);
