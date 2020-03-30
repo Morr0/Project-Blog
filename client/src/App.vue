@@ -18,7 +18,8 @@ export default {
     components: {
         Navbar,
         Articles,
-        Footer
+        Footer,
+        Login
     }
 }
 </script>

@@ -19,6 +19,9 @@
             </div>
         </form>
     </div>
+    <div class="row">
+        <label class="active"><router-link to="register">Don't have an account sign up</router-link></label>
+    </div>
   </div>
 </template>
 

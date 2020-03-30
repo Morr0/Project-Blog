@@ -9,21 +9,6 @@ const models = require("../models/DBModels");
 route.use(express.urlencoded({extended: true}));
 route.use(express.json());
 
-function mongoError(res){
-    return res.status(500).send("ERROR");
-}
-
-// Temporary router
-route.get("/", (req, res) => {
-    models.User.find((error, docs) => {
-        if (error) mongoError();
-        else{
-            console.log("FREE");
-            res.send(docs);
-        } 
-    });
-});
-
 function redirectIfLoggedIn (req, res, next){
     if (req.session.userId){
         res.json({error: "LoggedIn"});
@@ -56,7 +41,6 @@ route.post("/register", redirectIfLoggedIn, (req, res) => {
             user.save((error) => {
                 if (error) return res.status(500).json({error: error});
                 else {  
-                    req.session.userId = req.headers.email;
                     return res.status(201).json({error: ""});
                  }
             });
@@ -69,15 +53,15 @@ route.post("/register", redirectIfLoggedIn, (req, res) => {
 route.post("/login", redirectIfLoggedIn, (req, res) => {
     console.log("LOGIN");
     if (req.headers.email && req.headers.password){
-        models.User.findOne({email: req.headers.email}).exec().then(data => {
-            if (!data){
+        models.User.findOne({email: req.headers.email}).exec().then(user => {
+            if (!user){
                 return res.status(404).json({error: "E-mail or Password are incorrect."});
             } else {
-                console.log(data);
-                bcrypt.compare(req.headers.password, data.password, (error, same) => {
+                console.log(user);
+                bcrypt.compare(req.headers.password, user.password, (error, same) => {
                     if (!error){
                         if (same){
-                            req.session.userId = req.headers.email;
+                            req.session.userId = user._id;
                             console.log("Logging in");
                             
                         } else {
@@ -95,6 +79,9 @@ route.post("/login", redirectIfLoggedIn, (req, res) => {
 });
 
 route.post("/logout", (req, res) => {
+    if (!req.session.userId)
+        return res.status(400).json({error: "You are not logged in the first place"});
+
     req.session.destroy((error) => {
         if (error) res.status(500).json({error: "Cannot logout"});
         else res.end();

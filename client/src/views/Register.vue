@@ -4,19 +4,19 @@
         <form class="col s12" @submit.prevent="register">
             <div class="row">
                 <div class="input-field col s6">
-                <input id="name" type="text" class="validate" v-model="name">
+                <input id="name" type="text" class="validate" v-model="name" required>
                 <label for="name" class="active">Full Name</label>
                 </div>
             </div>
             <div class="row">
                 <div class="input-field col s6">
-                <input id="email" type="email" class="validate" v-model="email">
+                <input id="email" type="email" class="validate" v-model="email" required>
                 <label for="email" class="active">E-mail</label>
                 </div>
             </div>
                 <div class="row">
                 <div class="input-field col s6">
-                <input id="password" type="password" class="validate" v-model="password">
+                <input id="password" type="password" class="validate" v-model="password" required>
                 <label for="password">Password</label>
                 </div>
             </div>
@@ -25,20 +25,44 @@
             </div>
         </form>
     </div>
+    <div class="row">
+        <label class="active"><router-link to="login">I have an account, login</router-link></label>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
     name: "Register",
-    props: {
-        name: String,
-        email: String,
-        password: String,
+    data() {
+        return {
+            name: "",
+            email: "",
+            password: "",
+        };
     },
     methods: {
         register: function(event) {
-            console.log(`Register  ${this.name}${this.email} ${this.password}`);
+            fetch("http://localhost:3400/users/register/", {
+                method: "POST",
+                headers: {
+                    "name": this.name,
+                    "email": this.email,
+                    "password": this.password
+                }
+            }).then((res) => {
+                if (res.status === 409)
+                    return alert("Your email is already registered");
+                else if (res.status === 500)
+                    return alert("The server is experiencing a bit of motion, submit in a few seconds");
+                else if (res.status === 400) 
+                    return alert("You must fill all the forms");
+                else if (res.status === 201){
+                    // Registered
+                    // TODO add loading indicator as a transition
+                    this.$router.replace("Login");
+                }
+            });
         }
    }
 }
