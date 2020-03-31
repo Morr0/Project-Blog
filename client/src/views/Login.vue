@@ -4,13 +4,13 @@
         <form class="col s12" @submit.prevent="login">
             <div class="row">
                 <div class="input-field col s6">
-                <input id="email" type="email" class="validate" v-model="email">
+                <input id="email" type="email" class="validate" v-model="email" required>
                 <label for="email" class="active">E-mail</label>
                 </div>
             </div>
                 <div class="row">
                 <div class="input-field col s6">
-                <input id="password" type="password" class="validate" v-model="password">
+                <input id="password" type="password" class="validate" v-model="password" required>
                 <label for="password">Password</label>
                 </div>
             </div>
@@ -29,9 +29,11 @@
 
 export default {
   name: "Login",
-  props: {
-      email: String,
-      password: String
+  data() {
+      return {
+        email: "",
+        password: ""
+      };
   },
   methods: {
       login: function(event) {

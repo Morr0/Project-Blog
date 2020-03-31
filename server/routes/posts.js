@@ -13,7 +13,7 @@ route.get("/", (req, res) => {
     // So only logged in users can access
     if (draft && !req.session.userId){
         console.log("UNAY");
-        return err(res, error);
+        return err(res);
     }
 
     console.log("REQUEST");
