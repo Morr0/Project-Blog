@@ -1,6 +1,6 @@
 <template>
-    <div class="container" v-if="now">
-        <Article v-for="(post) in posts" :data="post" :key="post._id" :individualPage="individualPage" />
+    <div class="container">
+        <Article v-for="(post) in posts" :post="post" :key="post._id" />
     </div>
 </template>
 
@@ -15,31 +15,17 @@ export default {
     data(){
         return {
             posts: [],
-            individualPage: false,
-            now: false
         };
     },
     methods: {
         fetchPosts: async function (){
-            fetch("http://localhost:3400/posts/").then((res) => res.json())
-            .then ((data) => {
-                this.posts = data;
-                this.now = true;
-            });
+            const res = await fetch("http://localhost:3400/posts/");
+            this.posts = await res.json();
         }
     }
     ,
-    async created(){
-        // fetch("http://localhost:3400/posts").then((res) => res.json())
-        // .then(posts => {
-        //     // this.posts = posts;
-            
-        //     console.log(posts);
-        //     console.log(this.posts);
-        // });
-
+    created(){
         this.fetchPosts();
-        console.log(this.posts);
     }
 }
 </script>

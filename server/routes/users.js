@@ -10,10 +10,21 @@ route.use(express.urlencoded({extended: true}));
 route.use(express.json());
 
 function redirectIfLoggedIn (req, res, next){
-    if (req.session.userId) return res.json({error: "LoggedIn"});
+    if (req.session) return res.json({error: "LoggedIn"});
 
     next();
 }
+
+// Returns whether the user is logged in or not
+route.get("/", (req, res) => {
+    console.log("Hello");
+    if (req.session){
+        console.log(req.session);
+        return res.status(200).end();
+    }
+
+    res.status(401).end();
+});
 
 route.post("/register", redirectIfLoggedIn, (req, res) => {
     console.log("REGISTER");
@@ -49,21 +60,24 @@ route.post("/register", redirectIfLoggedIn, (req, res) => {
     }
 });
 
-route.post("/login", redirectIfLoggedIn, (req, res) => {
-    console.log("LOGIN");
+route.post("/login/", redirectIfLoggedIn, (req, res) => {
+    console.log("LOGIN REQUEST");
     if (req.headers.email && req.headers.password){
         models.User.findOne({email: req.headers.email}, (error, user) => {
             if (!user){
+                console.log("LOGIN REJECTED");
                 return res.status(404).json({error: "E-mail or Password are incorrect."});
             } else {
                 console.log(user);
                 bcrypt.compare(req.headers.password, user.password, (error, same) => {
                     if (!error){
+                        // If login credentials are correct
                         if (same){
                             req.session.userId = user._id;
-                            console.log("Logging in");
-                            
+                            console.log("LOGIN APPROVED");
+                            res.status(202).end();
                         } else {
+                            console.log("LOGIN REJECTED");
                             return res.status(404).json({error: "E-mail or Password are incorrect."});
                         }
                     } else {
@@ -78,7 +92,7 @@ route.post("/login", redirectIfLoggedIn, (req, res) => {
 });
 
 route.post("/logout", (req, res) => {
-    if (!req.session.userId)
+    if (!req.session)
         return res.status(400).json({error: "You are not logged in the first place"});
 
     req.session.destroy((error) => {

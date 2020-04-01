@@ -5,24 +5,22 @@ const models = require("../models/DBModels");
 
 route.get("/", (req, res) => {
     const {
-        draft = true,
+        draft = false,
         author,
         hidden = false
     } = req.headers;
 
     // So only logged in users can access
     if (draft && !req.session.userId){
-        console.log("UNAY");
         return err(res);
     }
 
-    console.log("REQUEST");
-    models.Post.find({draft: draft, author: author, hidden: hidden},(error, data) => {
+    models.Post.find({},(error, data) => {
         if (error){
             console.log(error);
-            res.json({error: error});
+            return res.json({error: error});
         }
-        // console.log("SENDING DATA");
+
         console.log(data);
         res.json(data);
     });

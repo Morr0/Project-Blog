@@ -1,7 +1,6 @@
 <template>
     <div class="container">
-        <!-- <Article :data="articleData" v-if="now"/> -->
-        {{id}}
+        <Article v-bind:post="this.post" />
     </div>
 </template>
 
@@ -16,23 +15,18 @@ export default {
     data: function(){
         return {
             id: this.$route.params.id,
-            articleData: Object,
-            now: Boolean = false
+            post: {},
         }
     },
-    beforeCreate(){
-        console.log("beforeCreate");
-        // Fetches item from DB
-        if (this.individualPage){
-            fetch(`http://localhost:3400/posts/${this.id}`).then((res) => res.json())
-            .then((d) => {
-                console.log(d);
-                this.articleData = d;
-                this.now = true;
-                vm.$forceUpdate();
-            })
-            .catch((error) => {console.log("HANDLE ME")});
+    methods: {
+        getPost: async function(){
+            const res = await fetch(`http://localhost:3400/posts/${this.id}`);
+            this.post = (await res.json())[0];
         }
+    },
+    created(){
+        // console.log(this.id);
+        this.getPost();
     }
 }
 </script>

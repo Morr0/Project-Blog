@@ -1,11 +1,11 @@
 // Imports
 const express = require("express");
+const morgan = require("morgan");
 
 const cors = require("cors");
 const mongoose = require("mongoose");
 
 const session = require("express-session");
-const MongoStore = require("connect-mongo")(session);
 
 // Routes
 const usersRouter = require("./routes/users");
@@ -23,6 +23,8 @@ const {
     SECRET_KEY = "test"
 } = process.env;
 
+// app.use(morgan("common"));
+
 // Connection
 const connection = mongoose.connect(DB_URL, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true, useFindAndModify: false});
 mongoose.connection.on("connected", () => console.log("Connected"));
@@ -31,20 +33,20 @@ app.listen(PORT);
 
 // Middleware
 
-app.use(cors());
+app.use(cors({
+    origin: "http://localhost:8080",
+    credentials: true
+}));
 
 app.use(session({
     secret: SECRET_KEY,
     resave: false,
     saveUninitialized: false,
-    store: new MongoStore({
-        mongooseConnection: mongoose.connection,
-        collection: "sessions"
-    }),
     cookie: {
         secure: true,
         httpOnly: true,
-        maxAge: Number.parseInt(SESSION_LIFE)
+        // maxAge: Number.parseInt(SESSION_LIFE)
+        maxAge: 60
     }
 }));
 
@@ -59,4 +61,3 @@ app.get("/", (req, res) => {
     else 
         return res.redirect("/users/login");
 });
-

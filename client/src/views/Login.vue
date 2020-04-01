@@ -36,8 +36,30 @@ export default {
       };
   },
   methods: {
-      login: function(event) {
+      login: async function(event) {
         console.log(this.email + this.password);
+        const res = await fetch("http://localhost:3400/users/login/", {
+            method: "POST",
+            headers: {
+                email: this.email,
+                password: this.password
+            },
+            credentials: "include",
+        });
+
+        switch (res.status){
+            case 202:
+                // TODO now logged in and redirect to home page
+                this.$router.replace("Home");
+                break;
+            case 404: // Unknown email or password
+                alert("E-mail or Password are incorrect. Please enter the correct ones and sign in again.");
+                break;
+            case 401: // Unauthorised, or when logged out by server
+            // TODO store isLoggedIn in a better spot as local storage maybe blocked
+                localStorage.setItem("loggedin", "no");
+                break;
+        }
       }
   }
 }
