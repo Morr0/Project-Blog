@@ -18,7 +18,7 @@ const app = express();
 // Constants
 const {
     PORT = 3400,
-    SESSION_LIFE = 300,
+    SESSION_LIFE = 300000, // 5 mins
     DB_URL,
     SECRET_KEY = "test"
 } = process.env;
@@ -26,7 +26,7 @@ const {
 // app.use(morgan("common"));
 
 // Connection
-const connection = mongoose.connect(DB_URL, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true, useFindAndModify: false});
+mongoose.connect(DB_URL, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true, useFindAndModify: false});
 mongoose.connection.on("connected", () => console.log("Connected"));
 
 app.listen(PORT);
@@ -40,24 +40,15 @@ app.use(cors({
 
 app.use(session({
     secret: SECRET_KEY,
-    resave: false,
+    resave: true,
     saveUninitialized: false,
     cookie: {
-        secure: true,
+        secure: "auto",
         httpOnly: true,
-        // maxAge: Number.parseInt(SESSION_LIFE)
-        maxAge: 60
+        maxAge: Number.parseInt(SESSION_LIFE)
     }
 }));
 
 // Routing 
 app.use("/users", usersRouter);
 app.use("/posts", postsRouter);
-
-// Temporary
-app.get("/", (req, res) => {
-    if (req.session.userId)
-        return res.json({loggedIn: "hello"});
-    else 
-        return res.redirect("/users/login");
-});

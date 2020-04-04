@@ -10,21 +10,26 @@ route.use(express.urlencoded({extended: true}));
 route.use(express.json());
 
 function redirectIfLoggedIn (req, res, next){
-    if (req.session) return res.json({error: "LoggedIn"});
+    if (req.session.userId) return res.status(400).json({error: "LoggedIn"});
 
     next();
 }
 
 // Returns whether the user is logged in or not
 route.get("/", (req, res) => {
-    console.log("Hello");
-    if (req.session){
-        console.log(req.session);
-        return res.status(200).end();
+    res.status(200);
+
+    if (req.session.userId){
+        return res.json({res: "Already"});
     }
 
-    res.status(401).end();
+    res.json({res: ""});
 });
+
+route.post("/j", (req, res) => {
+    console.log("Got called");
+    res.json({hello: "Hello"});
+})
 
 route.post("/register", redirectIfLoggedIn, (req, res) => {
     console.log("REGISTER");
@@ -60,7 +65,7 @@ route.post("/register", redirectIfLoggedIn, (req, res) => {
     }
 });
 
-route.post("/login/", redirectIfLoggedIn, (req, res) => {
+route.post("/login", redirectIfLoggedIn, (req, res) => {
     console.log("LOGIN REQUEST");
     if (req.headers.email && req.headers.password){
         models.User.findOne({email: req.headers.email}, (error, user) => {
@@ -92,7 +97,7 @@ route.post("/login/", redirectIfLoggedIn, (req, res) => {
 });
 
 route.post("/logout", (req, res) => {
-    if (!req.session)
+    if (!req.session.userId)
         return res.status(400).json({error: "You are not logged in the first place"});
 
     req.session.destroy((error) => {

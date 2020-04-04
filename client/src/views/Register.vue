@@ -41,6 +41,11 @@ export default {
             password: "",
         };
     },
+    async created(){
+      const res = await fetch("http://localhost:3400/users/", {credentials: "include"});
+      const back = await res.json();
+      if (back.res === "") this.$router.replace("../");
+    },
     methods: {
         register: function(event) {
             fetch("http://localhost:3400/users/register/", {

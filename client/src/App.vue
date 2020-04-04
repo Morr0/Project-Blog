@@ -20,6 +20,6 @@ export default {
         Articles,
         Footer,
         Login
-    }
+    },
 }
 </script>

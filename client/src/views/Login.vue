@@ -35,6 +35,11 @@ export default {
         password: ""
       };
   },
+  async created(){
+      const res = await fetch("http://localhost:3400/users/", {credentials: "include"});
+      const back = await res.json();
+      if (back.res === "") this.$router.replace("../");
+  },
   methods: {
       login: async function(event) {
         console.log(this.email + this.password);
@@ -48,16 +53,18 @@ export default {
         });
 
         switch (res.status){
-            case 202:
-                // TODO now logged in and redirect to home page
+            case 202 : case 200:
+                this.$store.state.loggedIn = true;
                 this.$router.replace("Home");
                 break;
             case 404: // Unknown email or password
                 alert("E-mail or Password are incorrect. Please enter the correct ones and sign in again.");
                 break;
-            case 401: // Unauthorised, or when logged out by server
-            // TODO store isLoggedIn in a better spot as local storage maybe blocked
-                localStorage.setItem("loggedin", "no");
+            case 400: // Unauthorised, or when logged out by server
+                alert("Please fill all forms.");
+                break;
+            default:
+                console.log(res.status)
                 break;
         }
       }

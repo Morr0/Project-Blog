@@ -21,7 +21,6 @@ route.get("/", (req, res) => {
             return res.json({error: error});
         }
 
-        console.log(data);
         res.json(data);
     });
 });
