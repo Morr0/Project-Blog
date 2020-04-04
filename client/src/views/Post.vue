@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <Article v-bind:post="this.post" />
+        <Article v-if="post._id" :post="post" :individualPage="true"/>
     </div>
 </template>
 
@@ -27,6 +27,7 @@ export default {
     created(){
         // console.log(this.id);
         this.getPost();
+        console.log(this.post);
     }
 }
 </script>

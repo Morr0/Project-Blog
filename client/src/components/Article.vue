@@ -1,5 +1,5 @@
 <template>
-    <div class="row" v-if="post">
+    <div class="row">
     <div class="col s12 ">
       <div class="card blue-grey darken-1">
         <div class="card-content white-text">
@@ -12,7 +12,7 @@
         <div class="card-action">
             <a href="" @click.prevent="like">{{`${post.likes} | Like`}}</a>
             <!-- <a href="#">Comment</a> -->
-            <a href="">{{`${post.shares} | Share`}}</a>
+            <a href="" @click.prevent="share">{{`${post.shares} | Share`}}</a>
         </div>
       </div>
     </div>
@@ -24,6 +24,7 @@ export default {
   name: "Article",
   props: {
     post: {},
+    individualPage: Boolean
   },
   methods: {
       like: function (){
@@ -32,6 +33,9 @@ export default {
           if (!this.post.likes)
               this.post.likes = 0
           this.post.likes++;
+      },
+      share: function (){
+
       }
   }
 }
