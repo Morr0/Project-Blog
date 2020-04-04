@@ -97,6 +97,28 @@ route.delete("/:id", (req, res) => {
     });
 });
 
+// Like
+// Will ignore error as this is not a big deal
+route.put("/like/:id", (req, res) => {
+    console.log("Liking");
+    const update = {$inc: {likes: 1}};
+    models.Post.findByIdAndUpdate(req.params.id, update, (error) => {
+        if (error) console.log(error);
+    }); 
+    return res.end();
+});
+
+// Share
+// Will ignore error as this is not a big deal
+route.put("/share/:id", (req, res) => {
+    console.log(`Sharing`);
+    const update = {$inc: {shares: 1}};
+    models.Post.findByIdAndUpdate(req.params.id, update, (error) => {
+        if (error) console.log(error);
+    });
+    return res.end();
+});
+
 function err(res, error = "Unauthorized Access", statusCode = 401, message = "Unauthorized Access"){
     console.log(error);
     res.status(statusCode).json({error: message});

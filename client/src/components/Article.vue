@@ -10,8 +10,8 @@
           <p>{{post.content}}</p>
         </div>
         <div class="card-action">
-            <a href="#">Like</a>
-            <a href="#">Comment</a>
+            <a href="#" @click.prevent="like">Like</a>
+            <!-- <a href="#">Comment</a> -->
             <a href="#">Share</a>
         </div>
       </div>
@@ -24,9 +24,11 @@ export default {
   name: "Article",
   props: {
     post: {},
-    // false -> viewed on the homescreen with other views
-    // true -> viewed on it's own page
-    // individualPage: Boolean = true,
+  },
+  methods: {
+      like: function (){
+          fetch(`http://localhost:3400/posts/like/${this.post._id}`, { method: "PUT"});
+      }
   }
 }
 </script>

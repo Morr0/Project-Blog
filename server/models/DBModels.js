@@ -68,6 +68,14 @@ const post = new Schema({
     hidden: {
         type: Boolean,
         default: true
+    },
+    likes: {
+        type: Number,
+        default: 0
+    },
+    shares: {
+        type: Number,
+        default: 0
     }
 });
 post.pre("updateOne",  (next) => {
