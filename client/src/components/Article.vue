@@ -10,9 +10,9 @@
           <p>{{post.content}}</p>
         </div>
         <div class="card-action">
-            <a href="#" @click.prevent="like">Like</a>
+            <a href="" @click.prevent="like">{{`${post.likes} | Like`}}</a>
             <!-- <a href="#">Comment</a> -->
-            <a href="#">Share</a>
+            <a href="">{{`${post.shares} | Share`}}</a>
         </div>
       </div>
     </div>
@@ -28,6 +28,10 @@ export default {
   methods: {
       like: function (){
           fetch(`http://localhost:3400/posts/like/${this.post._id}`, { method: "PUT"});
+          // Client side rendering
+          if (!this.post.likes)
+              this.post.likes = 0
+          this.post.likes++;
       }
   }
 }
