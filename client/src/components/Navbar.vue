@@ -4,9 +4,12 @@
       <router-link to="/" class="brand-logo">Logo</router-link>
       <ul id="nav-mobile" class="right hide-on-med-and-down">
         <li>
+        <router-link to="/blogger/create"> 
+            Create
+        </router-link></li>
+        <li>
             <router-link v-if="loggedIn" to="/blogger/logout">Logout</router-link>
             <router-link v-if="!loggedIn" to="/blogger/login">Login</router-link>
-            
         </li>
       </ul>
     </div>

@@ -52,11 +52,6 @@ const post = new Schema({
     },
     draft: {
         type: Boolean,
-        default: true
-    },
-    draftDate: {
-        type: Date,
-        default: Date.now
     },
     // When it goes from draft = false to true
     postDate: {
@@ -67,7 +62,6 @@ const post = new Schema({
     },
     hidden: {
         type: Boolean,
-        default: true
     },
     likes: {
         type: Number,
@@ -77,13 +71,6 @@ const post = new Schema({
         type: Number,
         default: 0
     }
-});
-post.pre("updateOne",  (next) => {
-    console.log("Got called");
-    this.set ({
-        updateDate: Date.now()
-    });
-    next();
 });
 
 const Post = mongoose.model("Posts", post);

@@ -4,44 +4,33 @@ const route = express.Router();
 const models = require("../models/DBModels");
 
 route.get("/", (req, res) => {
-    const {
-        draft = false,
-        author,
-        hidden = false
-    } = req.headers;
-
-    // So only logged in users can access
-    if (draft && !req.session.userId){
-        return err(res);
-    }
-
-    models.Post.find({},(error, data) => {
+    models.Post.find({
+        draft: req.headers.draft || false,
+        hidden: req.headers.hidden || false,
+        author: req.headers.author
+    }, (error, data) => {
         if (error){
             console.log(error);
             return res.json({error: error});
         }
 
-        res.json(data);
+        return res.json(data);
     });
 });
 
 route.get("/:id", (req, res) => {
-    console.log("REQUEST");
     models.Post.find({_id: req.params.id},(error, data) => {
-        res.json(data);
-    });
-});
+        if (error) return res.status(404).end();
 
-route.get("/draft", (req, res) => {
-    const posts = models.Post.find({draft: true},(error, data) => {
-        res.json(data);
+        return res.json(data);
     });
 });
 
 function checkLoggedIn(req, res, next){
-    if (!req.session.userId){
-        return err(res);
-    }
+    // TODO
+    // if (!req.session.userId){
+    //     return err(res);
+    // }
 
     next();
 }
@@ -50,7 +39,9 @@ route.post("/", checkLoggedIn, (req, res) => {
     const newArticle = new models.Post({
         author: req.session.userId,
         title: req.headers.title,
-        content: req.headers.content
+        content: req.headers.content,
+        draft: req.headers.draft,
+        hidden: req.headers.hidden,
     });
     newArticle.save((error) => {
         if (error) return err(res, error, 500, "Internal");

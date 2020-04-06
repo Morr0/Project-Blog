@@ -6,6 +6,7 @@ import Post from "@/views/Post.vue"
 import Login from "@/views/Login.vue";
 import Register from "@/views/Register.vue";
 import Logout from "@/views/Logout.vue";
+import CreateEditPost from "@/views/CreateEditPost.vue";
 
 
 Vue.use(VueRouter)
@@ -35,6 +36,16 @@ const routes = [
     path: "/blogger/logout/",
     name: "Logout",
     component: Logout
+  },
+  {
+      path: "/blogger/create/",
+      name: "CreateEdit",
+      component: CreateEditPost
+  },
+  {
+    path: "/blogger/edit/:id",
+    name: "CreateEdit",
+    component: CreateEditPost
   }
 ]
 

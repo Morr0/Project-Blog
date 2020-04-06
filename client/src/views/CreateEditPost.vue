@@ -1,0 +1,118 @@
+<template>
+    <div class="row s12 m4 l8">
+        <form class="col s6" @submit.prevent="edit">
+            <div class="input-field col s6">
+                <input placeholder="Title" id="title" type="text" class="validate active" v-model="title" required>
+                <label for="title" class="active">Title</label>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                <textarea id="textarea1" class="materialize-textarea" placeholder="Enter Markdown" v-model="content"></textarea>
+                <label class="active" for="textarea1">Content</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="switch col s6">
+                <label>
+                
+                <input type="checkbox" v-model="hidden">
+                <span class="lever"></span>
+                Hidden
+                </label>
+                </div>
+                <div class="switch">
+                    <label>
+                    
+                    <input type="checkbox" v-model="draft">
+                    <span class="lever"></span>
+                    Draft
+                    </label>
+                </div>
+            </div>
+            <div class="row">
+                <button class="btn waves-effect waves-light" type="submit" name="action">
+                    {{id? "Update": (draft? "Draft": "Post")}}</button>
+            </div>
+        </form>
+    </div>
+</template>
+
+<script>
+export default {
+    data: function (){
+        return {
+            id: this.$route.params.id,
+            title: "",
+            content: "",
+            draft: true,
+            hidden: false,
+        };
+    },
+    async mounted(){
+        if (this.id){
+            const res = await fetch(`http://localhost:3400/posts/${this.id}`);
+            if (!res.ok)
+                return this.$router.replace("../../");
+
+            const post = (await res.json())[0];
+            if (post){
+                console.log(post);
+                this.title = post.title;
+                this.content = post.content;
+                this.draft = post.draft;
+                this.hidden = post.hidden;
+            } else {
+                return this.$router.replace("../../");
+            }
+        }
+    },
+    methods: {
+        // This treats both a new post and editting one
+        edit: async function (){
+            // Creating a new post
+            if (!this.id){
+                const res = await fetch("http://localhost:3400/posts/", {
+                    method: "POST",
+                    headers: {
+                        // TODO use id of logged in user
+                        author: "",
+                        title: this.title,
+                        content: this.content,
+                        draft: this.draft,
+                        hidden: this.hidden
+                    },
+                    credentials: "include"
+                });
+
+                if (!res.ok)
+                    return alert("Failed to post");
+
+
+            // Editing an existing one
+            } else {
+                const res = await fetch(`http://localhost:3400/posts/${this.id}`, {
+                    method: "PUT",
+                    headers: {
+                        // TODO use id of logged in user
+                        author: "",
+                        title: this.title,
+                        content: this.content,
+                        draft: this.draft,
+                        hidden: this.hidden
+                    },
+                    credentials: "include"
+                });
+
+                if (!res.ok)
+                    return alert("Failed to post");
+            }
+
+            // Once done posting/editting
+            this.$router.replace(`../${this.id? '../': ''}`);
+        }
+    }
+}
+</script>
+
+<style>
+</style>
