@@ -6,8 +6,7 @@ const models = require("../models/DBModels");
 route.get("/", (req, res) => {
     models.Post.find({
         draft: req.headers.draft || false,
-        hidden: req.headers.hidden || false,
-        author: req.headers.author
+        hidden: req.headers.hidden || false
     }, (error, data) => {
         if (error){
             console.log(error);
@@ -79,11 +78,11 @@ route.put("/:id", checkLoggedIn, (req, res) => {
 route.delete("/:id", (req, res) => {
     models.Post.findByIdAndRemove(req.params.id, (error, post) => {
         if (error){
-            err(res, error);
+            return err(res, error);
         } else {
             if (!post)
                 return err(res, "The post is not in the system.", 400, "The post is not in the system.")
-            res.json({error: ""});
+            return res.json({error: ""});
         }
     });
 });

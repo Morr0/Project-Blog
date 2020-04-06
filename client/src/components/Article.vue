@@ -5,7 +5,9 @@
         <div class="card-content white-text">
             <!-- TODO somehow get rid of the Vue error, try updating. Everything works fine but Vue is bugged. -->
           <router-link :to="post._id">
-              <span class="card-title">{{post.title}}</span>
+              <span class="card-title">{{post.title}}
+                  <router-link v-if="loggedIn" :to="loggedInEditPath"> | Edit</router-link>
+              </span>
           </router-link>
           <p>{{post.content}}</p>
         </div>
@@ -37,6 +39,11 @@ export default {
       share: function (){
 
       }
+  },data: function(){
+      return {
+          loggedIn: this.$store.state.loggedIn,
+          loggedInEditPath: `blogger/edit/${this.post._id}`,
+      };
   }
 }
 </script>

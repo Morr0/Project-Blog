@@ -33,6 +33,9 @@
                 <button class="btn waves-effect waves-light" type="submit" name="action">
                     {{id? "Update": (draft? "Draft": "Post")}}</button>
             </div>
+            <div class="row">
+                <button v-if="id" class="btn red" type="button" name="remove" @click.prevent="remove">Remove</button>
+            </div>
         </form>
     </div>
 </template>
@@ -50,6 +53,7 @@ export default {
     },
     async mounted(){
         if (this.id){
+            // TODO make sure the user has access to this post and not someone else's
             const res = await fetch(`http://localhost:3400/posts/${this.id}`);
             if (!res.ok)
                 return this.$router.replace("../../");
@@ -108,6 +112,22 @@ export default {
             }
 
             // Once done posting/editting
+            this.$router.replace(`../${this.id? '../': ''}`);
+        },
+        remove: async function(){
+            // TODO add ability for the user to choose is he sure to delete
+
+            if (this.id) {
+                const res = await fetch(`http://localhost:3400/posts/${this.id}`, {
+                    method: "DELETE",
+                    credentials: "include",
+                });
+
+                if (!res.ok)
+                    return alert("There was a problem deleting your post");
+            } else return;
+
+            // Once removed
             this.$router.replace(`../${this.id? '../': ''}`);
         }
     }
