@@ -12,5 +12,8 @@ export default {
     components: {
         Articles
     },
+    mounted(){
+        console.log(this.$store.state);
+    }
 }
 </script>

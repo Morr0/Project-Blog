@@ -36,9 +36,10 @@ export default {
       };
   },
   async created(){
-      const res = await fetch("http://localhost:3400/users/", {credentials: "include"});
-      const back = await res.json();
-      if (back.res === "Already") this.$router.replace("/");
+      try {
+          const res = await fetch("http://localhost:3400/users/", {credentials: "include"});
+          if (res.status === 208) this.$router.replace("/");
+      } catch(error) {console.log(error);}
   },
   methods: {
       login: async function(event) {
@@ -54,9 +55,9 @@ export default {
 
             switch (res.status){
                 case 202 : case 200:
-                    this.$store.state.loggedIn = true;
-                    this.$store.state.loggedInUserId = res.headers.get("id");
-                    this.$store.state.loggedInUser = res.headers.get("name");
+                    const user = await res.json();
+                    console.log(user);
+                    this.$store.commit("updateUser", {loggedIn: true, loggedInUserId: user.id, loggedInUser: user.name});
                     this.$router.replace("/");
                     break;
                 case 404: // Unknown email or password

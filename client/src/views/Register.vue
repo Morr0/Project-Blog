@@ -42,9 +42,10 @@ export default {
         };
     },
     async created(){
-      const res = await fetch("http://localhost:3400/users/", {credentials: "include"});
-      const back = await res.json();
-      if (back.res === "Already") this.$router.replace("/");
+        try {
+            const res = await fetch("http://localhost:3400/users/", {credentials: "include"});
+            if (res.status === 208) this.$router.replace("/");
+        } catch(error) {console.log(error);}
     },
     methods: {
         register: function(event) {

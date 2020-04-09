@@ -11,7 +11,7 @@ route.use(express.json());
 
 function checkLoggedIn (req, res, next){
     console.log("CHECK LOGGEDIN");
-    if (req.session && req.session.userId) return res.status(400).json({error: "LoggedIn"});
+    if (req.session && req.session.userId) return res.redirect("/");
 
     next();
 }
@@ -19,14 +19,12 @@ function checkLoggedIn (req, res, next){
 // Returns whether the user is logged in or not
 route.get("/", (req, res) => {
     console.log("Logged In Check CALLED");
-    res.status(200);
-
     if (req.session.userId){
         console.log(session.userId);
-        return res.json({res: "Already"});
+        return res.status(208).end();
     }
 
-    return res.json({res: ""});
+    return res.status(200).end();
 });
 
 route.post("/register", checkLoggedIn, (req, res) => {
@@ -77,10 +75,7 @@ route.post("/login", checkLoggedIn, (req, res) => {
                         if (same){
                             req.session.userId = user._id;
                             console.log("LOGIN APPROVED");
-
-                            res.setHeader("id", user._id);
-                            res.setHeader("name", user.name);
-                            res.status(202).end();
+                            res.status(202).json({id: user._id, name: user.name});
                         } else {
                             console.log("LOGIN REJECTED");
                             return res.status(404).json({error: "E-mail or Password are incorrect."});

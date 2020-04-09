@@ -11,5 +11,12 @@ export default new Vuex.Store({
         loggedInUserId: "",
         loggedInUser: "",
     },
-    plugins: [persistOnRefresh()],
+    mutations: {
+        updateUser(state, data){
+            state.loggedIn = data.loggedIn;
+            state.loggedInUserId = data.loggedInUserId;
+            state.loggedInUser = data.loggedInUser;
+        }
+    },
+    plugins: [persistOnRefresh({storage: window.sessionStorage})],
 });

@@ -8,7 +8,7 @@
             Create
         </router-link></li>
         <li v-if="loggedIn">
-            <a>Hello</a>
+            <a @click.prevent="goToAccount">{{this.$store.state.loggedInUser || "Account"}}</a>
         </li>
         <li>
             <router-link v-if="loggedIn" to="/blogger/logout">Logout</router-link>
@@ -26,6 +26,12 @@ export default {
             return this.$store.state.loggedIn;
         }
     },
+    methods: {
+        goToAccount: function (){
+            console.log(this.$store.state.loggedInUser);
+            console.log("Going to account");
+        }
+    }
 }
 </script>
 
