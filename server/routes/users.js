@@ -9,29 +9,27 @@ const models = require("../models/DBModels");
 route.use(express.urlencoded({extended: true}));
 route.use(express.json());
 
-function redirectIfLoggedIn (req, res, next){
-    if (req.session.userId) return res.status(400).json({error: "LoggedIn"});
+function checkLoggedIn (req, res, next){
+    console.log("CHECK LOGGEDIN");
+    if (req.session && req.session.userId) return res.status(400).json({error: "LoggedIn"});
 
     next();
 }
 
 // Returns whether the user is logged in or not
 route.get("/", (req, res) => {
+    console.log("Logged In Check CALLED");
     res.status(200);
 
     if (req.session.userId){
+        console.log(session.userId);
         return res.json({res: "Already"});
     }
 
-    res.json({res: ""});
+    return res.json({res: ""});
 });
 
-route.post("/j", (req, res) => {
-    console.log("Got called");
-    res.json({hello: "Hello"});
-})
-
-route.post("/register", redirectIfLoggedIn, (req, res) => {
+route.post("/register", checkLoggedIn, (req, res) => {
     console.log("REGISTER");
 
     if (req.headers.name && req.headers.email && req.headers.password){
@@ -65,7 +63,7 @@ route.post("/register", redirectIfLoggedIn, (req, res) => {
     }
 });
 
-route.post("/login", redirectIfLoggedIn, (req, res) => {
+route.post("/login", checkLoggedIn, (req, res) => {
     console.log("LOGIN REQUEST");
     if (req.headers.email && req.headers.password){
         models.User.findOne({email: req.headers.email}, (error, user) => {
@@ -73,13 +71,15 @@ route.post("/login", redirectIfLoggedIn, (req, res) => {
                 console.log("LOGIN REJECTED");
                 return res.status(404).json({error: "E-mail or Password are incorrect."});
             } else {
-                console.log(user);
                 bcrypt.compare(req.headers.password, user.password, (error, same) => {
                     if (!error){
                         // If login credentials are correct
                         if (same){
                             req.session.userId = user._id;
                             console.log("LOGIN APPROVED");
+
+                            res.setHeader("id", user._id);
+                            res.setHeader("name", user.name);
                             res.status(202).end();
                         } else {
                             console.log("LOGIN REJECTED");
@@ -97,11 +97,17 @@ route.post("/login", redirectIfLoggedIn, (req, res) => {
 });
 
 route.post("/logout", (req, res) => {
+    console.log("LOGOUT REQUEST");
+
     if (!req.session.userId)
         return res.status(400).json({error: "You are not logged in the first place"});
 
     req.session.destroy((error) => {
         if (error) return res.status(500).json({error: "Cannot logout"});
+
+        res.status(200);
+        res.clearCookie("connect.sid");
+        console.log("Successful LOGOUT");
         return res.end();
     });
 });

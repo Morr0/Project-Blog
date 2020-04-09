@@ -25,9 +25,7 @@ export default {
         }
     },
     created(){
-        // console.log(this.id);
         this.getPost();
-        console.log(this.post);
     }
 }
 </script>

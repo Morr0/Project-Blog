@@ -26,7 +26,7 @@
         </form>
     </div>
     <div class="row">
-        <label class="active"><router-link to="login">I have an account, login</router-link></label>
+        <label class="active"><router-link to="/blogger/login/">I have an account, login</router-link></label>
     </div>
   </div>
 </template>
@@ -44,7 +44,7 @@ export default {
     async created(){
       const res = await fetch("http://localhost:3400/users/", {credentials: "include"});
       const back = await res.json();
-      if (back.res === "") this.$router.replace("../");
+      if (back.res === "Already") this.$router.replace("/");
     },
     methods: {
         register: function(event) {

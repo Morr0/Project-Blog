@@ -8,10 +8,9 @@
 import Articles from "@/components/Articles.vue";
 
 export default {
-  name: "Home",
-  components: {
-    Articles
-  },
-  
+    name: "Home",
+    components: {
+        Articles
+    },
 }
 </script>

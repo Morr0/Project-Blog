@@ -20,7 +20,7 @@
         </form>
     </div>
     <div class="row">
-        <label class="active"><router-link to="register">Don't have an account sign up</router-link></label>
+        <label class="active"><router-link to="/blogger/register/">Don't have an account sign up</router-link></label>
     </div>
   </div>
 </template>
@@ -38,35 +38,35 @@ export default {
   async created(){
       const res = await fetch("http://localhost:3400/users/", {credentials: "include"});
       const back = await res.json();
-      if (back.res === "") this.$router.replace("../");
+      if (back.res === "Already") this.$router.replace("/");
   },
   methods: {
       login: async function(event) {
-        console.log(this.email + this.password);
-        const res = await fetch("http://localhost:3400/users/login/", {
-            method: "POST",
-            headers: {
-                email: this.email,
-                password: this.password
-            },
-            credentials: "include",
-        });
+        try {
+            const res = await fetch("http://localhost:3400/users/login/", {
+                method: "POST",
+                headers: {
+                    email: this.email,
+                    password: this.password
+                },
+                credentials: "include",
+            });
 
-        switch (res.status){
-            case 202 : case 200:
-                this.$store.state.loggedIn = true;
-                this.$router.replace("Home");
-                break;
-            case 404: // Unknown email or password
-                alert("E-mail or Password are incorrect. Please enter the correct ones and sign in again.");
-                break;
-            case 400: // Unauthorised, or when logged out by server
-                alert("Please fill all forms.");
-                break;
-            default:
-                console.log(res.status)
-                break;
-        }
+            switch (res.status){
+                case 202 : case 200:
+                    this.$store.state.loggedIn = true;
+                    this.$store.state.loggedInUserId = res.headers.get("id");
+                    this.$store.state.loggedInUser = res.headers.get("name");
+                    this.$router.replace("/");
+                    break;
+                case 404: // Unknown email or password
+                    alert("E-mail or Password are incorrect. Please enter the correct ones and sign in again.");
+                    break;
+                case 400: // Unauthorised, or when logged out by server
+                    alert("Please fill all forms.");
+                    break;
+            }
+        } catch(error) {console.log(error);}
       }
   }
 }
