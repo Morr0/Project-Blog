@@ -32,6 +32,7 @@
             <div class="row">
                 <button class="btn waves-effect waves-light" type="submit" name="action">
                     {{id? "Update": (draft? "Draft": "Post")}}</button>
+                <button class="btn waves-effect grey" type="button" name="action" @click.prevent="cancel">Cancel</button>
             </div>
             <div class="row">
                 <button v-if="id" class="btn red" type="button" name="remove" @click.prevent="remove">Remove</button>
@@ -129,6 +130,9 @@ export default {
 
             // Once removed
             this.$router.replace(`../${this.id? '../': ''}`);
+        },
+        cancel: function (){
+            this.$router.replace("/");
         }
     }
 }
