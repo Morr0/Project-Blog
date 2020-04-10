@@ -11,20 +11,23 @@ route.use(express.json());
 
 function checkLoggedIn (req, res, next){
     console.log("CHECK LOGGEDIN");
-    if (req.session && req.session.userId) return res.redirect("/");
+    if (req.session.userId) {
+        console.log(`Session.USERID: ${req.session.userId}`);
+        return res.status(208).end();}
 
+    console.log("NOT LOGGED IN");
     next();
 }
 
 // Returns whether the user is logged in or not
 route.get("/", (req, res) => {
     console.log("Logged In Check CALLED");
-    if (req.session.userId){
-        console.log(session.userId);
-        return res.status(208).end();
-    }
+    // Not logged in
+    if (!req.session.userId) return res.status(200).end();
 
-    return res.status(200).end();
+    // Logged in
+    console.log(session.userId);
+    return res.status(208).end();
 });
 
 route.post("/register", checkLoggedIn, (req, res) => {
@@ -95,12 +98,12 @@ route.post("/logout", (req, res) => {
     console.log("LOGOUT REQUEST");
 
     if (!req.session.userId)
-        return res.status(400).json({error: "You are not logged in the first place"});
+        return res.status(400).end();
 
     req.session.destroy((error) => {
-        if (error) return res.status(500).json({error: "Cannot logout"});
+        if (error) return res.status(500).end();
 
-        res.status(200);
+        res.status(202);
         res.clearCookie("connect.sid");
         console.log("Successful LOGOUT");
         return res.end();

@@ -6,9 +6,13 @@
                 <label for="title" class="active">Title</label>
             </div>
             <div class="row">
-                <div class="input-field col s12">
-                <textarea id="textarea1" class="materialize-textarea" placeholder="Enter Markdown" v-model="content"></textarea>
-                <label class="active" for="textarea1">Content</label>
+                <div class="input-field col s6">
+                    <textarea id="textarea1" class="materialize-textarea" placeholder="Enter Markdown" v-model="mdContent"></textarea>
+                    <label class="active" for="textarea1">Markdown</label>
+                </div>
+                <div class="input-field col s6">
+                    <textarea id="textarea2" class="materialize-textarea" placeholder="HTML" v-model="content"></textarea>
+                    <label class="active" for="textarea1">Content</label>
                 </div>
             </div>
             <div class="row">
@@ -47,17 +51,22 @@ export default {
         return {
             id: this.$route.params.id,
             title: "",
+            mdContent: "",
             content: "",
             draft: true,
             hidden: false,
         };
+    },
+    async created(){
+        // Kick out if not logged in
+        if (!this.$store.state.loggedIn) return this.$router.replace("/");
     },
     async mounted(){
         if (this.id){
             // TODO make sure the user has access to this post and not someone else's
             const res = await fetch(`http://localhost:3400/posts/${this.id}`);
             if (!res.ok)
-                return this.$router.replace("../../");
+                return this.$router.replace("/");
 
             const post = (await res.json())[0];
             if (post){
@@ -67,7 +76,7 @@ export default {
                 this.draft = post.draft;
                 this.hidden = post.hidden;
             } else {
-                return this.$router.replace("../../");
+                return this.$router.replace("/");
             }
         }
     },
@@ -80,7 +89,7 @@ export default {
                     method: "POST",
                     headers: {
                         // TODO use id of logged in user
-                        author: "",
+                        author: this.$store.state.loggedInUserId,
                         title: this.title,
                         content: this.content,
                         draft: this.draft,
@@ -98,8 +107,7 @@ export default {
                 const res = await fetch(`http://localhost:3400/posts/${this.id}`, {
                     method: "PUT",
                     headers: {
-                        // TODO use id of logged in user
-                        author: "",
+                        author: this.$store.state.loggedInUserId,
                         title: this.title,
                         content: this.content,
                         draft: this.draft,

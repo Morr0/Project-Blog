@@ -6,6 +6,7 @@ const cors = require("cors");
 const mongoose = require("mongoose");
 
 const session = require("express-session");
+const MongoStore = require("connect-mongo")(session);
 
 // Routes
 const usersRouter = require("./routes/users");
@@ -46,7 +47,11 @@ app.use(session({
         secure: "auto",
         httpOnly: true,
         maxAge: Number.parseInt(SESSION_LIFE)
-    }
+    },
+    store: new MongoStore({
+        mongooseConnection: mongoose.connection,
+        collection: "sessions"
+    }),
 }));
 
 // Routing 

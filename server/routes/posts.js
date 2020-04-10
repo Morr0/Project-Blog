@@ -27,7 +27,7 @@ route.get("/:id", (req, res) => {
 
 function checkLoggedIn(req, res, next){
     // TODO
-    // if (!req.session.userId){
+    // if (!req.session){
     //     return err(res);
     // }
 

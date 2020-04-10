@@ -14,7 +14,7 @@
         <div class="card-action">
             <a href="" @click.prevent="like">{{`${post.likes} | Like`}}</a>
             <!-- <a href="#">Comment</a> -->
-            <a href="" @click.prevent="share">{{`${post.shares} | Share`}}</a>
+            <!-- <a href="" @click.prevent="share">{{`${post.shares} | Share`}}</a> -->
         </div>
       </div>
     </div>

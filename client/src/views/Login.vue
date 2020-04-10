@@ -1,5 +1,5 @@
 <template>
-  <div class="form">
+  <div class="form center-align">
     <div class="row">
         <form class="col s12" @submit.prevent="login">
             <div class="row">
@@ -36,10 +36,12 @@ export default {
       };
   },
   async created(){
-      try {
-          const res = await fetch("http://localhost:3400/users/", {credentials: "include"});
-          if (res.status === 208) this.$router.replace("/");
-      } catch(error) {console.log(error);}
+    //   try {
+    //       const res = await fetch("http://localhost:3400/users/", {credentials: "include"});
+    //       if (res.status === 208) this.$router.replace("/");
+    //   } catch(error) {console.log(error);}
+
+      if (this.$store.state.loggedIn) return this.$router.replace("/");
   },
   methods: {
       login: async function(event) {
@@ -67,16 +69,12 @@ export default {
                     alert("Please fill all forms.");
                     break;
             }
-        } catch(error) {console.log(error);}
+        } catch(error) {console.log(`Error: ${error}`);}
       }
   }
 }
 </script>
 
-<style scoped>
-.form {
-    margin: auto;
-    display: block;
-    margin-right: 50%;
-}
+<style>
+
 </style>

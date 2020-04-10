@@ -42,10 +42,12 @@ export default {
         };
     },
     async created(){
-        try {
-            const res = await fetch("http://localhost:3400/users/", {credentials: "include"});
-            if (res.status === 208) this.$router.replace("/");
-        } catch(error) {console.log(error);}
+        // try {
+        //     const res = await fetch("http://localhost:3400/users/", {credentials: "include"});
+        //     if (res.status === 208) this.$router.replace("/");
+        // } catch(error) {console.log(error);}
+
+        if (this.$store.state.loggedIn) return this.$router.replace("/");
     },
     methods: {
         register: function(event) {
