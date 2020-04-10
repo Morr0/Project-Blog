@@ -3,7 +3,6 @@
     <div class="col s12 ">
       <div class="card blue-grey darken-1">
         <div class="card-content white-text">
-            <!-- TODO somehow get rid of the Vue error, try updating. Everything works fine but Vue is bugged. -->
           <router-link :to="post._id">
               <span class="card-title">{{post.title}}
                   <router-link v-if="loggedIn" :to="loggedInEditPath"> | Edit</router-link>
@@ -28,6 +27,13 @@ export default {
     post: {},
     individualPage: Boolean
   },
+    computed: {
+        loggedIn: function (){
+            if (!this.$store.state.loggedIn) return false;
+
+            return (this.post.author === this.$store.state.loggedInUserId);
+        }
+  },
   methods: {
       like: function (){
           fetch(`http://localhost:3400/posts/like/${this.post._id}`, { method: "PUT"});
@@ -41,8 +47,8 @@ export default {
       }
   },data: function(){
       return {
-          loggedIn: this.$store.state.loggedIn,
-          loggedInEditPath: `blogger/edit/${this.post._id}`,
+        //   loggedIn: this.$store.state.loggedIn,
+          loggedInEditPath: `/blogger/edit/${this.post._id}`,
       };
   }
 }

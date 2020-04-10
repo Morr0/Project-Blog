@@ -58,7 +58,6 @@ export default {
             switch (res.status){
                 case 202 : case 200:
                     const user = await res.json();
-                    console.log(user);
                     this.$store.commit("updateUser", {loggedIn: true, loggedInUserId: user.id, loggedInUser: user.name});
                     this.$router.replace("/");
                     break;

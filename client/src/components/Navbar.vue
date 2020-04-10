@@ -28,7 +28,6 @@ export default {
     },
     methods: {
         goToAccount: function (){
-            console.log(this.$store.state.loggedInUser);
             console.log("Going to account");
         }
     }

@@ -55,6 +55,9 @@ export default {
             content: "",
             draft: true,
             hidden: false,
+
+            // Verification stuff
+            allowedToEdit: true,
         };
     },
     async created(){
@@ -70,11 +73,12 @@ export default {
 
             const post = (await res.json())[0];
             if (post){
-                console.log(post);
                 this.title = post.title;
                 this.content = post.content;
                 this.draft = post.draft;
                 this.hidden = post.hidden;
+
+                if (post.author !== this.$store.state.loggedInUserId) return this.$router.replace("/");
             } else {
                 return this.$router.replace("/");
             }
@@ -85,7 +89,8 @@ export default {
         edit: async function (){
             // Creating a new post
             if (!this.id){
-                const res = await fetch("http://localhost:3400/posts/", {
+                try {
+                    const res = await fetch("http://localhost:3400/posts/", {
                     method: "POST",
                     headers: {
                         // TODO use id of logged in user
@@ -96,15 +101,14 @@ export default {
                         hidden: this.hidden
                     },
                     credentials: "include"
-                });
+                    });
 
-                if (!res.ok)
-                    return alert("Failed to post");
-
-
+                    if (!res.ok) return alert("Failed to post");
+                } catch (error) {console.log(error);} 
             // Editing an existing one
             } else {
-                const res = await fetch(`http://localhost:3400/posts/${this.id}`, {
+                try {
+                    const res = await fetch(`http://localhost:3400/posts/${this.id}`, {
                     method: "PUT",
                     headers: {
                         author: this.$store.state.loggedInUserId,
@@ -114,30 +118,31 @@ export default {
                         hidden: this.hidden
                     },
                     credentials: "include"
-                });
+                    });
 
-                if (!res.ok)
-                    return alert("Failed to post");
-            }
+                    if (!res.ok) return alert("Failed to post");
+                } catch (error){console.log(error);}
+            } 
 
             // Once done posting/editting
-            this.$router.replace(`../${this.id? '../': ''}`);
+            this.$router.replace(`/${this.id}`);
         },
         remove: async function(){
             // TODO add ability for the user to choose is he sure to delete
 
             if (this.id) {
-                const res = await fetch(`http://localhost:3400/posts/${this.id}`, {
+                try {
+                    const res = await fetch(`http://localhost:3400/posts/${this.id}`, {
                     method: "DELETE",
                     credentials: "include",
-                });
+                    });
 
-                if (!res.ok)
-                    return alert("There was a problem deleting your post");
+                    if (!res.ok) return alert("There was a problem deleting your post");
+                } catch (error) {console.log(error);}
             } else return;
 
             // Once removed
-            this.$router.replace(`../${this.id? '../': ''}`);
+            this.$router.replace(`/`);
         },
         cancel: function (){
             this.$router.replace("/");
