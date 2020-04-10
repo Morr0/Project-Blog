@@ -28,7 +28,7 @@ export default {
     },
     methods: {
         goToAccount: function (){
-            console.log("Going to account");
+            this.$router.replace(`/blogger/${this.$store.state.loggedInUserId}`);
         }
     }
 }

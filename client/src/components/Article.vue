@@ -3,7 +3,7 @@
     <div class="col s12 ">
       <div class="card blue-grey darken-1">
         <div class="card-content white-text">
-          <router-link :to="post._id">
+          <router-link :to="`/post/${post._id}`">
               <span class="card-title">{{post.title}}
                   <router-link v-if="loggedIn" :to="loggedInEditPath"> | Edit</router-link>
               </span>

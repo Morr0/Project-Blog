@@ -110,4 +110,16 @@ route.post("/logout", (req, res) => {
     });
 });
 
+route.get("/:userId", (req, res) => {
+    console.log(`User request: ${req.params.userId}`);
+    models.User.findById(req.params.userId, (error, data) => {
+        if (error) return res.status(500).end();
+        else {
+            if (!data) return res.status(404).end();
+
+            return res.status(200).json(data);
+        }
+    });
+})
+
 module.exports = route;

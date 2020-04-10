@@ -125,7 +125,7 @@ export default {
             } 
 
             // Once done posting/editting
-            this.$router.replace(`/${this.id}`);
+            this.$router.replace(`/post/${this.id}`);
         },
         remove: async function(){
             // TODO add ability for the user to choose is he sure to delete
