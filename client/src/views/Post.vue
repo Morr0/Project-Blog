@@ -21,6 +21,8 @@ export default {
     methods: {
         getPost: async function(){
             const res = await fetch(`http://localhost:3400/posts/${this.id}`);
+            if (res.status !== 200) return this.$router.replace("/");
+
             this.post = (await res.json())[0];
         }
     },

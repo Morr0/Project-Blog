@@ -21,15 +21,12 @@ route.get("/:id", (req, res) => {
     models.Post.find({_id: req.params.id},(error, data) => {
         if (error) return res.status(404).end();
 
-        return res.json(data);
+        return res.status(400).json(data);
     });
 });
 
 function checkLoggedIn(req, res, next){
-    // TODO
-    // if (!req.session){
-    //     return err(res);
-    // }
+    if (!req.session.userId) return res.status(401).end();
 
     next();
 }
@@ -42,17 +39,16 @@ route.post("/", checkLoggedIn, (req, res) => {
         draft: req.headers.draft,
         hidden: req.headers.hidden,
     });
-    newArticle.save((error) => {
+    newArticle.save((error, data) => {
         if (error) return err(res, error, 500, "Internal");
-        else {
-            res.send("Added a new post")
-        }
+         
+        return res.status(200).json(data._id);
     });
 });
 
 route.put("/:id", checkLoggedIn, (req, res) => {
     // Things that are to be updates, checks if they were included in HTTP header to be updated
-    const toBeUpdated = {};
+    const toBeUpdated = {updateDate: Date.now()};
     if (req.headers.title)
         toBeUpdated.title = req.headers.title;
     if (req.headers.content)
@@ -61,10 +57,10 @@ route.put("/:id", checkLoggedIn, (req, res) => {
         toBeUpdated.hidden = req.headers.hidden;
     if (req.headers.draft){
         toBeUpdated.draft = req.headers.draft;
-        // logic
-        toBeUpdated.postDate = Date.now();
-        toBeUpdated.updateDate = Date.now();
     }
+
+    if (!req.headers.draft && !req.headers.hidden) toBeUpdated.postDate = Date.now();
+
 
     models.Post.findByIdAndUpdate(req.params.id, toBeUpdated, (error, post) => {
         if (error){

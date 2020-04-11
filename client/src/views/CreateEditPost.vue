@@ -93,7 +93,6 @@ export default {
                     const res = await fetch("http://localhost:3400/posts/", {
                     method: "POST",
                     headers: {
-                        // TODO use id of logged in user
                         author: this.$store.state.loggedInUserId,
                         title: this.title,
                         content: this.content,
@@ -103,7 +102,10 @@ export default {
                     credentials: "include"
                     });
 
-                    if (!res.ok) return alert("Failed to post");
+                    if (!res.status === 200) return alert("Failed to post");
+
+                    // Set id so it can be used for redirection
+                    this.id = await res.json();
                 } catch (error) {console.log(error);} 
             // Editing an existing one
             } else {
