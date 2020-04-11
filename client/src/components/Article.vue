@@ -4,13 +4,13 @@
       <div class="card blue-grey darken-1">
         <div class="card-content white-text">
           <router-link :to="`/post/${post._id}`">
-              <span class="card-title">{{post.title}}
+              <span class="card-title">{{post.title}}{{post.draft?" | (Draft)":""}}{{post.hidden?" | (Hidden)":""}}
                   <router-link v-if="loggedIn" :to="loggedInEditPath"> | Edit</router-link>
               </span>
           </router-link>
-          <p>{{post.content}}</p>
+          <p v-if="!minimised">{{post.content}}</p>
         </div>
-        <div class="card-action">
+        <div class="card-action" v-if="!minimised">
             <a v-if="author" href="" @click.prevent="toAuthor"><span>Author: {{this.author.name}} </span></a>
             <a href="" @click.prevent="like">{{`${post.likes} | Like`}}</a>
             <!-- <a href="#">Comment</a> -->
@@ -27,6 +27,7 @@ export default {
     props: {
     post: {},
     individualPage: Boolean,
+    minimised: Boolean
     },
     computed: {
         loggedIn: function (){

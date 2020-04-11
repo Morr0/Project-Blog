@@ -68,7 +68,7 @@ export default {
                 else if (res.status === 201){
                     // Registered
                     // TODO add loading indicator as a transition
-                    this.$router.replace("Login");
+                    this.$router.replace("/blogger/login/");
                 }
             });
         }

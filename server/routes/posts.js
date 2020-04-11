@@ -21,8 +21,24 @@ route.get("/:id", (req, res) => {
     models.Post.find({_id: req.params.id},(error, data) => {
         if (error) return res.status(404).end();
 
-        return res.status(400).json(data);
+        return res.status(200).json(data);
     });
+});
+
+// Get by a specfic user
+route.get("/user/:id", (req, res) => {
+    const callback = (error, data) => {
+        if (error) return res.status(500).end();
+
+        return res.status(200).json(data);
+    };
+
+    if (req.session.userId && req.session.userId === req.params.id){
+        console.log("Logged In");
+        models.Post.find({author: req.params.id}, callback);
+    } else { // Return the non-hidden non-draft work of the user (publicly available posts)
+        models.Post.find({author: req.params.id, draft: false, hidden: false}, callback);
+    }
 });
 
 function checkLoggedIn(req, res, next){

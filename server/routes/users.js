@@ -77,6 +77,7 @@ route.post("/login", checkLoggedIn, (req, res) => {
                         // If login credentials are correct
                         if (same){
                             req.session.userId = user._id;
+                            // req.cookies
                             console.log("LOGIN APPROVED");
                             res.status(202).json({id: user._id, name: user.name});
                         } else {
