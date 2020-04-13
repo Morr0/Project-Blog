@@ -23,10 +23,12 @@ export default {
             const res = await fetch(`http://localhost:3400/posts/${this.id}`);
             if (res.status !== 200) return this.$router.replace("/");
 
-            this.post = (await res.json())[0];
+            this.post = await res.json();
         }
     },
-    created(){
+    async created(){
+        // if ((await fetch(`http://localhost:3400/posts/allowed/3400/${this.id}`)))
+
         this.getPost();
     }
 }

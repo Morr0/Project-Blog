@@ -18,10 +18,17 @@ route.get("/", (req, res) => {
 });
 
 route.get("/:id", (req, res) => {
-    models.Post.find({_id: req.params.id},(error, data) => {
+    models.Post.findById(req.params.id, (error, post) => {
         if (error) return res.status(404).end();
 
-        return res.status(200).json(data);
+        // Whether the requester is allowed to view this page
+        if (post.draft || post.hidden){
+            if (!req.session) return res.status(401).end();
+
+            if (req.session.id !== post.author) return res.status(401).end();
+        }
+
+        return res.status(200).json(post);
     });
 });
 
