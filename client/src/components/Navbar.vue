@@ -10,6 +10,9 @@
         <li v-if="loggedIn">
             <a @click.prevent="goToAccount">{{this.$store.state.loggedInUser || "Account"}}</a>
         </li>
+        <!-- <li v-if="allowedToRegister">
+            <router-link to="/blogger/register">Register</router-link>
+        </li> -->
         <li>
             <router-link v-if="loggedIn" to="/blogger/logout">Logout</router-link>
             <router-link v-if="!loggedIn" to="/blogger/login">Login</router-link>
@@ -24,7 +27,13 @@ export default {
     computed: {
         loggedIn: function (){
             return this.$store.state.loggedIn;
-        }
+        },
+        // allowedToRegister: async function (){
+        //     if (this.$store.state.loggedIn) return false;
+
+        //     const res = await fetch("http://localhost:3400/users/allowedToRegister/", {credentials: "include"});
+        //     return res.status === 200;
+        // }
     },
     methods: {
         goToAccount: function (){

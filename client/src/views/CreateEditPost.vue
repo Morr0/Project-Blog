@@ -79,10 +79,9 @@ export default {
     async mounted(){
         if (this.id){
             const res = await fetch(`http://localhost:3400/posts/${this.id}`, {credentials: "include"});
-            if (!res.ok)
-                return this.$router.replace("/");
+            if (!res.ok) return this.$router.replace("/");
 
-            const post = (await res.json())[0];
+            const post = await res.json();
             if (post){
                 this.title = post.title;
                 this.content = post.content;
@@ -96,9 +95,6 @@ export default {
                 return this.$router.replace("/");
             }
         }
-
-        // Tiptap editor
-        document.edd = converter;
     },
     methods: {
         // This treats both a new post and editting one
