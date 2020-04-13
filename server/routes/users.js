@@ -30,6 +30,16 @@ route.get("/", (req, res) => {
     return res.status(208).end();
 });
 
+route.get("/loggedIn", (req, res) => {
+    if (!req.session) if (!res.session.userId) return res.status(404).end();
+
+    models.User.findById(req.session.userId, (error, data) => {
+        if (error) return res.status(500).end();
+
+        return res.status(200).json({id: data._id, name: data.name});
+    });
+});
+
 route.post("/register", checkLoggedIn, (req, res) => {
     console.log("REGISTER");
 

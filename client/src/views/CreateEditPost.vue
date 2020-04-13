@@ -5,7 +5,7 @@
                 <input placeholder="Title" id="title" type="text" class="validate active" v-model="title" required>
                 <label for="title" class="active">Title</label>
             </div>
-            <div class="row">
+            <!-- <div class="row">
                 <div class="input-field col s6">
                     <textarea id="textarea1" class="materialize-textarea" placeholder="Enter Markdown" v-model="mdContent"></textarea>
                     <label class="active" for="textarea1">Markdown</label>
@@ -14,7 +14,7 @@
                     <textarea id="textarea2" class="materialize-textarea" placeholder="HTML" v-model="content"></textarea>
                     <label class="active" for="textarea1">Content</label>
                 </div>
-            </div>
+            </div> -->
             <div class="row">
                 <div class="switch col s6">
                 <label>
@@ -42,16 +42,30 @@
                 <button v-if="id" class="btn red" type="button" name="remove" @click.prevent="remove">Remove</button>
             </div>
         </form>
+        <editor-menu-bar :editor="editor" v-slot="{ commands, isActive }">
+    <div>
+      <button :class="{ 'is-active': isActive.bold() }" @click="commands.bold">
+        Bold
+      </button>
+      <button :class="{ 'is-active': isActive.heading({ level: 2 }) }" @click="commands.heading({ level: 2 })">
+        H2
+      </button>
+    </div>
+  </editor-menu-bar>
+        <!-- <EditorMenuBar :editor="editor"></EditorMenuBar> -->
+        <EditorContent :editor="editor" />
     </div>
 </template>
 
 <script>
+
+
 export default {
     data: function (){
         return {
             id: this.$route.params.id,
             title: "",
-            mdContent: "",
+            // mdContent: "",
             content: "",
             draft: true,
             hidden: false,
@@ -83,6 +97,9 @@ export default {
                 return this.$router.replace("/");
             }
         }
+
+        // Tiptap editor
+        document.edd = this.editor;
     },
     methods: {
         // This treats both a new post and editting one
