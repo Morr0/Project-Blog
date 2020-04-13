@@ -78,8 +78,7 @@ export default {
     },
     async mounted(){
         if (this.id){
-            // TODO make sure the user has access to this post and not someone else's
-            const res = await fetch(`http://localhost:3400/posts/${this.id}`);
+            const res = await fetch(`http://localhost:3400/posts/${this.id}`, {credentials: "include"});
             if (!res.ok)
                 return this.$router.replace("/");
 

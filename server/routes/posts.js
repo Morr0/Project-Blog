@@ -19,7 +19,10 @@ route.get("/", (req, res) => {
 
 route.get("/:id", (req, res) => {
     models.Post.findById(req.params.id, (error, post) => {
-        if (error) return res.status(404).end();
+        if (error) {
+            console.log("errorroroorojsdgfh");
+            return res.status(404).end();
+        }
 
         // Whether the requester is allowed to view this page
         if (post.draft || post.hidden){
