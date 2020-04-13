@@ -19,16 +19,14 @@ route.get("/", (req, res) => {
 
 route.get("/:id", (req, res) => {
     models.Post.findById(req.params.id, (error, post) => {
-        if (error) {
-            console.log("errorroroorojsdgfh");
-            return res.status(404).end();
-        }
+        if (error) return res.status(404).end();
 
         // Whether the requester is allowed to view this page
         if (post.draft || post.hidden){
-            if (!req.session) return res.status(401).end();
-
-            if (req.session.id !== post.author) return res.status(401).end();
+            if (!req.session.userId) return res.status(401).end();
+            
+            console.log(post);
+            if (req.session.userId != post.author) return res.status(401).end();
         }
 
         return res.status(200).json(post);

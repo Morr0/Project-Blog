@@ -20,7 +20,7 @@ export default {
     },
     methods: {
         getPost: async function(){
-            const res = await fetch(`http://localhost:3400/posts/${this.id}`);
+            const res = await fetch(`http://localhost:3400/posts/${this.id}`, {credentials: "include"});
             if (res.status !== 200) return this.$router.replace("/");
 
             this.post = await res.json();

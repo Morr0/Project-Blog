@@ -36,7 +36,7 @@ app.listen(PORT);
 
 app.use(cors({
     origin: "http://localhost:8080",
-    credentials: true
+    credentials: true,
 }));
 
 app.use(session({
