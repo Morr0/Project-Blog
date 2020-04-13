@@ -31,7 +31,8 @@ route.get("/", (req, res) => {
 });
 
 route.get("/loggedIn", (req, res) => {
-    if (!req.session) if (!res.session.userId) return res.status(404).end();
+    if (!req.session) return res.status(404).end();
+    else if (!req.session.userId) return res.status(404).end();
 
     models.User.findById(req.session.userId, (error, data) => {
         if (error) return res.status(500).end();

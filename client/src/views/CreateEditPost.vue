@@ -5,16 +5,25 @@
                 <input placeholder="Title" id="title" type="text" class="validate active" v-model="title" required>
                 <label for="title" class="active">Title</label>
             </div>
-            <!-- <div class="row">
+            <div class="markdownCheatsheet">
+                <a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet" target="_blank">Md Cheatsheet</a>
+            </div>
+            <div class="row">
                 <div class="input-field col s6">
-                    <textarea id="textarea1" class="materialize-textarea" placeholder="Enter Markdown" v-model="mdContent"></textarea>
+                    <textarea id="textarea1" class="materialize-textarea" placeholder="Enter Markdown" v-model="mdContent"
+                     @input="mdChanged"></textarea>
                     <label class="active" for="textarea1">Markdown</label>
                 </div>
-                <div class="input-field col s6">
-                    <textarea id="textarea2" class="materialize-textarea" placeholder="HTML" v-model="content"></textarea>
+                <!-- <div class="input-field col s6">
+                    <textarea id="textarea2" class="materialize-textarea" placeholder="HTML" v-model="content"
+                    @change.prevent="htmlChanged"></textarea>
                     <label class="active" for="textarea1">Content</label>
+                </div> -->
+                <div class="container">
+                    <h1>Preview: </h1>
+                    <div class="container s6" v-html="content"></div>
                 </div>
-            </div> -->
+            </div>
             <div class="row">
                 <div class="switch col s6">
                 <label>
@@ -42,30 +51,19 @@
                 <button v-if="id" class="btn red" type="button" name="remove" @click.prevent="remove">Remove</button>
             </div>
         </form>
-        <editor-menu-bar :editor="editor" v-slot="{ commands, isActive }">
-    <div>
-      <button :class="{ 'is-active': isActive.bold() }" @click="commands.bold">
-        Bold
-      </button>
-      <button :class="{ 'is-active': isActive.heading({ level: 2 }) }" @click="commands.heading({ level: 2 })">
-        H2
-      </button>
-    </div>
-  </editor-menu-bar>
-        <!-- <EditorMenuBar :editor="editor"></EditorMenuBar> -->
-        <EditorContent :editor="editor" />
     </div>
 </template>
 
 <script>
-
+const showdown = require("showdown");
+const converter = new showdown.Converter();
 
 export default {
     data: function (){
         return {
             id: this.$route.params.id,
             title: "",
-            // mdContent: "",
+            mdContent: "",
             content: "",
             draft: true,
             hidden: false,
@@ -93,13 +91,15 @@ export default {
                 this.hidden = post.hidden;
 
                 if (post.author !== this.$store.state.loggedInUserId) return this.$router.replace("/");
+                // Make md from html
+                this.mdContent = converter.makeMd(this.content);
             } else {
                 return this.$router.replace("/");
             }
         }
 
         // Tiptap editor
-        document.edd = this.editor;
+        document.edd = converter;
     },
     methods: {
         // This treats both a new post and editting one
@@ -165,6 +165,11 @@ export default {
         },
         cancel: function (){
             this.$router.replace("/");
+        },
+        // Md change
+        mdChanged: function (){
+            console.log("Changed");
+            this.content = converter.makeHtml(this.mdContent);
         }
     }
 }

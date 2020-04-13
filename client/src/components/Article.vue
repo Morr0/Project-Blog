@@ -8,7 +8,7 @@
                   <router-link v-if="loggedIn" :to="loggedInEditPath"> | Edit</router-link>
               </span>
           </router-link>
-          <p v-if="!minimised">{{post.content}}</p>
+          <div v-if="!minimised" v-html="post.content"></div>
         </div>
         <div class="card-action" v-if="!minimised">
             <a v-if="author" href="" @click.prevent="toAuthor"><span>Author: {{this.author.name}} </span></a>
