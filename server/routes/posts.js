@@ -3,6 +3,12 @@ const route = express.Router();
 
 const models = require("../models/DBModels");
 
+const createDomPurify = require("dompurify");
+const {JSDOM} = require("jsdom");
+const window = (new JSDOM("")).window;
+const DOMPurify = createDomPurify(window);
+
+
 route.get("/", (req, res) => {
     models.Post.find({
         draft: false,
@@ -52,8 +58,8 @@ function checkLoggedIn(req, res, next){
 route.post("/", checkLoggedIn, (req, res) => {
     const newArticle = new models.Post({
         author: req.session.userId,
-        title: req.headers.title,
-        content: req.headers.content,
+        title: cleanHTML(req.headers.title),
+        content: cleanHTML(req.headers.content),
         draft: req.headers.draft,
         hidden: req.headers.hidden,
     });
@@ -67,8 +73,8 @@ route.post("/", checkLoggedIn, (req, res) => {
 route.put("/:id", checkLoggedIn, (req, res) => {
     // Things that are to be updates, checks if they were included in HTTP header to be updated
     const toBeUpdated = {updateDate: Date.now()};
-    if (req.headers.title) toBeUpdated.title = req.headers.title;
-    if (req.headers.content) toBeUpdated.content = req.headers.content;
+    if (req.headers.title) toBeUpdated.title = cleanHTML(req.headers.title);
+    if (req.headers.content) toBeUpdated.content = cleanHTML(req.headers.content);
     if (req.headers.hidden) toBeUpdated.hidden = req.headers.hidden;
     if (req.headers.draft) toBeUpdated.draft = req.headers.draft;
 
@@ -111,5 +117,10 @@ route.put("/like/:id", (req, res) => {
 //     });
 //     return res.end();
 // });
+
+// Util
+function cleanHTML(content){
+    return DOMPurify.sanitize(content);
+}
 
 module.exports = route;

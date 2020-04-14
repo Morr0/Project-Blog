@@ -4,7 +4,7 @@ const route = express.Router();
 const bcrypt = require("bcrypt");
 
 const salt = 11;
-const ALLOWED_TO_REGISTER_USERS = false;
+const ALLOWED_TO_REGISTER_USERS = true;
 
 const models = require("../models/DBModels");
 
@@ -56,7 +56,11 @@ route.post("/register", checkLoggedIn, (req, res) => {
                     });
 
                     user.save((error) => {
-                        if (error) return res.status(500).end();
+                        if (error){
+                            if ("name" in error) return res.status(400).json(error);
+
+                            return res.status(500).json(error);
+                        }
 
                         return res.status(201).end();
                     });
