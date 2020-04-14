@@ -5,8 +5,8 @@ import router from './router'
 // Store
 import store from "@/store.js";
 
-import "materialize-css/dist/css/materialize.min.css"
-import "materialize-css/dist/js/materialize.min"
+// Tailwind compiled css
+import "@/../styles/styles.css";
 
 Vue.config.productionTip = false
 
