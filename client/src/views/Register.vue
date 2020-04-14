@@ -43,6 +43,9 @@ export default {
     },
     async created(){
         if (this.$store.state.loggedIn) return this.$router.replace("/");
+
+        if ((await fetch("http://localhost:3400/users/allowedToRegister/", 
+        {credentials: "include"})).status !== 200) return this.$router.replace("/");
     },
     methods: {
         register: function(event) {

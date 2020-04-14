@@ -4,7 +4,7 @@ const route = express.Router();
 const bcrypt = require("bcrypt");
 
 const salt = 11;
-const ALLOWED_TO_REGISTER_USERS = true;
+const ALLOWED_TO_REGISTER_USERS = false;
 
 const models = require("../models/DBModels");
 
