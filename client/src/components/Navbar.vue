@@ -36,8 +36,14 @@
             <a v-if="loggedIn" @click.prevent="goToAccount" href="" class="block mt-4 lg:inline-block lg:mt-0 text-gray-700 hover:text-blue-500 mr-4 font-bold">
                 {{this.$store.state.loggedInUser || "Account"}}
             </a>
-            <router-link to="/posts/" class="block text-gray-700 mt-4 lg:inline-block lg:mt-0 hover:text-blue-500 mr-4 font-bold">
+            <router-link v-if="!loggedIn" to="/posts/" class="block text-gray-700 mt-4 lg:inline-block lg:mt-0 hover:text-blue-500 mr-4 font-bold">
                 Posts
+            </router-link>
+            <router-link v-if="loggedIn" to="/blogger/create/" class="block text-gray-700 mt-4 lg:inline-block lg:mt-0 hover:text-blue-500 mr-4 font-bold">
+                Create
+            </router-link>
+            <router-link to="/about/" class="block mt-4 lg:inline-block lg:mt-0 text-gray-700 hover:text-blue-500 font-bold mr-4">
+                About        
             </router-link>
             <router-link v-if="loggedIn" to="/blogger/logout/" class="block mt-4 lg:inline-block lg:mt-0 text-gray-700 hover:text-blue-500 mr-4 font-bold">
                 Logout
@@ -45,10 +51,6 @@
             <router-link v-if="!loggedIn" to="/blogger/login/" class="block mt-4 lg:inline-block lg:mt-0 text-gray-700 hover:text-blue-500 mr-4 font-bold">
                 Login
             </router-link>
-            <router-link to="/about/" class="block mt-4 lg:inline-block lg:mt-0 text-gray-700 hover:text-blue-500 font-bold">
-                About        
-            </router-link>
-            
         </div>
     </div>
 </nav>

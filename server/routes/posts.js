@@ -59,6 +59,7 @@ route.post("/", checkLoggedIn, (req, res) => {
     const newArticle = new models.Post({
         author: req.session.userId,
         title: cleanHTML(req.headers.title),
+        description: cleanHTML(req.headers.description),
         content: cleanHTML(req.headers.content),
         draft: req.headers.draft,
         hidden: req.headers.hidden,
@@ -74,6 +75,7 @@ route.put("/:id", checkLoggedIn, (req, res) => {
     // Things that are to be updates, checks if they were included in HTTP header to be updated
     const toBeUpdated = {updateDate: Date.now()};
     if (req.headers.title) toBeUpdated.title = cleanHTML(req.headers.title);
+    if (req.headers.description) toBeUpdated.description = cleanHTML(req.headers.description);
     if (req.headers.content) toBeUpdated.content = cleanHTML(req.headers.content);
     if (req.headers.hidden) toBeUpdated.hidden = req.headers.hidden;
     if (req.headers.draft) toBeUpdated.draft = req.headers.draft;
@@ -120,6 +122,8 @@ route.put("/like/:id", (req, res) => {
 
 // Util
 function cleanHTML(content){
+    if (content === null || content === undefined) return "";
+
     return DOMPurify.sanitize(content);
 }
 

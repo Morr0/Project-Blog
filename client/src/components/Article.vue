@@ -19,7 +19,7 @@
       </div>
     </div>
   </div> -->
-  <div class="sm:flex container content-center mx-auto sm:justify-center">
+  <div class="sm:flex sm:items-center container content-center mx-auto sm:justify-center">
         <div class="max-w-sm w-full sm:max-w-full sm:flex flex-grow">
             <div class="border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal">
                 <div class="mb-8 content-center">
@@ -38,8 +38,8 @@
                 </div>
             </div>
         </div>
-        <div v-if="individualPage" class="container">
-            Hello <Icon />
+        <div v-if="individualPage" class="container" v-html="post.content">
+            
         </div>
   </div>
 </template>

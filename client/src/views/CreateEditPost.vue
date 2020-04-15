@@ -1,5 +1,5 @@
 <template>
-    <div class="row s12 m4 l8">
+    <!-- <div class="row s12 m4 l8">
         <form class="col s6" @submit.prevent="edit">
             <div class="input-field col s6">
                 <input placeholder="Title" id="title" type="text" class="validate active" v-model="title" required>
@@ -14,11 +14,11 @@
                      @input="mdChanged"></textarea>
                     <label class="active" for="textarea1">Markdown</label>
                 </div>
-                <!-- <div class="input-field col s6">
+                <div class="input-field col s6">
                     <textarea id="textarea2" class="materialize-textarea" placeholder="HTML" v-model="content"
                     @change.prevent="htmlChanged"></textarea>
                     <label class="active" for="textarea1">Content</label>
-                </div> -->
+                </div>
                 <div class="container">
                     <h1>Preview: </h1>
                     <div class="container s6" v-html="content"></div>
@@ -51,6 +51,39 @@
                 <button v-if="id" class="btn red" type="button" name="remove" @click.prevent="remove">Remove</button>
             </div>
         </form>
+    </div> -->
+    <div class="container">
+        <div class="flex flex-wrap">
+            <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/6 mb-4">
+                <form class="">
+                    <div class="mb-4">
+                        <label class="block text-gray-700 text-sm font-bold mb-2" for="title">
+                        Title
+                        </label>
+                        <input type="text" required v-model="title" id="title" placeholder="Title"
+                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" >
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-gray-700 text-sm font-bold mb-2" for="description">
+                        Description
+                        </label>
+                        <textarea v-model="description" id="description" placeholder="Description"
+                        class="resize-y shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-gray-700 text-sm font-bold mb-2" for="content">
+                        Content in MD (<a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet" 
+                        class="hover:text-blue-700" target="_blank">MD Cheatsheet</a>)
+                        </label>
+                        <textarea v-model="mdContent" id="content" placeholder="Content"
+                        class="resize-y shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+                    </div>
+                </form>
+            </div>
+            <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/6 mb-4 bg-grey-light">
+                <span v-html="content"></span>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -63,6 +96,7 @@ export default {
         return {
             id: this.$route.params.id,
             title: "",
+            description: "",
             mdContent: "",
             content: "",
             draft: true,
