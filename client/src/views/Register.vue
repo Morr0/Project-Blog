@@ -1,5 +1,5 @@
 <template>
-    <div class="form">
+    <!-- <div class="form">
       <div class="row">
         <form class="col s12" @submit.prevent="register">
             <div class="row">
@@ -28,7 +28,41 @@
     <div class="row">
         <label class="active"><router-link to="/blogger/login/">I have an account, login</router-link></label>
     </div>
-  </div>
+  </div> -->
+    <div class="w-full max-w-md mx-auto">
+        <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" @submit.prevent="register">
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="name">
+                    Username
+                </label>
+                <input type="text" required v-model="name" id="name" placeholder="Full Name"
+                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" >
+                </div>
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="email">
+                    Email
+                </label>
+                <input type="email" required v-model="email" id="email" placeholder="Email"
+                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" >
+                </div>
+            <div class="mb-6">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="password">
+                    Password
+                </label>
+                <input type="password" required v-model="password" id="password" placeholder="******************"
+                class="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" >
+                <p class="text-red-500 text-xs italic">Please choose a password.</p>
+                </div>
+            <div class="flex items-center justify-between">
+                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
+                    Register
+                </button>
+                <router-link class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800" to="/blogger/login/">
+                Have an account, login.
+                </router-link>
+            </div>
+        </form>
+    </div>
 </template>
 
 <script>
