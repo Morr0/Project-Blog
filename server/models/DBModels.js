@@ -62,7 +62,8 @@ const post = new Schema({
         type: Date
     },
     updateDate: {
-        type: Date
+        type: Date,
+        default: Date.now
     },
     hidden: {
         type: Boolean,
