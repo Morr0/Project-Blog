@@ -19,13 +19,16 @@
       </div>
     </div>
   </div> -->
-  <div class="sm:flex sm:items-center container content-center mx-auto sm:justify-center">
-        <div class="max-w-sm w-full sm:max-w-full sm:flex flex-grow">
-            <div class="border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal">
+  <div class="border w-full sm:flex sm:items-center min-w-full sm:flex-col">
+        <div class="max-w-sm w-full sm:max-w-full sm:flex flex-grow min-w-full">
+            <div class="border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t 
+            lg:border-gray-400 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal
+            min-w-full">
                 <div class="mb-8 content-center">
                     <div class="text-gray-900 font-bold text-xl mb-2 inline-flex flex-grow">
                         <router-link class="hover:text-blue-500" :to="`/post/${post._id}`">{{post.title}}</router-link>
-                        <Icon class="mt-1 ml-2" :draft="post.draft" :hidden="post.hidden" :editable="loggedIn" />
+                        <!-- TODO fix svg onclick -->
+                        <Icon class="mt-1 ml-2" :draft="post.draft" :hidden="post.hidden" :editable="loggedIn" @click.prevent="clickedIcon" />
                     </div>
                     <p class="text-gray-500 text-base">{{post.description}}</p>
                 </div>
@@ -38,7 +41,7 @@
                 </div>
             </div>
         </div>
-        <div v-if="individualPage" class="container" v-html="post.content">
+        <div v-if="individualPage" class="mt-4 text-left flex-wrap" v-html="post.content">
             
         </div>
   </div>
@@ -76,8 +79,13 @@ export default {
                 this.post.likes = 0
             this.post.likes++;
         },
-        share: function (){
-
+        clickedIcon: function (){
+            console.log("clicked");
+            if (this.canEditIt()){
+                console.log(this.$router);
+                
+                // this.$router.replace(this.loggedInEditPath);
+            }
         }
     },data: function(){
         return {

@@ -1,20 +1,24 @@
 <template>
-    <div class="">
-        <div v-if="user" class="row">
+    <div class="block sm:flex flex-col">
+        <div v-if="user" class="">
             <h1>{{this.user.name}}</h1>
+            <div class="">
+                <div v-if="hasProfilePicture" class="">Has</div>
+                <div v-else class="">
+                    <!-- <object data="@/assets/svg/user.svg" type="image/svg+xml">
+                        <img src="@/assets/png/user.png" />
+                    </object>   -->
+                    <img src="@/assets/svg/user.svg" class="w-20 h-20 border"> 
+                </div>
+            </div>
         </div>
-        <div class="row">
-            <ul v-if="posts" class="collection with-header">
-                <li class="collection-header"><h4>My Posts</h4></li>
-                <!-- <li v-for="(post) in posts" :key="post._id" class="collection-item">
-                    <div>
-                        <a href="" @click.prevent="directToView(post)" class="secondary-content">{{post.title}} </a>
-                        || 
-                        <a href="" @click.prevent="directToEdit" class="secondary-content"> Edit</a>
-                    </div>
-                </li> -->
+        <div class="flex mb-4 mt-4">
+            <div class="w-1/5 h-12"></div>
+            <div class="w-3/5 h-12">
+                <span class="font-semibold font-sans">Posts</span>
                 <Articles v-if="posts" :posts="posts" :minimised="true" />
-            </ul>
+            </div>
+            <div class="w-1/5 h-12"></div>
         </div>
     </div>
 </template>
@@ -59,6 +63,11 @@ export default {
         },
         directToEdit: function (){
             this.$router.replace(`/blogger/edit/${post._id}`);
+        }
+    },
+    computed: {
+        hasProfilePicture: function (){
+            return this.user.image_url;
         }
     }
 }

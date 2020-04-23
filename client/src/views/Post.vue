@@ -1,6 +1,13 @@
 <template>
-    <div class="container">
-        <Article v-if="post._id" :post="post" :individualPage="true"/>
+    <!-- <div class="border sm:flex sm:justify-center sm:content-center max-w-">
+        
+    </div> -->
+    <div class="flex mb-4 mt-4">
+        <div class="w-1/5 h-12"></div>
+        <div class="w-3/5 h-12">
+            <Article v-if="post._id" :post="post" :individualPage="true"/>
+        </div>
+        <div class="w-1/5 h-12"></div>
     </div>
 </template>
 

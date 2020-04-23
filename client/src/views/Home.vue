@@ -1,6 +1,13 @@
 <template>
-    <div class="home">
+    <!-- <div class="border h-screen sm:flex sm:justify-center sm:content-center">
         <Articles :posts="posts" />
+    </div> -->
+    <div class="flex mb-4 mt-4">
+        <div class="w-1/5 h-12"></div>
+        <div class="w-3/5 h-12">
+            <Articles :posts="posts" />
+        </div>
+        <div class="w-1/5 h-12"></div>
     </div>
 </template>
 
