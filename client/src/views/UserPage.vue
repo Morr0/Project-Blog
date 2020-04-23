@@ -4,7 +4,7 @@
             <div class="w-1/5 h-12"></div>
             <div class="w-3/5 h-12">
                 <div v-if="user" class="flex flex-row mx-auto mb-8">
-                    <img src="@/assets/svg/user.svg" class="w-32 h-32 border"> 
+                    <img src="@/assets/svg/user.svg" class="w-32 h-32 border rounded-full"> 
                     <div class="flex flex-col ml-8">
                         <h1 class="font-bold font-sans mb-1">{{this.user.name}}</h1>
                         <span class="font-sans font-medium">{{this.user.bio}}</span>

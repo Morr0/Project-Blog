@@ -28,12 +28,12 @@
                     <div class="text-gray-900 font-bold text-xl mb-2 inline-flex flex-grow">
                         <router-link class="hover:text-blue-500" :to="`/post/${post._id}`">{{post.title}}</router-link>
                         <!-- TODO fix svg onclick -->
-                        <Icon class="mt-1 ml-2" :draft="post.draft" :hidden="post.hidden" :editable="loggedIn" @click.prevent="clickedIcon" />
+                        <div @click.prevent="clickedIcon"><Icon class="mt-1 ml-2" :draft="post.draft" :hidden="post.hidden" :editable="loggedIn" /></div>
                     </div>
                     <p class="text-gray-500 text-base">{{post.description}}</p>
                 </div>
                 <div class="flex items-center">
-                    <img class="w-10 h-10 rounded-full mr-4" src="@/assets/logo.png" alt="Avatar of Jonathan Reinink">
+                    <img class="w-10 h-10 rounded-full mr-4" @click.prevent="toAuthor" src="@/assets/svg/user.svg" alt="Profile picture">
                     <div class="text-sm">
                         <p v-if="author" class="text-gray-900 leading-none"><a href="" @click.prevent="toAuthor">{{author.name}}</a></p>
                         <p class="text-gray-600">{{date.toLocaleDateString()}}</p>
@@ -41,8 +41,8 @@
                 </div>
             </div>
         </div>
-        <div v-if="individualPage" class="mt-4 text-left flex-wrap" v-html="post.content">
-            
+        <div v-if="individualPage" class="mt-4">
+            <span class="text-left font-sans" v-html="post.content"></span>
         </div>
   </div>
 </template>
@@ -64,9 +64,6 @@ export default {
         loggedIn: function (){
             return (this.post.author === this.$store.state.loggedInUserId);
         },
-        canEditIt: function (){
-            return this.$store.state.loggedInUserId === post.author;
-        }
     },
     methods: {
         toAuthor: function (){
@@ -80,12 +77,7 @@ export default {
             this.post.likes++;
         },
         clickedIcon: function (){
-            console.log("clicked");
-            if (this.canEditIt()){
-                console.log(this.$router);
-                
-                // this.$router.replace(this.loggedInEditPath);
-            }
+            if (this.$store.state.loggedInUserId === this.post.author) return this.$router.replace(this.loggedInEditPath);
         }
     },data: function(){
         return {
@@ -108,3 +100,10 @@ export default {
     }
 }
 </script>
+
+<style>
+    code {
+        @apply bg-gray-900; 
+        @apply text-orange-400;
+    }
+</style>
