@@ -1,21 +1,16 @@
 <template>
     <div class="block sm:flex flex-col">
-        <div v-if="user" class="">
-            <h1>{{this.user.name}}</h1>
-            <div class="">
-                <div v-if="hasProfilePicture" class="">Has</div>
-                <div v-else class="">
-                    <!-- <object data="@/assets/svg/user.svg" type="image/svg+xml">
-                        <img src="@/assets/png/user.png" />
-                    </object>   -->
-                    <img src="@/assets/svg/user.svg" class="w-20 h-20 border"> 
-                </div>
-            </div>
-        </div>
         <div class="flex mb-4 mt-4">
             <div class="w-1/5 h-12"></div>
             <div class="w-3/5 h-12">
-                <span class="font-semibold font-sans">Posts</span>
+                <div v-if="user" class="flex flex-row mx-auto mb-8">
+                    <img src="@/assets/svg/user.svg" class="w-32 h-32 border"> 
+                    <div class="flex flex-col ml-8">
+                        <h1 class="font-bold font-sans mb-1">{{this.user.name}}</h1>
+                        <span class="font-sans font-medium">{{this.user.bio}}</span>
+                    </div>
+                </div>
+                <span class="font-semibold font-sans text-2xl mb-4">Posts</span>
                 <Articles v-if="posts" :posts="posts" :minimised="true" />
             </div>
             <div class="w-1/5 h-12"></div>
@@ -66,8 +61,10 @@ export default {
         }
     },
     computed: {
-        hasProfilePicture: function (){
-            return this.user.image_url;
+        // Return the default if there is none
+        profilePicture: function (){
+            //TODO implement
+            return "@/assets/svg/user.svg";
         }
     }
 }
