@@ -2,6 +2,8 @@
 const express = require("express");
 const morgan = require("morgan");
 
+const parser = require("body-parser");
+
 const cors = require("cors");
 const mongoose = require("mongoose");
 
@@ -33,6 +35,10 @@ mongoose.connection.on("connected", () => console.log("Connected"));
 app.listen(PORT);
 
 // Middleware
+
+app.use(parser.text({
+    type: "text/html",
+}));
 
 app.use(cors({
     origin: "http://localhost:8080",

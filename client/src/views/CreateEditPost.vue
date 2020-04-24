@@ -114,6 +114,7 @@ export default {
     methods: {
         // This treats both a new post and editting one
         edit: async function (){
+            console.log(this.content);
             // Creating a new post
             if (!this.id){
                 try {
@@ -124,14 +125,17 @@ export default {
                         author: this.$store.state.loggedInUserId,
                         title: this.title,
                         description: this.description,
-                        content: this.content,
+                        // content: this.content,
                         draft: this.draft,
-                        hidden: this.hidden
+                        hidden: this.hidden,
+                        "Content-Type": "text/html",
+                        "Accept": "text/html"
                     },
+                    body: JSON.stringify(this.content),
                     credentials: "include"
                     });
 
-                    if (!res.status === 200) return alert("Failed to post");
+                    if (res.status !== 200) return alert("Failed to post");
                     console.log("Posted");
 
                     // Set id so it can be used for redirection
@@ -146,12 +150,16 @@ export default {
                         author: this.$store.state.loggedInUserId,
                         title: this.title,
                         description: this.description,
-                        content: this.content,
+                        // content: this.content,
                         draft: this.draft,
-                        hidden: this.hidden
+                        hidden: this.hidden,
+                        "Content-Type": "text/html",
+                        "Accept": "text/html"
                     },
-                    credentials: "include"
+                    body: this.content,
+                    credentials: "include",
                     });
+                    console.log("Here");
 
                     if (res.status !== 200) return alert("Failed to post");
                 } catch (error){console.log(error);}

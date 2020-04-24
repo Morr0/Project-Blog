@@ -1,24 +1,4 @@
 <template>
-    <!-- <div class="row">
-    <div class="col s12 ">
-      <div class="card blue-grey darken-1">
-        <div class="card-content white-text">
-          <router-link :to="`/post/${post._id}`">
-              <span class="card-title">{{post.title}}{{post.draft?" | (Draft)":""}}{{post.hidden?" | (Hidden)":""}}
-                  <router-link v-if="loggedIn" :to="loggedInEditPath"> | Edit</router-link>
-              </span>
-          </router-link>
-          <div v-if="!minimised" v-html="post.content"></div>
-        </div>
-        <div class="card-action" v-if="!minimised">
-            <a v-if="author" href="" @click.prevent="toAuthor"><span>Author: {{this.author.name}} </span></a>
-            <a href="" @click.prevent="like">{{`${post.likes} | Like`}}</a>
-            <a href="#">Comment</a>
-            <a href="" @click.prevent="share">{{`${post.shares} | Share`}}</a>
-        </div>
-      </div>
-    </div>
-  </div> -->
   <div class="border w-full sm:flex sm:items-center min-w-full sm:flex-col">
         <div class="max-w-sm w-full sm:max-w-full sm:flex flex-grow min-w-full">
             <div class="border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t 
@@ -27,7 +7,6 @@
                 <div class="mb-8 content-center">
                     <div class="text-gray-900 font-bold text-xl mb-2 inline-flex flex-grow">
                         <router-link class="hover:text-blue-500" :to="`/post/${post._id}`">{{post.title}}</router-link>
-                        <!-- TODO fix svg onclick -->
                         <div @click.prevent="clickedIcon"><Icon class="mt-1 ml-2" :draft="post.draft" :hidden="post.hidden" :editable="loggedIn" /></div>
                     </div>
                     <p class="text-gray-700 text-base" v-if="!individualPage">{{post.description}}</p>
@@ -41,9 +20,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <div v-if="individualPage" class="mt-4">
-            <span class="text-left font-sans" v-html="post.content"></span>
         </div>
   </div>
 </template>

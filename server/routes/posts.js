@@ -58,11 +58,13 @@ function checkLoggedIn(req, res, next){
 }
 
 route.post("/", checkLoggedIn, (req, res) => {
+    console.log(req.body);
+
     const newArticle = new models.Post({
         author: req.session.userId,
         title: req.headers.title,
         description: req.headers.description,
-        content: req.headers.content,
+        content: req.body,
         draft: req.headers.draft,
         hidden: req.headers.hidden,
     });
@@ -75,10 +77,13 @@ route.post("/", checkLoggedIn, (req, res) => {
 
 route.put("/:id", checkLoggedIn, (req, res) => {
     // Things that are to be updates, checks if they were included in HTTP header to be updated
+    // return console.log(req.headers.content);
+    console.log(req.body);
+
     const toBeUpdated = {updateDate: Date.now()};
     if (req.headers.title) toBeUpdated.title = req.headers.title;
     if (req.headers.description) toBeUpdated.description = req.headers.description;
-    if (req.headers.content) toBeUpdated.content = req.headers.content;
+    if (req.body) toBeUpdated.content = req.body;
     if (req.headers.hidden) toBeUpdated.hidden = req.headers.hidden;
     if (req.headers.draft) toBeUpdated.draft = req.headers.draft;
 
