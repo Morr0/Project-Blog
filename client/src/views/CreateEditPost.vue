@@ -43,12 +43,18 @@
                         </label>
                     </div>
 
+                    <button class="flex-shrink-0 border-transparent border-4 text-teal-500 
+                    hover:text-teal-800 text-sm py-1 px-2 rounded" type="button" @click.prevent="cancel">Cancel</button>
+
                     <button class="flex-shrink-0 bg-teal-500 hover:bg-teal-700 border-teal-500 
                     hover:border-teal-700 text-sm border-4 text-white py-1 px-2 rounded" type="submit">
                     {{id? "Update": (draft? "Draft": "Post")}}</button>
 
-                    <button class="flex-shrink-0 border-transparent border-4 text-teal-500 
-                    hover:text-teal-800 text-sm py-1 px-2 rounded" type="button" @click.prevent="cancel">Cancel</button>
+                    <button class="flex-shrink-0 bg-red-600 hover:bg-teal-700 border-red-600 
+                    hover:border-teal-700 text-sm border-4 text-white py-1 px-2 rounded" type="button" @click.prevent="remove">
+                    Delete</button>
+
+                    
                 </form>
             </div>
             <div class="my-1 px-1 w-1/2 sm:my-1 sm:px-1 sm:w-1/2 md:my-1 md:px-1 md:w-1/2 lg:my-1 lg:px-1 lg:w-1/2 xl:my-1 xl:px-1 xl:w-1/2
@@ -73,9 +79,6 @@ export default {
             content: "",
             draft: true,
             hidden: false,
-
-            // Verification stuff
-            allowedToEdit: true,
         };
     },
     async created(){
@@ -83,7 +86,8 @@ export default {
         if (!this.$store.state.loggedIn) return this.$router.replace("/");
     },
     async mounted(){
-        if (this.id){
+        try {
+            if (this.id){
             const res = await fetch(`http://localhost:3400/posts/${this.id}`, {credentials: "include"});
             if (!res.ok) return this.$router.replace("/");
 
@@ -91,6 +95,7 @@ export default {
             if (post){
                 this.title = post.title;
                 this.content = post.content;
+                this.description = post.description;
                 this.draft = post.draft;
                 this.hidden = post.hidden;
 
@@ -100,6 +105,10 @@ export default {
             } else {
                 return this.$router.replace("/");
             }
+        }
+        } catch (error){
+            console.log(error);
+            return this.$router.replace("/");
         }
     },
     methods: {
@@ -114,6 +123,7 @@ export default {
                     headers: {
                         author: this.$store.state.loggedInUserId,
                         title: this.title,
+                        description: this.description,
                         content: this.content,
                         draft: this.draft,
                         hidden: this.hidden
@@ -135,6 +145,7 @@ export default {
                     headers: {
                         author: this.$store.state.loggedInUserId,
                         title: this.title,
+                        description: this.description,
                         content: this.content,
                         draft: this.draft,
                         hidden: this.hidden
@@ -142,7 +153,7 @@ export default {
                     credentials: "include"
                     });
 
-                    if (!res.ok) return alert("Failed to post");
+                    if (res.status !== 200) return alert("Failed to post");
                 } catch (error){console.log(error);}
             } 
 

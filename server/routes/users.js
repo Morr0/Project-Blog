@@ -74,9 +74,9 @@ route.post("/login", checkLoggedIn, (req, res) => {
     if (req.headers.email && req.headers.password){
         models.User.findOne({email: req.headers.email}, (error, user) => {
             if (error) return res.status(500).end();
-
             // Password or email incorrect
             if (!user) return res.status(404).end();
+
             else {
                 bcrypt.compare(req.headers.password, user.password, (error, same) => {
                     if (!error){
@@ -109,6 +109,8 @@ route.post("/logout", (req, res) => {
 route.get("/:userId", (req, res) => {
     models.User.findById(req.params.userId, (error, data) => {
         if (error) return res.status(500).end();
+        if (!data) return res.status(404).end();
+        
         else {
             if (!data) return res.status(404).end();
 

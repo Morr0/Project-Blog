@@ -40,7 +40,10 @@ export default {
             else {
                 this.user = await res.json();
             }
-        } catch (error) {console.log(error);}
+        } catch (error) {
+            console.log(error);
+            return this.$router.replace("/");
+        }
 
     },
     async mounted(){
@@ -50,7 +53,10 @@ export default {
             if (res.status === 200){
                 this.posts = await res.json();
             }
-        } catch (error) {console.log(error);}
+        } catch (error) {
+            console.log(error);
+            return this.$router.replace("/");
+        }
     },
     methods: {
         directToView: function (){
@@ -69,7 +75,3 @@ export default {
     }
 }
 </script>
-
-<style>
-
-</style>

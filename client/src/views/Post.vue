@@ -25,18 +25,16 @@ export default {
             post: {},
         }
     },
-    methods: {
-        getPost: async function(){
+    async created(){
+        try {
             const res = await fetch(`http://localhost:3400/posts/${this.id}`, {credentials: "include"});
             if (res.status !== 200) return this.$router.replace("/");
 
             this.post = await res.json();
+        } catch(error){
+            console.log(error);
+            return this.$router.replace("/");
         }
-    },
-    async created(){
-        // if ((await fetch(`http://localhost:3400/posts/allowed/3400/${this.id}`)))
-
-        this.getPost();
     }
 }
 </script>

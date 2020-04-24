@@ -90,7 +90,10 @@ export default {
                     alert("Please fill all forms.");
                     break;
             }
-        } catch(error) {console.log(`Error: ${error}`);}
+        } catch(error) {
+            console.log(error);
+            return alert("An error has occured. Please try again.");
+        }
       }
   }
 }

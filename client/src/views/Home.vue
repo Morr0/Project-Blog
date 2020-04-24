@@ -25,16 +25,20 @@ export default {
         };
     },
     async created(){
-        const isLoggedIn = await fetch(`http://localhost:3400/users/loggedIn/`, {credentials: "include"});
-        if (isLoggedIn.status !== 200){
-            this.$store.commit("updateUser", {loggedIn: false, loggedInUserId: "", loggedInUser: ""});
-        } else {
-            const user = await isLoggedIn.json();
-            this.$store.commit("updateUser", {loggedIn: true, loggedInUserId: user.id, loggedInUser: user.name});
-        }
+        try {
+            const isLoggedIn = await fetch(`http://localhost:3400/users/loggedIn/`, {credentials: "include"});
+            if (isLoggedIn.status !== 200){
+                this.$store.commit("updateUser", {loggedIn: false, loggedInUserId: "", loggedInUser: ""});
+            } else {
+                const user = await isLoggedIn.json();
+                this.$store.commit("updateUser", {loggedIn: true, loggedInUserId: user.id, loggedInUser: user.name});
+            }
 
-        const res = await fetch("http://localhost:3400/posts/");
-        this.posts = await res.json();
+            const res = await fetch("http://localhost:3400/posts/");
+            this.posts = await res.json();
+        } catch (error){
+            console.log(error);
+        }
     },
 }
 </script>

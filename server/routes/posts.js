@@ -3,10 +3,10 @@ const route = express.Router();
 
 const models = require("../models/DBModels");
 
-const createDomPurify = require("dompurify");
-const {JSDOM} = require("jsdom");
-const window = (new JSDOM("")).window;
-const DOMPurify = createDomPurify(window);
+// const createDomPurify = require("dompurify");
+// const {JSDOM} = require("jsdom");
+// const window = (new JSDOM("")).window;
+// const DOMPurify = createDomPurify(window);
 
 
 route.get("/", (req, res) => {
@@ -15,6 +15,7 @@ route.get("/", (req, res) => {
         hidden: false
     }, (error, data) => {
         if (error) return res.status(500).end();
+        if (!data) return res.status(404).end();
 
         return res.status(200).json(data);
     });
@@ -22,7 +23,7 @@ route.get("/", (req, res) => {
 
 route.get("/:id", (req, res) => {
     models.Post.findById(req.params.id, (error, post) => {
-        if (error) return res.status(404).end();
+        if (error || !post) return res.status(404).end();
 
         // Whether the requester is allowed to view this page
         if (post.draft || post.hidden){
@@ -38,6 +39,7 @@ route.get("/:id", (req, res) => {
 route.get("/user/:id", (req, res) => {
     const callback = (error, data) => {
         if (error) return res.status(500).end();
+        if (!data) return res.status(404).end();
 
         return res.status(200).json(data);
     };
@@ -58,9 +60,9 @@ function checkLoggedIn(req, res, next){
 route.post("/", checkLoggedIn, (req, res) => {
     const newArticle = new models.Post({
         author: req.session.userId,
-        title: cleanHTML(req.headers.title),
-        description: cleanHTML(req.headers.description),
-        content: cleanHTML(req.headers.content),
+        title: req.headers.title,
+        description: req.headers.description,
+        content: req.headers.content,
         draft: req.headers.draft,
         hidden: req.headers.hidden,
     });
@@ -74,9 +76,9 @@ route.post("/", checkLoggedIn, (req, res) => {
 route.put("/:id", checkLoggedIn, (req, res) => {
     // Things that are to be updates, checks if they were included in HTTP header to be updated
     const toBeUpdated = {updateDate: Date.now()};
-    if (req.headers.title) toBeUpdated.title = cleanHTML(req.headers.title);
-    if (req.headers.description) toBeUpdated.description = cleanHTML(req.headers.description);
-    if (req.headers.content) toBeUpdated.content = cleanHTML(req.headers.content);
+    if (req.headers.title) toBeUpdated.title = req.headers.title;
+    if (req.headers.description) toBeUpdated.description = req.headers.description;
+    if (req.headers.content) toBeUpdated.content = req.headers.content;
     if (req.headers.hidden) toBeUpdated.hidden = req.headers.hidden;
     if (req.headers.draft) toBeUpdated.draft = req.headers.draft;
 
@@ -121,10 +123,10 @@ route.put("/like/:id", (req, res) => {
 // });
 
 // Util
-function cleanHTML(content){
-    if (content === null || content === undefined) return "";
+// function cleanHTML(content){
+//     if (content === null || content === undefined) return "";
 
-    return DOMPurify.sanitize(content);
-}
+//     return DOMPurify.sanitize(content);
+// }
 
 module.exports = route;

@@ -30,13 +30,14 @@
                         <!-- TODO fix svg onclick -->
                         <div @click.prevent="clickedIcon"><Icon class="mt-1 ml-2" :draft="post.draft" :hidden="post.hidden" :editable="loggedIn" /></div>
                     </div>
-                    <p class="text-gray-500 text-base">{{post.description}}</p>
+                    <p class="text-gray-700 text-base" v-if="!individualPage">{{post.description}}</p>
+                    <p class="text-gray-700 text-base" v-else v-html="post.content">Here is the content</p>
                 </div>
                 <div class="flex items-center">
                     <img class="w-10 h-10 rounded-full mr-4" @click.prevent="toAuthor" src="@/assets/svg/user.svg" alt="Profile picture">
                     <div class="text-sm">
                         <p v-if="author" class="text-gray-900 leading-none"><a href="" @click.prevent="toAuthor">{{author.name}}</a></p>
-                        <p class="text-gray-600">{{date.toLocaleDateString()}}</p>
+                        <p class="text-gray-600">{{date.toLocaleDateString("en-au")}}</p>
                     </div>
                 </div>
             </div>
@@ -70,7 +71,7 @@ export default {
             this.$router.replace(`/blogger/${this.author._id}`);
         },
         like: function (){
-            fetch(`http://localhost:3400/posts/like/${this.post._id}`, { method: "PUT"});
+            try {fetch(`http://localhost:3400/posts/like/${this.post._id}`, { method: "PUT"});} catch(error) {return console.log(error);}
             // Client side rendering
             if (!this.post.likes)
                 this.post.likes = 0
