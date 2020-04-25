@@ -7,7 +7,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
     state: {
-        title: "Project Blog",
+        title: "Rami's",
         loggedIn: false,
         loggedInUserId: "",
         loggedInUser: "",

@@ -25,7 +25,8 @@
         <!-- <svg class="fill-current h-8 w-8 mr-2" width="54" height="54" viewBox="0 0 54 54" xmlns="http://www.w3.org/2000/svg"><path d="M13.5 22.1c1.8-7.2 6.3-10.8 13.5-10.8 10.8 0 12.15 8.1 17.55 9.45 3.6.9 6.75-.45 9.45-4.05-1.8 7.2-6.3 10.8-13.5 10.8-10.8 0-12.15-8.1-17.55-9.45-3.6-.9-6.75.45-9.45 4.05zM0 38.3c1.8-7.2 6.3-10.8 13.5-10.8 10.8 0 12.15 8.1 17.55 9.45 3.6.9 6.75-.45 9.45-4.05-1.8 7.2-6.3 10.8-13.5 10.8-10.8 0-12.15-8.1-17.55-9.45-3.6-.9-6.75.45-9.45 4.05z"/></svg> -->
         <!-- TODO Make an actual logo -->
         <!-- TODO Make the logo glow on hover -->
-        <img src="@/assets/logo.png" alt=".png" class="fill-current h-8 w-8 mr-2" width="54" height="54" viewBox="0 0 54 54" />
+        <!-- <img src="@/assets/logo.png" alt=".png" class="fill-current h-8 w-8 mr-2" width="54" height="54" viewBox="0 0 54 54" /> -->
+        <Icon :logo="true" />
         <span class="font-semibold text-2xl tracking-tight"><router-link to="/">{{this.$store.state.title}}</router-link></span>
     </div>
     <div class="w-full block flex-grow sm:flex sm:flex-row-reverse sm:flex-grow-0 sm:items-center sm:w-auto">
@@ -36,29 +37,35 @@
             <a v-if="loggedIn" @click.prevent="goToAccount" href="" class="block mt-4 lg:inline-block lg:mt-0 text-gray-700 hover:text-blue-500 mr-4 font-bold">
                 {{this.$store.state.loggedInUser || "Account"}}
             </a>
-            <router-link v-if="!loggedIn" to="/posts/" class="block text-gray-700 mt-4 lg:inline-block lg:mt-0 hover:text-blue-500 mr-4 font-bold">
+            <!-- TODO implement a page that shows all posts -->
+            <!-- <router-link v-if="!loggedIn" to="/posts/" class="block text-gray-700 mt-4 lg:inline-block lg:mt-0 hover:text-blue-500 mr-4 font-bold">
                 Posts
-            </router-link>
+            </router-link> -->
             <router-link v-if="loggedIn" to="/blogger/create/" class="block text-gray-700 mt-4 lg:inline-block lg:mt-0 hover:text-blue-500 mr-4 font-bold">
                 Create
             </router-link>
-            <router-link to="/about/" class="block mt-4 lg:inline-block lg:mt-0 text-gray-700 hover:text-blue-500 font-bold mr-4">
+            <!-- TODO implement an about page -->
+            <!-- <router-link to="/about/" class="block mt-4 lg:inline-block lg:mt-0 text-gray-700 hover:text-blue-500 font-bold mr-4">
                 About        
-            </router-link>
+            </router-link> -->
             <router-link v-if="loggedIn" to="/blogger/logout/" class="block mt-4 lg:inline-block lg:mt-0 text-gray-700 hover:text-blue-500 mr-4 font-bold">
                 Logout
             </router-link>
-            <router-link v-if="!loggedIn" to="/blogger/login/" class="block mt-4 lg:inline-block lg:mt-0 text-gray-700 hover:text-blue-500 mr-4 font-bold">
+            <!-- <router-link v-if="!loggedIn" to="/blogger/login/" class="block mt-4 lg:inline-block lg:mt-0 text-gray-700 hover:text-blue-500 mr-4 font-bold">
                 Login
-            </router-link>
+            </router-link> -->
         </div>
     </div>
 </nav>
 </template>
 
 <script>
+import Icon from "@/components/Icon.vue";
 
 export default {
+    components: {
+        Icon,
+    },
     computed: {
         loggedIn: function (){
             return this.$store.state.loggedIn;
