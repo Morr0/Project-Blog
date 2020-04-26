@@ -41,7 +41,7 @@ app.use(parser.text({
 }));
 
 app.use(cors({
-    origin: "http://localhost:8080",
+    origin: "http://52.220.43.137:80",
     credentials: true,
 }));
 
