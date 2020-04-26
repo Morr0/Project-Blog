@@ -1,1 +1,1 @@
-GET http://localhost:3400/posts/5e75ab0d8635920ee0734bdd
+GET api/posts/5e75ab0d8635920ee0734bdd

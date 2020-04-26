@@ -47,7 +47,7 @@ export default {
             this.$router.replace(`/blogger/${this.author._id}`);
         },
         like: function (){
-            try {fetch(`http://localhost:3400/posts/like/${this.post._id}`, { method: "PUT"});} catch(error) {return console.log(error);}
+            try {fetch(`${this.$store.state.backend}/posts/like/${this.post._id}`, { method: "PUT"});} catch(error) {return console.log(error);}
             // Client side rendering
             if (!this.post.likes)
                 this.post.likes = 0
@@ -69,7 +69,7 @@ export default {
         document.date = this.date;
 
         try {
-            const res = await fetch(`http://localhost:3400/users/${this.post.author}`);
+            const res = await fetch(`${this.$store.state.backend}/users/${this.post.author}`);
             if (res.status === 200){
                 this.author = await res.json();
             }

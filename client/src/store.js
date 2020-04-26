@@ -3,6 +3,10 @@ import Vuex from "vuex";
 
 import persistOnRefresh from "vuex-persistedstate";
 
+const {
+    BACKEND = "http://52.220.43.137:3400",
+} = process.env;
+
 Vue.use(Vuex);
 
 export default new Vuex.Store({
@@ -11,6 +15,8 @@ export default new Vuex.Store({
         loggedIn: false,
         loggedInUserId: "",
         loggedInUser: "",
+
+        backend: BACKEND,
     },
     mutations: {
         updateUser(state, data){

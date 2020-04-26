@@ -27,7 +27,7 @@ export default {
     },
     async created(){
         try {
-            const res = await fetch(`http://localhost:3400/posts/${this.id}`, {credentials: "include"});
+            const res = await fetch(`${this.$store.state.backend}/posts/${this.id}`, {credentials: "include"});
             if (res.status !== 200) return this.$router.replace("/");
 
             this.post = await res.json();

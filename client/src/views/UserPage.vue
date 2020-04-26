@@ -35,7 +35,7 @@ export default {
     },
     async created(){
         try {
-            const res = await fetch(`http://localhost:3400/users/${this.id}`);
+            const res = await fetch(`${this.$store.state.backend}/users/${this.id}`);
             if (res.status !== 200) return this.$router.replace("/");
             else {
                 this.user = await res.json();
@@ -48,7 +48,7 @@ export default {
     },
     async mounted(){
         try {
-            const res = await fetch(`http://localhost:3400/posts/user/${this.id}`, {credentials: "include"});
+            const res = await fetch(`${this.$store.state.backend}/posts/user/${this.id}`, {credentials: "include"});
 
             if (res.status === 200){
                 this.posts = await res.json();

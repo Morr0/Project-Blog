@@ -26,7 +26,7 @@ export default {
     },
     async created(){
         try {
-            const isLoggedIn = await fetch(`http://localhost:3400/users/loggedIn/`, {credentials: "include"});
+            const isLoggedIn = await fetch(`${this.$store.state.backend}/users/loggedIn/`, {credentials: "include"});
             if (isLoggedIn.status !== 200){
                 this.$store.commit("updateUser", {loggedIn: false, loggedInUserId: "", loggedInUser: ""});
             } else {
@@ -34,7 +34,7 @@ export default {
                 this.$store.commit("updateUser", {loggedIn: true, loggedInUserId: user.id, loggedInUser: user.name});
             }
 
-            const res = await fetch("http://localhost:3400/posts/");
+            const res = await fetch("${this.$store.state.backend}/posts/");
             this.posts = await res.json();
         } catch (error){
             console.log(error);

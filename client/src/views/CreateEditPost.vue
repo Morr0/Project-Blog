@@ -88,7 +88,7 @@ export default {
     async mounted(){
         try {
             if (this.id){
-            const res = await fetch(`http://localhost:3400/posts/${this.id}`, {credentials: "include"});
+            const res = await fetch(`${this.$store.state.backend}/posts/${this.id}`, {credentials: "include"});
             if (!res.ok) return this.$router.replace("/");
 
             const post = await res.json();
@@ -119,7 +119,7 @@ export default {
             if (!this.id){
                 try {
                     console.log("Sending");
-                    const res = await fetch("http://localhost:3400/posts/", {
+                    const res = await fetch("${this.$store.state.backend}/posts/", {
                     method: "POST",
                     headers: {
                         author: this.$store.state.loggedInUserId,
@@ -144,7 +144,7 @@ export default {
             // Editing an existing one
             } else {
                 try {
-                    const res = await fetch(`http://localhost:3400/posts/${this.id}`, {
+                    const res = await fetch(`${this.$store.state.backend}/posts/${this.id}`, {
                     method: "PUT",
                     headers: {
                         author: this.$store.state.loggedInUserId,
@@ -173,7 +173,7 @@ export default {
 
             if (this.id) {
                 try {
-                    const res = await fetch(`http://localhost:3400/posts/${this.id}`, {
+                    const res = await fetch(`${this.$store.state.backend}/posts/${this.id}`, {
                     method: "DELETE",
                     credentials: "include",
                     });
