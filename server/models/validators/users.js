@@ -5,12 +5,12 @@ const nameValidators = [
         validator: "isLength",
         arguments: [2, 32],
         passIfEmpty: false,
-
     }),
-    validate({
-        validator: "isAlphanumeric",
-        passIfEmpty: false
-    })
+    // To allow for space
+    // validate({
+    //     validator: "isAlphanumeric",
+    //     passIfEmpty: false,
+    // }),
 ];
 
 const emailValidators = [

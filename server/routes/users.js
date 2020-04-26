@@ -56,11 +56,8 @@ route.post("/register", checkLoggedIn, (req, res) => {
                     });
 
                     user.save((error) => {
-                        if (error){
-                            if ("name" in error) return res.status(400).json(error);
-
-                            return res.status(500).json(error);
-                        }
+                        console.log(error);
+                        if (error) return res.status(500).json(error);
 
                         return res.status(201).end();
                     });
