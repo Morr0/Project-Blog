@@ -34,7 +34,7 @@ export default {
                 this.$store.commit("updateUser", {loggedIn: true, loggedInUserId: user.id, loggedInUser: user.name});
             }
 
-            const res = await fetch("${this.$store.state.backend}/posts/");
+            const res = await fetch(`${this.$store.state.backend}/posts/`);
             this.posts = await res.json();
         } catch (error){
             console.log(error);

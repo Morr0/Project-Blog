@@ -78,12 +78,12 @@ export default {
     async created(){
         if (this.$store.state.loggedIn) return this.$router.replace("/");
 
-        if ((await fetch("${this.$store.state.backend}/users/allowedToRegister/", 
+        if ((await fetch(`${this.$store.state.backend}/users/allowedToRegister/`, 
         {credentials: "include"})).status !== 200) return this.$router.replace("/");
     },
     methods: {
         register: function(event) {
-            fetch("${this.$store.state.backend}/users/register/", {
+            fetch(`${this.$store.state.backend}/users/register/`, {
                 method: "POST",
                 headers: {
                     "name": this.name,

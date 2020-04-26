@@ -68,7 +68,7 @@ export default {
   methods: {
       login: async function(event) {
         try {
-            const res = await fetch("${this.$store.state.backend}/users/login/", {
+            const res = await fetch(`${this.$store.state.backend}/users/login/`, {
                 method: "POST",
                 headers: {
                     email: this.email,

@@ -119,7 +119,7 @@ export default {
             if (!this.id){
                 try {
                     console.log("Sending");
-                    const res = await fetch("${this.$store.state.backend}/posts/", {
+                    const res = await fetch(`${this.$store.state.backend}/posts/`, {
                     method: "POST",
                     headers: {
                         author: this.$store.state.loggedInUserId,
