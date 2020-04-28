@@ -114,11 +114,9 @@ export default {
     methods: {
         // This treats both a new post and editting one
         edit: async function (){
-            console.log(this.content);
             // Creating a new post
             if (!this.id){
                 try {
-                    console.log("Sending");
                     const res = await fetch(`${this.$store.state.backend}/posts/`, {
                     method: "POST",
                     headers: {
@@ -136,7 +134,6 @@ export default {
                     });
 
                     if (res.status !== 200) return alert("Failed to post");
-                    console.log("Posted");
 
                     // Set id so it can be used for redirection
                     this.id = await res.json();
