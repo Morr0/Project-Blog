@@ -3,13 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve",
+    "serve": "vue-cli-service serve --mode development",
+    "serveProd": "vue-cli-service serve --mode production",
     "build": " vue-cli-service build"
   },
   "dependencies": {
     "autoprefixer": "^9.7.6",
     "core-js": "^3.6.4",
-    "dotenv": "^8.2.0",
     "showdown": "^1.9.1",
     "tailwindcss": "^1.2.0",
     "vue": "^2.6.11",

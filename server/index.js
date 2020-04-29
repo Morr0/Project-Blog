@@ -20,16 +20,18 @@ require("dotenv").config();
 const app = express();
 // Constants
 const {
-    ENV = "development",
+    NODE_ENV = "development",
     PORT = 3400,
     SESSION_LIFE = 300000, // 5 mins
     DB_URL,
     SECRET_KEY = "test"
 } = process.env;
 
+console.log(NODE_ENV);
+
 // To facilitate production ip from development ip
-ORIGIN = "http://localhost:8080";
-if (ENV !== "development") ORIGIN = process.env.origin;
+let ORIGIN = "http://localhost:8080";
+if (NODE_ENV === "production") ORIGIN = process.env.origin;
 
 console.log(`CORS: ${ORIGIN}`);
 

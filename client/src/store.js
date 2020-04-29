@@ -4,9 +4,11 @@ import Vuex from "vuex";
 import persistOnRefresh from "vuex-persistedstate";
 
 const {
-    // TODO make it read dev/prod environments based on dotenv
-    // BACKEND = "http://52.220.43.137:3400",
+    NODE_ENV = "development",
 } = process.env;
+
+let VUE_APP_BACKEND = "http://localhost:3400";
+if (NODE_ENV === "production") VUE_APP_BACKEND = process.env.VUE_APP_BACKEND;
 
 Vue.use(Vuex);
 
@@ -17,7 +19,7 @@ export default new Vuex.Store({
         loggedInUserId: "",
         loggedInUser: "",
 
-        backend: "http://localhost:3400",
+        backend: VUE_APP_BACKEND,
     },
     mutations: {
         updateUser(state, data){
