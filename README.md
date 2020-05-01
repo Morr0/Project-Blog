@@ -2,7 +2,7 @@
 
 ## 1.1 Targets:
     - Basic CI/CD system (dev branch, master branch -> stable versions) [X]
-    - Convert the client to server-side rendered (Nuxt.js) []
+    - Convert the client to server-side rendered (Nuxt.js) [X]
     - Ability to edit text labels by clicking on them and popup edit comes out []
     - Rate limit login based on IP for x amount in y minutes []
     - Like posts []

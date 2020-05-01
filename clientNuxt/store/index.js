@@ -1,8 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
 
-import persistOnRefresh from "vuex-persistedstate";
-
 const {
     NODE_ENV = "development",
 } = process.env;
