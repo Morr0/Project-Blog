@@ -113,6 +113,18 @@ route.get("/:userId", (req, res) => {
             return res.status(200).json(data);
         }
     });
-})
+});
+
+// route.put("/:userId", checkLoggedIn, (req, res) => {
+//     console.log("Called");
+//     if (req.session.userId !== req.params.userId) return res.status(401).end();
+
+//     console.log("PAST HERE");
+//     models.User.findByIdAndUpdate(req.params.userId, req.body.user, (error, data) => {
+//         if (error) return res.status(500).end();
+
+//         return res.status(200).json(data);
+//     });
+// });
 
 module.exports = route;
