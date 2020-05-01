@@ -30,7 +30,7 @@ const {
 console.log(NODE_ENV);
 
 // To facilitate production ip from development ip
-let ORIGIN = "http://localhost:8080";
+let ORIGIN = "http://localhost:3000";
 if (NODE_ENV === "production") ORIGIN = process.env.origin;
 
 console.log(`CORS: ${ORIGIN}`);

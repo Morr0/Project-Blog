@@ -11,9 +11,11 @@
     "generate": "nuxt generate"
   },
   "dependencies": {
-    "nuxt": "^2.0.0",
+    "@nuxtjs/dotenv": "^1.4.0",
     "@nuxtjs/pwa": "^3.0.0-0",
-    "@nuxtjs/dotenv": "^1.4.0"
+    "nuxt": "^2.0.0",
+    "showdown": "^1.9.1",
+    "vuex-persistedstate": "^3.0.1"
   },
   "devDependencies": {
     "@nuxtjs/tailwindcss": "^1.0.0"
