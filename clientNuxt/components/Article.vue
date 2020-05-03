@@ -9,7 +9,7 @@
                         <nuxt-link class="hover:text-blue-500" :to="`/post/${post._id}`">{{post.title}}</nuxt-link>
                         <div @click.prevent="clickedIcon"><Icon class="mt-1 ml-2" :draft="post.draft" :hidden="post.hidden" :editable="loggedIn" /></div>
                     </div>
-                    <p class="text-gray-700 text-base" v-if="!individualPage">{{post.description}}</p>
+                    <p class="text-gray-700 text-base" v-if="!individualPage" v-html="post.description"></p>
                     <p class="text-gray-700 text-base" v-else v-html="post.content">Here is the content</p>
                 </div>
                 <div class="flex items-center">

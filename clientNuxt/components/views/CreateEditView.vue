@@ -1,4 +1,3 @@
-<!-- 
 <template>
     <div class="w-full">
         <div class="flex flex-wrap -mx-1 sm:-mx-1 md:-mx-1 lg:-mx-1 xl:-mx-1">
@@ -68,7 +67,8 @@
 
 <script>
 const showdown = require("showdown");
-const converter = new showdown.Converter();
+const converter = new showdown.Converter({openLinksInNewWindow: true});
+converter.setFlavor("github");
 
 export default {
     data: function (){
@@ -188,23 +188,9 @@ export default {
         },
         // Md change
         mdChanged: function (){
-            this.content = converter.makeHtml(this.mdContent);
+            this.content = converter.makeHtml(`${this.mdContent}`);
+            console.log(this.content);
         }
-    }
-}
-</script>
--->
-
-<template>
-    <CreateEditView />
-</template>
-
-<script>
-import CreateEditView from "@/components/views/CreateEditView.vue";
-
-export default {
-    components: {
-        CreateEditView,
     }
 }
 </script>
