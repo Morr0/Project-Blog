@@ -63,7 +63,7 @@ export default {
       };
   },
   async created(){
-      if (this.$store.state.loggedIn) return this.$router.replace("/");
+      if (this.$store.state.sessionStorage.loggedIn) return this.$router.replace("/");
   },
   methods: {
       login: async function(event) {

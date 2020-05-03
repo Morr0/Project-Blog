@@ -76,7 +76,7 @@ export default {
         };
     },
     async created(){
-        if (this.$store.state.loggedIn) return this.$router.replace("/");
+        if (this.$store.state.sessionStorage.loggedIn) return this.$router.replace("/");
 
         if ((await fetch(`${this.$store.state.backend}/users/allowedToRegister/`, 
         {credentials: "include"})).status !== 200) return this.$router.replace("/");

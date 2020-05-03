@@ -34,17 +34,17 @@ Vue.use(Vuex);
 
 export const state = () => ({
     title: "Rami's",
-    loggedIn: false,
-    loggedInUserId: "",
-    loggedInUser: "",
+    // loggedIn: false,
+    // loggedInUserId: "",
+    // loggedInUser: "",
 
     backend: VUE_APP_BACKEND,
 });
 
 export const mutations = {
     updateUser(state, data){
-        state.loggedIn = data.loggedIn;
-        state.loggedInUserId = data.loggedInUserId;
-        state.loggedInUser = data.loggedInUser;
+        state.sessionStorage.loggedIn = data.loggedIn;
+        state.sessionStorage.loggedInUserId = data.loggedInUserId;
+        state.sessionStorage.loggedInUser = data.loggedInUser;
     }
 };

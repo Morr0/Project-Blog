@@ -39,7 +39,7 @@ export default {
     },
     computed: {
         loggedIn: function (){
-            return (this.post.author === this.$store.state.loggedInUserId);
+            return (this.post.author === this.$store.state.sessionStorage.loggedInUserId);
         },
     },
     methods: {
@@ -54,11 +54,10 @@ export default {
             this.post.likes++;
         },
         clickedIcon: function (){
-            if (this.$store.state.loggedInUserId === this.post.author) return this.$router.replace(this.loggedInEditPath);
+            if (this.$store.state.sessionStorage.loggedInUserId === this.post.author) return this.$router.replace(this.loggedInEditPath);
         }
     },data: function(){
         return {
-        //   loggedIn: this.$store.state.loggedIn,
             loggedInEditPath: `/blogger/edit/${this.post._id}`,
             author: undefined,
             date: new Date(),

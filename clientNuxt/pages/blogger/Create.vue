@@ -83,7 +83,7 @@ export default {
     },
     async created(){
         // Kick out if not logged in
-        if (!this.$store.state.loggedIn) return this.$router.replace("/");
+        if (!this.$store.state.sessionStorage.loggedIn) return this.$router.replace("/");
     },
     async mounted(){
         try {
@@ -99,7 +99,7 @@ export default {
                 this.draft = post.draft;
                 this.hidden = post.hidden;
 
-                if (post.author !== this.$store.state.loggedInUserId) return this.$router.replace("/");
+                if (post.author !== this.$store.state.sessionStorage.loggedInUserId) return this.$router.replace("/");
                 // Make md from html
                 this.mdContent = converter.makeMd(this.content);
             } else {
@@ -120,7 +120,7 @@ export default {
                     const res = await fetch(`${this.$store.state.backend}/posts/`, {
                     method: "POST",
                     headers: {
-                        author: this.$store.state.loggedInUserId,
+                        author: this.$store.state.sessionStorage.loggedInUserId,
                         title: this.title,
                         description: this.description,
                         // content: this.content,
@@ -144,7 +144,7 @@ export default {
                     const res = await fetch(`${this.$store.state.backend}/posts/${this.id}`, {
                     method: "PUT",
                     headers: {
-                        author: this.$store.state.loggedInUserId,
+                        author: this.$store.state.sessionStorage.loggedInUserId,
                         title: this.title,
                         description: this.description,
                         // content: this.content,

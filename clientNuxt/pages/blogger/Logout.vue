@@ -11,7 +11,7 @@ export default {
             this.$store.commit("updateUser", {loggedIn: false, loggedInUserId: "", loggedInUser: ""});
         }
 
-        if (!this.$store.state.loggedIn) return this.$router.replace("/");
+        if (!this.$store.state.sessionStorage.loggedIn) return this.$router.replace("/");
 
         const res = await fetch(`${this.$store.state.backend}/users/logout`, {method: "POST", credentials: "include"});
         if (res.status === 202){
@@ -22,7 +22,3 @@ export default {
     }
 }
 </script>
-
-<style>
-
-</style>

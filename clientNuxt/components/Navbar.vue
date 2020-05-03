@@ -35,7 +35,7 @@
                 Home
             </nuxt-link>
             <a v-if="loggedIn" @click.prevent="goToAccount" href="" class="block mt-4 lg:inline-block lg:mt-0 text-gray-700 hover:text-blue-500 mr-4 font-bold">
-                {{this.$store.state.loggedInUser || "Account"}}
+                {{this.$store.state.sessionStorage.loggedInUser || "Account"}}
             </a>
             <!-- TODO implement a page that shows all posts -->
             <!-- <nuxt-link v-if="!loggedIn" to="/posts/" class="block text-gray-700 mt-4 lg:inline-block lg:mt-0 hover:text-blue-500 mr-4 font-bold">
@@ -68,12 +68,12 @@ export default {
     },
     computed: {
         loggedIn: function (){
-            return this.$store.state.loggedIn;
+            return this.$store.state.sessionStorage.loggedIn;
         },
     },
     methods: {
         goToAccount: function (){
-            this.$router.replace(`/blogger/${this.$store.state.loggedInUserId}`);
+            this.$router.replace(`/blogger/${this.$store.state.sessionStorage.loggedInUserId}`);
         }
     }
 }
