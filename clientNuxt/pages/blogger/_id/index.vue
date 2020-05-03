@@ -7,8 +7,8 @@
                     <div v-if="user" class="flex flex-row mx-auto mb-8">
                         <img src="@/assets/svg/user.svg" class="w-32 h-32 border rounded-full"> 
                         <div class="flex flex-col ml-8">
-                            <h1 class="font-bold font-sans mb-1" @dblclick.prevent="openDialog(`name`)">{{this.user.name}}</h1>
-                            <div @dblclick.prevent="openDialog(`bio`)">
+                            <h1 class="font-bold font-sans mb-1">{{this.user.name}}</h1>
+                            <div>
                                 <span class="font-sans font-medium">
                                 {{this.user.bio || "Bio goes here"}}</span>
                             </div>
