@@ -6,7 +6,7 @@
     - Ability to use different font sizes and links with MD []
     - Ability to upload images/documents to cloud bucket (no preview mechanism on blog but to be viewed by opening link in newtab by first downloading it) []
     - Ability to render image from URL []
-    -Beautify the code block []
+    - Beautify the code block []
 
 ## 1.2 Targets:
     - Polish the UI []
@@ -22,5 +22,6 @@
     - Reference images from cloud bucket into posts []
 
 ## 1.4 Targets: 
-    - 
+    - Feedback system []
+    - Notification from feedback and potential futures []
     

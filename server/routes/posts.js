@@ -75,8 +75,7 @@ route.post("/", checkLoggedIn, (req, res) => {
 
 route.put("/:id", checkLoggedIn, (req, res) => {
     // Things that are to be updates, checks if they were included in HTTP header to be updated
-    // return console.log(req.headers.content);
-
+    
     const toBeUpdated = {updateDate: Date.now()};
     if (req.headers.title) toBeUpdated.title = req.headers.title;
     if (req.headers.description) toBeUpdated.description = req.headers.description;
@@ -102,33 +101,5 @@ route.delete("/:id", checkLoggedIn, (req, res) => {
         return res.status(200).end();
     });
 });
-
-// Like
-route.put("/like/:id", (req, res) => {
-    const update = {$inc: {likes: 1}};
-    models.Post.findByIdAndUpdate(req.params.id, update, (error) => {
-        if (error) return res.status(500).end();
-    }); 
-
-    return res.status(200).end();
-});
-
-// Share
-// Will ignore error as this is not a big deal
-// route.put("/share/:id", (req, res) => {
-//     console.log(`Sharing`);
-//     const update = {$inc: {shares: 1}};
-//     models.Post.findByIdAndUpdate(req.params.id, update, (error) => {
-//         if (error) console.log(error);
-//     });
-//     return res.end();
-// });
-
-// Util
-// function cleanHTML(content){
-//     if (content === null || content === undefined) return "";
-
-//     return DOMPurify.sanitize(content);
-// }
 
 module.exports = route;

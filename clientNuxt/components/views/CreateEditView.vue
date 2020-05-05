@@ -122,6 +122,9 @@ export default {
     methods: {
         // This treats both a new post and editting one
         edit: async function (){
+            // Converting to HTML
+            this.content = converter.makeHtml(`${this.mdContent}`);
+
             // Creating a new post
             if (!this.id){
                 try {
@@ -155,13 +158,12 @@ export default {
                         author: this.$store.state.sessionStorage.loggedInUserId,
                         title: this.title,
                         description: this.description,
-                        // content: this.content,
                         draft: this.draft,
                         hidden: this.hidden,
                         "Content-Type": "text/html",
                         "Accept": "text/html"
                     },
-                    body: this.content,
+                    body: JSON.stringify(this.content),
                     credentials: "include",
                     });
                     console.log("Here");
@@ -193,11 +195,6 @@ export default {
         cancel: function (){
             this.$router.replace("/");
         },
-        // Md change
-        mdChanged: function (){
-            this.content = converter.makeHtml(`${this.mdContent}`);
-            console.log(this.content);
-        }
     }
 }
 </script>

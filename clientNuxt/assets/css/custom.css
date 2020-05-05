@@ -1,0 +1,13 @@
+code {
+    margin: 2rem;
+
+    @apply bg-gray-800;
+    font-size: 12pt;
+    color: lightgray;
+
+    display: grid;
+    width: 90%;
+    padding: 1rem;
+    border: 0.25rem;
+    border-radius: 2%;
+}

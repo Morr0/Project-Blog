@@ -76,10 +76,3 @@ export default {
     }
 }
 </script>
-
-<style>
-    code {
-        @apply bg-gray-900; 
-        @apply text-orange-400;
-    }
-</style>
