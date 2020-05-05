@@ -1,7 +1,8 @@
 <template>
     <div class="w-full">
         <div class="flex flex-wrap -mx-1 sm:-mx-1 md:-mx-1 lg:-mx-1 xl:-mx-1">
-            <div class="my-1 px-1 w-1/2 sm:my-1 sm:px-1 sm:w-1/2 md:my-1 md:px-1 md:w-1/2 lg:my-1 lg:px-1 lg:w-1/2 xl:my-1 xl:px-1 xl:w-1/2">
+            <div class="my-1 px-1 sm:my-1 sm:px-1 sm:w-1/2 md:my-1 md:px-1 md:w-1/2 lg:my-1 lg:px-1 lg:w-1/2 xl:my-1 xl:px-1 xl:w-1/2"
+            style="width: 49%;">
                 <form @submit.prevent="edit">
                     <div class="mb-4 flex flex-row flex-grow">
                         <label class="block text-gray-700 text-sm font-bold mb-2 mr-2" for="title">
@@ -23,9 +24,9 @@
                         Content in MD (<a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet" 
                         class="hover:text-blue-700 mr-2" target="_blank">MD Cheatsheet</a>)
                         </label>
-                        <textarea v-model="mdContent" id="content" placeholder="Content" @input="mdChanged"
+                        <textarea v-model="mdContent" id="content" placeholder="Content" 
                         class="resize-y shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 h-auto
-                         leading-tight focus:outline-none focus:shadow-outline" />
+                         leading-tight focus:outline-none focus:shadow-outline h-56" />
                     </div>
 
                     <div class="flex flex-row">
@@ -57,20 +58,26 @@
                     
                 </form>
             </div>
-            <div class="my-1 px-1 w-1/2 sm:my-1 sm:px-1 sm:w-1/2 md:my-1 md:px-1 md:w-1/2 lg:my-1 lg:px-1 lg:w-1/2 xl:my-1 xl:px-1 xl:w-1/2
-                        bg-white">
-                <span v-html="content" class="h-full"></span>
+            <div class="my-1 px-1 sm:my-1 sm:px-1 sm:w-1/2 md:my-1 md:px-1 md:w-1/2 lg:my-1 lg:px-1 lg:w-1/2 xl:my-1 xl:px-1 xl:w-1/2
+                        bg-white" style="width: 49%;">
+                <!-- <span v-html="content" class="h-full"></span> -->
+                <VueShowdown :markdown="mdContent" tag="span" />
             </div>
         </div>
     </div>
 </template>
 
 <script>
+import {VueShowdown} from "vue-showdown";
+
 const showdown = require("showdown");
 const converter = new showdown.Converter({openLinksInNewWindow: true});
 converter.setFlavor("github");
 
 export default {
+    components: {
+        VueShowdown
+    },
     data: function (){
         return {
             id: this.$route.params.id,

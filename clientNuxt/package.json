@@ -16,7 +16,8 @@
     "js-cookie": "^2.2.1",
     "nuxt": "^2.0.0",
     "nuxt-vuex-localstorage": "^1.2.6",
-    "showdown": "^1.9.1"
+    "showdown": "^1.9.1",
+    "vue-showdown": "^2.4.1"
   },
   "devDependencies": {
     "@nuxtjs/tailwindcss": "^1.0.0"

@@ -19,4 +19,8 @@ export default {
     body {
         @apply bg-gray-100;
     }
+
+    a {
+        text-decoration: underline;
+    }
 </style>

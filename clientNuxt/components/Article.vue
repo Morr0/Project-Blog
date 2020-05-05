@@ -6,7 +6,7 @@
             min-w-full">
                 <div class="mb-8 content-center">
                     <div class="text-gray-900 font-bold text-xl mb-2 inline-flex flex-grow">
-                        <nuxt-link class="hover:text-blue-500" :to="`/post/${post._id}`">{{post.title}}</nuxt-link>
+                        <nuxt-link class="hover:text-blue-500" :to="`/post/${post._id}`" style="text-decoration: none;">{{post.title}}</nuxt-link>
                         <div @click.prevent="clickedIcon"><Icon class="mt-1 ml-2" :draft="post.draft" :hidden="post.hidden" :editable="loggedIn" /></div>
                     </div>
                     <p class="text-gray-700 text-base" v-if="!individualPage" v-html="post.description"></p>
