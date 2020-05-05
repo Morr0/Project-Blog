@@ -1,6 +1,5 @@
 <template>
   <div>
-      <!-- <style src="@/assets/css/custom.css"></style> -->
       <Navbar />
       <nuxt />
   </div>
