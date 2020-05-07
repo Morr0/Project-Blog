@@ -9,8 +9,8 @@
                         <nuxt-link class="hover:text-blue-500" :to="`/post/${post._id}`" style="text-decoration: none;">{{post.title}}</nuxt-link>
                         <div @click.prevent="clickedIcon"><Icon class="mt-1 ml-2" :draft="post.draft" :hidden="post.hidden" :editable="loggedIn" /></div>
                     </div>
-                    <p class="text-gray-700 text-base" v-if="!individualPage" v-html="post.description"></p>
-                    <p class="text-gray-700 text-base" v-else v-html="post.content">Here is the content</p>
+                    <p class="text-gray-700 text-base" v-if="!individualPage" v-html="post.description">Description goes here</p>
+                    <div class="text-gray-700 text-base" v-else v-html="post.content">Content goes here</div>
                 </div>
                 <div class="flex items-center">
                     <img class="w-10 h-10 rounded-full mr-4" @click.prevent="toAuthor" src="@/assets/svg/user.svg" alt="Profile picture">
@@ -76,3 +76,10 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+h1 {
+    @apply text-4xl;
+}
+
+</style>

@@ -18,7 +18,10 @@
                          leading-tight focus:outline-none focus:shadow-outline" />
                     </div>
 
-                    <vue-editor v-model="content"></vue-editor>
+                    
+                    <client-only>
+                        <vue-editor v-model="content"></vue-editor>
+                    </client-only>
 
                     <div class="flex flex-row">
                         <label class="md:w-2/3 block text-gray-500 font-bold">
@@ -65,7 +68,6 @@ export default {
             content: "",
             draft: true,
             hidden: false,
-            susu: ""
         };
     },
     async created(){
@@ -99,7 +101,7 @@ export default {
     methods: {
         // This treats both a new post and editting one
         edit: async function (){
-            console.log(this.susu);
+            console.log(this.dbContent);
             // Creating a new post
             if (!this.id){
                 try {
@@ -115,7 +117,7 @@ export default {
                         "Content-Type": "text/html",
                         "Accept": "text/html"
                     },
-                    body: JSON.stringify(this.content),
+                    body: this.content,
                     credentials: "include"
                     });
 
@@ -138,7 +140,7 @@ export default {
                         "Content-Type": "text/html",
                         "Accept": "text/html"
                     },
-                    body: JSON.stringify(this.content),
+                    body: this.content,
                     credentials: "include",
                     });
 

@@ -55,7 +55,6 @@ const post = new Schema({
     },
     content: {
         type: String,
-        default: ""
     },
     draft: {
         type: Boolean,
