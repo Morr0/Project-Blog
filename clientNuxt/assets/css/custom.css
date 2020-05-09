@@ -14,6 +14,10 @@ body {
     @apply text-gray-900;
 }
 
+.articleContent h3, h4, h5, h6, p, span, blockquote{
+    @apply text-lg;
+}
+
 .articleContent h1 {
     @apply text-2xl;
 }
@@ -21,9 +25,14 @@ body {
 .articleContent h2  {
     @apply text-xl;
 }
- 
-.articleContent h3, h4, h5, h6, p{
-    @apply text-lg;
+
+.articleContent a {
+    @apply text-gray-600;
+    text-decoration: wavy;
+}
+
+.articleContent a:hover {
+    @apply text-blue-500;
 }
 
 .articleImg {
@@ -33,3 +42,22 @@ body {
 .articleAuthor {
     text-decoration: none;
 }
+
+.articleContent blockquote {
+    display: inline;
+    @apply bg-gray-200;
+    font-style: oblique;
+}
+
+/* Copied from quill/dist/quill.snow.css */
+.articleContent pre.ql-syntax {
+    border: 1px;
+    border-radius: 1%;
+    @apply p-1;
+    background-color: #23241f;
+    color: #f8f8f2;
+    overflow: visible;
+
+}
+
+/* TODO add tabs and lists styling */

@@ -20,7 +20,7 @@
 
                     
                     <client-only>
-                        <vue-editor v-model="content"></vue-editor>
+                        <vue-editor class="articleContent" v-model="content"></vue-editor>
                     </client-only>
 
                     <div class="flex flex-row">
