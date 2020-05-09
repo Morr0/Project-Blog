@@ -12,8 +12,10 @@
             <path d="M5.525 7.646a2.5 2.5 0 002.829 2.829l-2.83-2.829zm4.95.708l-2.829-2.83a2.5 2.5 0 012.829 2.829z"/>
             <path fill-rule="evenodd" d="M13.646 14.354l-12-12 .708-.708 12 12-.708.708z" clip-rule="evenodd"/>
         </svg>
-        <img v-if="logo" src="@/assets/svg/logolg.svg"  alt=".png" class="fill-current h-auto w-8 mr-2" width="64" height="64" 
-        viewBox="0 0 54 54" :title="$store.state.title">
+        <img v-if="logo" src="@/assets/svg/logolg.svg"  alt="Rami Hikmat's Logo" class="logo fill-current h-auto w-12 mr-2" width="80" height="80" 
+        viewBox="0 0 54 54" :title="$store.state.title" />
+        <img v-if="githubLogo" src="@/assets/svg/Github-Mark.svg" width="50" height="50" alt="Github.com" 
+        class="fill-current h-auto w-10 mr-2 github" />
     </div>
 </template>
 
@@ -26,6 +28,7 @@ export default {
         hidden: false,
         editable: false,
         logo: false,
+        githubLogo: false,
         // true -> inside a container, else it is the full icon
         embedded: true,
     },
