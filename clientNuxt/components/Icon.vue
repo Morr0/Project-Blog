@@ -15,7 +15,7 @@
         <img v-if="logo" src="@/assets/svg/logolg.svg"  alt="Rami Hikmat's Logo" class="logo fill-current h-auto w-12 mr-2" width="80" height="80" 
         viewBox="0 0 54 54" :title="$store.state.title" />
         <a href="https://github.com/Morr0" target="_blank">
-            <img v-if="githubLogo" src="@/assets/svg/Github-Mark.svg" width="50" height="50" alt="Github.com" 
+            <img v-if="githubLogo" src="@/assets/svg/GitHub-Mark.svg" width="50" height="50" alt="Github.com" 
             class="fill-current h-auto w-10 mr-2 github" />
         </a>
     </div>
