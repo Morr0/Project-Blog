@@ -58,6 +58,7 @@ app.use(session({
     secret: SECRET_KEY,
     resave: true,
     saveUninitialized: false,
+    rolling: true, // Keep session aging from last request
     cookie: {
         secure: "auto",
         httpOnly: true,

@@ -20,7 +20,7 @@
 
                     
                     <client-only>
-                        <vue-editor class="articleContent" v-model="content"></vue-editor>
+                        <vue-editor ref="editor" class="articleContent" v-model="content"></vue-editor>
                     </client-only>
 
                     <div class="flex flex-row">
@@ -97,6 +97,8 @@ export default {
             console.log(error);
             return this.$router.replace("/");
         }
+
+        document.editor = this.$refs.editor;
     },
     methods: {
         // This treats both a new post and editting one

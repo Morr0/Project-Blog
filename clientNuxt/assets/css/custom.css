@@ -1,12 +1,19 @@
 body {
     /* font-family: cursive; 8/10 */
     font-family:  'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; /*9/10*/ 
+
+    max-width: 100vw;
+    max-height: 100vh; 
 }
 
 .articleTitle {
     text-decoration: none;
     
     @apply text-3xl;
+}
+
+.articleDescription {
+    word-wrap: break-word;
 }
 
 .articleContent {
@@ -58,6 +65,26 @@ body {
     color: #f8f8f2;
     overflow: visible;
 
+}
+
+.articleContent img {
+    /* width: 100%;
+    height: fit-content;
+    object-fit: scale-down; */
+    /* object-position: center; */
+    
+}
+
+.articleContent iframe {
+    width: 100%;
+    height: 100%;
+    
+    /* padding-bottom: 56.25%; */
+    /* height: 400px; */
+    /* object-fit: scale-down;
+    image-rendering: pixelated;
+    border: none; */
+    
 }
 
 /* TODO add tabs and lists styling */
