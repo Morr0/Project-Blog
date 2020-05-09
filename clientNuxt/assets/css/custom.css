@@ -1,0 +1,35 @@
+body {
+    /* font-family: cursive; 8/10 */
+    font-family:  'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; /*9/10*/ 
+}
+
+.articleTitle {
+    text-decoration: none;
+    
+    @apply text-3xl;
+}
+
+.articleContent {
+    @apply p-3;
+    @apply text-gray-900;
+}
+
+.articleContent h1 {
+    @apply text-2xl;
+}
+
+.articleContent h2  {
+    @apply text-xl;
+}
+ 
+.articleContent h3, h4, h5, h6, p{
+    @apply text-lg;
+}
+
+.articleImg {
+    cursor: pointer;
+}
+
+.articleAuthor {
+    text-decoration: none;
+}

@@ -6,16 +6,17 @@
             min-w-full">
                 <div class="mb-8 content-center">
                     <div class="text-gray-900 font-bold text-xl mb-2 inline-flex flex-grow">
-                        <nuxt-link class="hover:text-blue-500" :to="`/post/${post._id}`" style="text-decoration: none;">{{post.title}}</nuxt-link>
+                        <nuxt-link class="hover:text-blue-500 articleTitle" :to="`/post/${post._id}`">{{post.title}}</nuxt-link>
                         <div @click.prevent="clickedIcon"><Icon class="mt-1 ml-2" :draft="post.draft" :hidden="post.hidden" :editable="loggedIn" /></div>
                     </div>
                     <p class="text-gray-700 text-base" v-if="!individualPage" v-html="post.description">Description goes here</p>
-                    <div class="text-gray-700 text-base" v-else v-html="post.content">Content goes here</div>
+                    <div class="text-gray-700 articleContent" v-else v-html="post.content">Content goes here</div>
                 </div>
                 <div class="flex items-center">
-                    <img class="w-10 h-10 rounded-full mr-4" @click.prevent="toAuthor" src="@/assets/svg/user.svg" alt="Profile picture">
+                    <img class="w-10 h-10 rounded-full mr-4 articleImg" @click.prevent="toAuthor" src="@/assets/svg/user.svg" alt="Profile picture">
                     <div class="text-sm">
-                        <p v-if="author" class="text-gray-900 leading-none"><a href="" @click.prevent="toAuthor">{{author.name}}</a></p>
+                        <p v-if="author" class="text-gray-900 leading-none"><a href="" @click.prevent="toAuthor" class="articleAuthor">
+                            {{author.name}}</a></p>
                         <p class="text-gray-600">{{date.toLocaleDateString("en-au")}}</p>
                     </div>
                 </div>
@@ -76,10 +77,3 @@ export default {
     }
 }
 </script>
-
-<style scoped>
-h1 {
-    @apply text-4xl;
-}
-
-</style>

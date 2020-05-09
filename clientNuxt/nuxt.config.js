@@ -5,6 +5,7 @@ export default {
   ** Headers of the page
   */
   head: {
+      // TODO add reference to title in .env
     title: process.env.npm_package_name || '',
     meta: [
       { charset: 'utf-8' },
@@ -23,6 +24,7 @@ export default {
   ** Global CSS
   */
   css: [
+    "@/assets/css/custom.css",
   ],
   /*
   ** Plugins to load before mounting the App
