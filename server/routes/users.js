@@ -1,6 +1,9 @@
 const express = require("express");
 const route = express.Router();
 
+const multer = require("multer");
+const uploader = multer({dest: "./uploads/"});
+
 const bcrypt = require("bcrypt");
 
 const salt = 11;
@@ -113,6 +116,16 @@ route.get("/:userId", (req, res) => {
             return res.status(200).json(data);
         }
     });
+});
+
+route.put("/image/:userId", checkLoggedIn, uploader.single("picture"), (req, res) => {
+    if (req.params.userId !== req.session.userId) return res.status(401).end();
+
+    console.log("Image upload request");
+    if (req.file) console.log(req.file);
+
+
+    return res.status(200).end();
 });
 
 // route.put("/:userId", checkLoggedIn, (req, res) => {

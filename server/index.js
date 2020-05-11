@@ -77,3 +77,5 @@ app.use(session({
 // Routing 
 app.use("/users", usersRouter);
 app.use("/posts", postsRouter);
+
+// TODO error routing

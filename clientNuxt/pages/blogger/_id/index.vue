@@ -5,7 +5,8 @@
                 <div class="w-1/5 h-12"></div>
                 <div class="w-3/5 h-12">
                     <div v-if="user" class="flex flex-row mx-auto mb-8">
-                        <img src="@/assets/svg/user.svg" class="w-32 h-32 border rounded-full"> 
+                        <img ref="image" :src="userImg" class="w-32 h-32 border rounded-full" @dblclick.prevent="dblClickProfPicture">
+                        <input type="file" ref="imageUpload" style="display: none;" accept="image/*" @input.prevent="selectedImage"/> 
                         <div class="flex flex-col ml-8">
                             <h1 class="font-bold font-sans mb-1">{{this.user.name}}</h1>
                             <div>
@@ -46,6 +47,7 @@ export default {
         return {
             id: this.$route.params.id,
             user: undefined,
+            userImg: undefined, // This is to be set dynamically
             posts: undefined,
 
             dialogMode: false,
@@ -63,6 +65,8 @@ export default {
             console.log(error);
             return this.$router.replace("/");
         }
+
+        this.getImage();
 
     },
     async mounted(){
@@ -84,13 +88,18 @@ export default {
         directToEdit: function (){
             this.$router.replace(`/blogger/edit/${post._id}`);
         },
-    },
-    computed: {
-        // Return the default if there is none
-        profilePicture: function (){
-            //TODO implement
-            return "@/assets/svg/user.svg";
+        getImage: function (){
+            console.log("Called");
+            this.userImg = this.user.image_url? "https://1.bp.blogspot.com/-1Wjx_s_tx_s/ULCNo7URfKI/AAAAAAAABkM/Ol2nJHXXtdw/s1600/Hummingbird-2012-2013-0.jpg": "@/assets/svg/user.svg";
         },
-    }
+        dblClickProfPicture: function (){
+            console.log("Called");
+
+            this.$refs.imageUpload.click();
+        },
+        selectedImage: function (){
+            console.log(this.$refs.imageUpload);
+        }
+    },
 }
 </script>
