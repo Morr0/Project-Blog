@@ -2,6 +2,8 @@
 const express = require("express");
 const morgan = require("morgan");
 
+const helmet = require("helmet");
+
 const parser = require("body-parser");
 
 const cors = require("cors");
@@ -45,6 +47,8 @@ app.listen(PORT);
 
 // Middleware
 
+app.use(helmet());
+
 app.use(parser.text({
     type: "text/html",
 }));
@@ -62,7 +66,7 @@ app.use(session({
     cookie: {
         secure: "auto",
         httpOnly: true,
-        maxAge: Number.parseInt(SESSION_LIFE)
+        maxAge: Number.parseInt(SESSION_LIFE),
     },
     store: new MongoStore({
         mongooseConnection: mongoose.connection,
