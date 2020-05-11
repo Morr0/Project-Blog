@@ -33,7 +33,6 @@ console.log(NODE_ENV);
 let ORIGIN = "http://localhost:3000";
 if (NODE_ENV === "production") ORIGIN = JSON.parse(process.env.ORIGIN);
 
-
 console.log(`CORS: ${ORIGIN}`);
 
 // app.use(morgan("common"));

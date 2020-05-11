@@ -3,6 +3,7 @@
 ## 1.1 Targets:
     - Basic CI/CD system (dev branch, master branch -> stable versions) [X]
     - Convert the client to server-side rendered (Nuxt.js) [X]
+    - Dynamic title []
     - Ability to upload images/documents to cloud bucket (no preview mechanism on blog but to be viewed by opening link in newtab by first downloading it) []
     - Ability to render image from URL []
     - Beautify the viewed article []
@@ -23,4 +24,7 @@
 ## 1.4 Targets: 
     - Feedback system []
     - Notification from feedback and potential futures []
-    
+
+## 1.5 Targets:
+    - PWA support []
+    - Ability to install on Android []
