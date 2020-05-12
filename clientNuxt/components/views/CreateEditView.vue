@@ -103,7 +103,6 @@ export default {
     methods: {
         // This treats both a new post and editting one
         edit: async function (){
-            console.log(this.dbContent);
             // Creating a new post
             if (!this.id){
                 try {

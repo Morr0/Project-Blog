@@ -88,17 +88,37 @@ export default {
         directToEdit: function (){
             this.$router.replace(`/blogger/edit/${post._id}`);
         },
+        // Gets the image of the profile
         getImage: function (){
-            console.log("Called");
             this.userImg = this.user.image_url? "https://1.bp.blogspot.com/-1Wjx_s_tx_s/ULCNo7URfKI/AAAAAAAABkM/Ol2nJHXXtdw/s1600/Hummingbird-2012-2013-0.jpg": "@/assets/svg/user.svg";
         },
+        // Clicks the hidden file chooser
         dblClickProfPicture: function (){
-            console.log("Called");
-
             this.$refs.imageUpload.click();
         },
+        // Called when a file chooser's input changes
         selectedImage: function (){
-            console.log(this.$refs.imageUpload);
+            console.log(this.$refs.imageUpload.files);
+
+            // To prevent bugs on empty files
+            if (this.$refs.imageUpload.files.length > 0){
+                let formData = new FormData();
+                formData.append("picture", this.$refs.imageUpload.files[0]);
+
+                fetch(`${this.$store.state.backend}/users/image/profile/${this.user._id}`, {
+                    method: "PUT",
+                    body: formData,
+                    credentials: "include",
+                }).then((res) => {
+                    if (res.status === 200)
+                        return console.log("Success"); // TODO refresh the picture
+                    
+                    console.log(`Something wawa  ${res.status}`);
+                }).catch((error) => {
+                    alert("Could not upload the picture");
+                });
+
+            }
         }
     },
 }

@@ -118,7 +118,10 @@ route.get("/:userId", (req, res) => {
     });
 });
 
-route.put("/image/:userId", checkLoggedIn, uploader.single("picture"), (req, res) => {
+route.put("/image/profile/:userId", uploader.single("picture"), (req, res) => {
+    // TODO NOW Check login
+    console.log("Recieved a call");
+
     if (req.params.userId !== req.session.userId) return res.status(401).end();
 
     console.log("Image upload request");
