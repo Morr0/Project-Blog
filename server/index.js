@@ -37,7 +37,7 @@ if (NODE_ENV === "production") ORIGIN = JSON.parse(process.env.ORIGIN);
 
 console.log(`CORS: ${ORIGIN}`);
 
-app.use(morgan("common"));
+// app.use(morgan("common"));
 
 // Connection
 mongoose.connect(DB_URL, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true, useFindAndModify: false});

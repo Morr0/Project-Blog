@@ -5,7 +5,7 @@
                 <div class="w-1/5 h-12"></div>
                 <div class="w-3/5 h-12">
                     <div v-if="user" class="flex flex-row mx-auto mb-8">
-                        <img ref="image" :src="userImg" class="w-32 h-32 border rounded-full" @dblclick.prevent="dblClickProfPicture">
+                        <img ref="image" :src="userImage"  alt="Profile Picture" class="w-32 h-32 border rounded-full" @dblclick.prevent="dblClickProfPicture">
                         <input type="file" ref="imageUpload" style="display: none;" accept="image/*" @input.prevent="selectedImage"/> 
                         <div class="flex flex-col ml-8">
                             <h1 class="font-bold font-sans mb-1">{{this.user.name}}</h1>
@@ -47,7 +47,6 @@ export default {
         return {
             id: this.$route.params.id,
             user: undefined,
-            userImg: undefined, // This is to be set dynamically
             posts: undefined,
 
             dialogMode: false,
@@ -66,7 +65,7 @@ export default {
             return this.$router.replace("/");
         }
 
-        this.getImage();
+        // this.getImage();
 
     },
     async mounted(){
@@ -80,6 +79,8 @@ export default {
             console.log(error);
             return this.$router.replace("/");
         }
+
+        this.userImg = this.user.image_url? "https://1.bp.blogspot.com/-1Wjx_s_tx_s/ULCNo7URfKI/AAAAAAAABkM/Ol2nJHXXtdw/s1600/Hummingbird-2012-2013-0.jpg": "@/assets/svg/user.svg";
     },
     methods: {
         directToView: function (){
@@ -87,10 +88,6 @@ export default {
         },
         directToEdit: function (){
             this.$router.replace(`/blogger/edit/${post._id}`);
-        },
-        // Gets the image of the profile
-        getImage: function (){
-            this.userImg = this.user.image_url? "https://1.bp.blogspot.com/-1Wjx_s_tx_s/ULCNo7URfKI/AAAAAAAABkM/Ol2nJHXXtdw/s1600/Hummingbird-2012-2013-0.jpg": "@/assets/svg/user.svg";
         },
         // Clicks the hidden file chooser
         dblClickProfPicture: function (){
@@ -121,5 +118,11 @@ export default {
             }
         }
     },
+    computed: {
+        userImage: function (){
+            // 'require' is very important
+            return this.user.image_url? this.user.image_url: require("@/assets/svg/user.svg");
+        }
+    }
 }
 </script>
