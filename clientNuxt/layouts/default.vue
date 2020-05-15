@@ -1,5 +1,6 @@
 <template>
   <div>
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
       <Navbar />
       <nuxt />
   </div>
