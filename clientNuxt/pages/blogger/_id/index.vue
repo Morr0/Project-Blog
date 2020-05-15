@@ -105,8 +105,7 @@ export default {
                     body: formData,
                     credentials: "include",
                 }).then((res) => {
-                    if (res.status === 200)
-                        return this.$router.go(); // TODO refresh the picture
+                    if (res.status === 200) return this.$router.go();
                     
                 }).catch((error) => {
                     alert("Could not upload the picture");
