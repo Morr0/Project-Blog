@@ -79,8 +79,6 @@ export default {
             console.log(error);
             return this.$router.replace("/");
         }
-
-        this.userImg = this.user.image_url? "https://1.bp.blogspot.com/-1Wjx_s_tx_s/ULCNo7URfKI/AAAAAAAABkM/Ol2nJHXXtdw/s1600/Hummingbird-2012-2013-0.jpg": "@/assets/svg/user.svg";
     },
     methods: {
         directToView: function (){
@@ -108,9 +106,8 @@ export default {
                     credentials: "include",
                 }).then((res) => {
                     if (res.status === 200)
-                        return console.log("Success"); // TODO refresh the picture
+                        return this.$router.go(); // TODO refresh the picture
                     
-                    console.log(`Something wawa  ${res.status}`);
                 }).catch((error) => {
                     alert("Could not upload the picture");
                 });

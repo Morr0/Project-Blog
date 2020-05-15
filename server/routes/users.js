@@ -2,7 +2,40 @@ const express = require("express");
 const route = express.Router();
 
 const multer = require("multer");
-const uploader = multer({dest: "./uploads/"});
+const multerS3 = require("multer-s3");
+const aws = require("aws-sdk");
+
+require("dotenv").config();
+
+// AWS
+const s3 = new aws.S3({
+    accessKeyId: process.env.AWS_KEY,
+    secretAccessKey: process.env.AWS_PRIVATE_KEY,
+});
+
+const uploader = multer({
+    storage: multerS3({
+        s3: s3,
+        bucket: process.env.AWS_S3_STORAGE_BUCKET,
+        acl: "public-read",
+        contentType: multerS3.AUTO_CONTENT_TYPE,
+        metadata: function (req, file, cb) {
+            cb(null, {fieldName: file.fieldname});
+        },
+        key: function (req, file, cb){
+            // If user not signed in or a different user
+            if (!req.session.userId) return cb(new Error());
+            if (req.params.userId !== req.session.userId) return cb(new Error());
+
+            // Finding the file extension dynamically
+            const splitFile = file.originalname.split(".");
+            const fileExtension = splitFile[splitFile.length - 1];
+
+            cb(null, `${req.session.userId}-profile.${fileExtension}`);
+        }
+    })
+});
+
 
 const bcrypt = require("bcrypt");
 
@@ -119,13 +152,9 @@ route.get("/:userId", (req, res) => {
 });
 
 route.put("/image/profile/:userId", uploader.single("picture"), (req, res) => {
-    // TODO NOW Check login
     console.log("Recieved a call");
 
-    if (req.params.userId !== req.session.userId) return res.status(401).end();
-
-    console.log("Image upload request");
-    if (req.file) console.log(req.file);
+    console.log(req.file.location);
 
 
     return res.status(200).end();

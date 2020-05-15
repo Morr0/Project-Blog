@@ -26,7 +26,7 @@ const {
     PORT = 3400,
     SESSION_LIFE = 300000, // 5 mins
     DB_URL,
-    SECRET_KEY = "test"
+    SECRET_KEY = "test",
 } = process.env;
 
 console.log(NODE_ENV);

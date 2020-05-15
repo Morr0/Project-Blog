@@ -3,12 +3,6 @@ const route = express.Router();
 
 const models = require("../models/DBModels");
 
-// const createDomPurify = require("dompurify");
-// const {JSDOM} = require("jsdom");
-// const window = (new JSDOM("")).window;
-// const DOMPurify = createDomPurify(window);
-
-
 route.get("/", (req, res) => {
     models.Post.find({
         draft: false,

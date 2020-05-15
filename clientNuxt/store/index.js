@@ -13,6 +13,7 @@ Vue.use(Vuex);
 // Server side code
 
 export const state = () => ({
+    title: "Rami's",
     backend: VUE_APP_BACKEND,
 });
 
