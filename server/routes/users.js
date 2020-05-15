@@ -152,12 +152,12 @@ route.get("/:userId", (req, res) => {
 });
 
 route.put("/image/profile/:userId", uploader.single("picture"), (req, res) => {
-    console.log("Recieved a call");
+    // Updating the database with the url of the image
+    models.User.findByIdAndUpdate(req.session.userId, {image_url: req.file.location}, (error, data) => {
+        if (error) return res.status(500);
 
-    console.log(req.file.location);
-
-
-    return res.status(200).end();
+        return res.status(200).end();
+    });
 });
 
 // route.put("/:userId", checkLoggedIn, (req, res) => {
