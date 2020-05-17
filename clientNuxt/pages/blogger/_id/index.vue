@@ -5,10 +5,13 @@
                 <div class="w-1/5 h-12"></div>
                 <div class="w-3/5 h-12">
                     <div v-if="user" class="flex flex-row mx-auto mb-8">
-                        <img ref="image" :src="userImage"  alt="Profile Picture" class="w-32 h-32 border rounded-full" @dblclick.prevent="dblClickProfPicture">
+                        <!-- <img ref="image" :src="userImage"  alt="Profile Picture" @error.once="imageErrorLoading"
+                        class="w-32 h-32 border rounded-full" @dblclick.prevent="dblClickProfPicture"> -->
+                        <ProfilePicture :image_url="user.image_url" :dblclik="dblClickProfPicture" />
+                        
                         <input type="file" ref="imageUpload" style="display: none;" accept="image/*" @input.prevent="selectedImage"/> 
                         <div class="flex flex-col ml-8">
-                            <h1 class="font-bold font-sans mb-1">{{this.user.name}}</h1>
+                            <h1 class="font-bold text-xl font-sans mb-1">{{this.user.name}}</h1>
                             <div>
                                 <span class="font-sans font-medium">
                                     <!-- TODO Stop the HARDCODE -->
@@ -40,12 +43,14 @@
 </template>
 
 <script>
-import Articles from "@/components/Articles.vue"
+import Articles from "@/components/Articles.vue";
+import ProfilePicture from "@/components/ProfilePicture.vue";
 
 export default {
     name: "User",
     components: {
         Articles,
+        ProfilePicture,
     },
     data(){
         return {
@@ -116,13 +121,12 @@ export default {
                 });
 
             }
-        }
+        },
+
+        
     },
     computed: {
-        userImage: function (){
-            // 'require' is very important
-            return this.user.image_url? this.user.image_url: require("@/assets/svg/user.svg");
-        }
+        
     }
 }
 </script>
