@@ -11,7 +11,11 @@
                             <h1 class="font-bold font-sans mb-1">{{this.user.name}}</h1>
                             <div>
                                 <span class="font-sans font-medium">
-                                {{this.user.bio || "Bio goes here"}}</span>
+                                    <!-- TODO Stop the HARDCODE -->
+                                <!-- {{this.user.bio || "Bio goes here"}}</span> -->
+                                I am an Electrical Engineering student at the university of Sydney (USyd). I enjoy programming as it makes
+                                my ideas alive. I also like how the technology ecosystem works and love to use it to help myself and others.
+                                </span>
                             </div>
                         </div>
                     </div>

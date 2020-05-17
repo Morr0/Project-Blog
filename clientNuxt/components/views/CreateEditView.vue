@@ -1,56 +1,55 @@
 <template>
-        <div class="flex flex-wrap -mx-1 sm:-mx-1 md:-mx-1 lg:-mx-1 xl:-mx-1 justify-center">
-            <div class="my-1 px-1 sm:my-1 sm:px-1 md:my-1 md:px-1 lg:my-1 lg:px-1 xl:my-1 xl:px-1" >
-                <form @submit.prevent="edit">
-                    <div class="mb-4 flex flex-row flex-grow">
-                        <label class="block text-gray-700 text-sm font-bold mb-2 mr-2" for="title">
-                        Title
-                        </label>
-                        <input type="text" required v-model="title" id="title" placeholder="Title"
-                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" >
-                    </div>
-                    <div class="mb-4 flex flex-row flex-grow">
-                        <label class="block text-gray-700 text-sm font-bold mb-2 mr-2" for="description">
-                        Description
-                        </label>
-                        <textarea v-model="description" id="description" placeholder="Description"
-                        class="resize-y shadow appearance-none border rounded w-full py-2 px-3 text-gray-700
-                         leading-tight focus:outline-none focus:shadow-outline" />
-                    </div>
+    <div class="m-4 flex flex-wrap -mx-1 sm:-mx-1 md:-mx-1 lg:-mx-1 xl:-mx-1 justify-center max-w-full">
+        <div class="my-1 px-1 sm:my-1 sm:px-1 md:my-1 md:px-1 lg:my-1 lg:px-1 xl:my-1 xl:px-1" >
+            <form @submit.prevent="edit">
+                <div class="mb-4 flex flex-row flex-grow">
+                    <label class="block text-gray-700 text-sm font-bold mb-2 mr-2" for="title">
+                    Title
+                    </label>
+                    <input type="text" required v-model="title" id="title" placeholder="Title"
+                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" >
+                </div>
+                <div class="mb-4 flex flex-row flex-grow">
+                    <label class="block text-gray-700 text-sm font-bold mb-2 mr-2" for="description">
+                    Description
+                    </label>
+                    <textarea required v-model="description" id="description" placeholder="Description"
+                    class="resize-y shadow appearance-none border rounded py-2 px-3 text-gray-700
+                        leading-tight focus:outline-none focus:shadow-outline" />
+                </div>
 
-                    
-                    <client-only>
-                        <vue-editor ref="editor" class="articleContent" v-model="content"></vue-editor>
-                    </client-only>
+                <client-only>
+                    <vue-editor ref="editor" class="articleContent w-full max-w-full" v-model="content"></vue-editor>
+                </client-only>
 
-                    <div class="flex flex-row">
-                        <label class="md:w-2/3 block text-gray-500 font-bold">
-                            <input class="mr-2 leading-tight" type="checkbox" v-model="draft">
-                            <span class="text-sm">
-                                Draft
-                            </span>
-                        </label>
-                        <label class="md:w-2/3 block text-gray-500 font-bold">
-                            <input class="mr-2 leading-tight" type="checkbox" v-model="hidden">
-                            <span class="text-sm">
-                                Hidden
-                            </span>
-                        </label>
-                    </div>
+                <div class="flex flex-row">
+                    <label class="md:w-2/3 block text-gray-500 font-bold">
+                        <input class="mr-2 leading-tight" type="checkbox" v-model="draft">
+                        <span class="text-sm">
+                            Draft
+                        </span>
+                    </label>
+                    <label class="md:w-2/3 block text-gray-500 font-bold">
+                        <input class="mr-2 leading-tight" type="checkbox" v-model="hidden">
+                        <span class="text-sm">
+                            Hidden
+                        </span>
+                    </label>
+                </div>
 
-                    <button class="flex-shrink-0 border-transparent border-4 text-teal-500 
-                    hover:text-teal-800 text-sm py-1 px-2 rounded" type="button" @click.prevent="cancel">Cancel</button>
+                <button class="flex-shrink-0 border-transparent border-4 text-teal-500 
+                hover:text-teal-800 text-sm py-1 px-2 rounded" type="button" @click.prevent="cancel">Cancel</button>
 
-                    <button class="flex-shrink-0 bg-teal-500 hover:bg-teal-700 border-teal-500 
-                    hover:border-teal-700 text-sm border-4 text-white py-1 px-2 rounded" type="submit">
-                    {{id? "Update": (draft? "Draft": "Post")}}</button>
+                <button class="flex-shrink-0 bg-teal-500 hover:bg-teal-700 border-teal-500 
+                hover:border-teal-700 text-sm border-4 text-white py-1 px-2 rounded" type="submit">
+                {{id? "Update": (draft? "Draft": "Post")}}</button>
 
-                    <button class="flex-shrink-0 bg-red-600 hover:bg-teal-700 border-red-600 
-                    hover:border-teal-700 text-sm border-4 text-white py-1 px-2 rounded" type="button" @click.prevent="remove">
-                    Delete</button>
-                </form>
-            </div>
+                <button class="flex-shrink-0 bg-red-600 hover:bg-teal-700 border-red-600 
+                hover:border-teal-700 text-sm border-4 text-white py-1 px-2 rounded" type="button" @click.prevent="remove">
+                Delete</button>
+            </form>
         </div>
+    </div>
 </template>
 
 <script>

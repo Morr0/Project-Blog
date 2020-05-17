@@ -19,6 +19,9 @@ body {
 .articleContent {
     @apply p-3;
     @apply text-gray-900;
+
+    text-overflow: clip;
+    word-wrap: break-word;
 }
 
 .articleContent h3, h4, h5, h6, p, span, blockquote{
