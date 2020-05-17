@@ -61,7 +61,8 @@ const post = new Schema({
     },
     // When it goes from draft = false to true
     postDate: {
-        type: Date
+        type: Date,
+        default: Date.now,
     },
     updateDate: {
         type: Date,

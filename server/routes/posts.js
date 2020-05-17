@@ -12,7 +12,7 @@ route.get("/", (req, res) => {
         if (!data) return res.status(404).end();
 
         return res.status(200).json(data);
-    });
+    }).sort({postDate: "desc"});
 });
 
 route.get("/:id", (req, res) => {
@@ -29,7 +29,6 @@ route.get("/:id", (req, res) => {
     });
 });
 
-// Get by a specfic user
 route.get("/user/:id", (req, res) => {
     const callback = (error, data) => {
         if (error) return res.status(500).end();
@@ -39,9 +38,9 @@ route.get("/user/:id", (req, res) => {
     };
 
     if (req.session.userId && req.session.userId === req.params.id){
-        models.Post.find({author: req.params.id}, callback);
+        models.Post.find({author: req.params.id}, callback).sort({postDate: "desc"});
     } else { // Return the non-hidden non-draft work of the user (publicly available posts)
-        models.Post.find({author: req.params.id, draft: false, hidden: false}, callback);
+        models.Post.find({author: req.params.id, draft: false, hidden: false}, callback).sort({postDate: "desc"});
     }
 });
 
