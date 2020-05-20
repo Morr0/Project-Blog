@@ -5,15 +5,14 @@ export default {
   ** Headers of the page
   */
   head: {
-      // TODO add reference to title in .env
-    title: process.env.npm_package_name || '',
+    title: "Rami Hikmat's",
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: process.env.npm_package_description || '' }
+      { hid: 'description', name: 'description', content: "This is a personal site where I host my portfolio and blog. My name is Rami Hikmat." }
     ],
     link: [
-      { rel: 'shortcut icon', type: 'image/svg', href: 'logolg.svg' }
+      { rel: 'shortcut icon', href: "/favicon.ico" }
     ]
   },
   /*
