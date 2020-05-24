@@ -100,3 +100,27 @@ body {
 }
 
 /* TODO add tabs and lists styling */
+
+/* Drop down menu for 'Apps' on Navbar.vue */
+.dropdownMenu {
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    z-index: 4;
+    min-width: 300px;
+    top: 70%;
+    right: 0;
+    @apply mt-2;
+}
+
+.dropdownMenu:hover {
+    display: block;
+}
+
+.dropdownMenu li {
+    list-style-type: none;
+}
+
+.drop:hover .dropdownMenu {
+    display: block;
+}

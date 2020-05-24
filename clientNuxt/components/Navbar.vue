@@ -23,23 +23,21 @@
                 </nuxt-link> -->
 
                 <!-- Drop down styling issues -->
-                <!-- <a href="" class="mr-4 text-gray-700 hover:text-blue-500 w-12 relative">
+                <a href="" class="mr-4 text-gray-700 hover:text-blue-500 w-12 relative drop font-bold">
                     Apps
-
-                    <div class="rounded shadow-md mt-2 absolute mt-12 pin-t pin-l min-w-full" >
-                        <ul class="list-reset">
-                            <li><a target="_blank" href="http://rami-apps.s3-website-ap-southeast-1.amazonaws.com/" 
-                            class="px-4 py-2 block text-black hover:bg-grey-light text-gray-700 hover:text-blue-500">
-                                Rosary App</a></li>
-                             TODO Use the one below as a border 
-                             <li><hr class="border-t mx-2 border-grey-light"></li> 
-                        </ul>
+                    <div class="dropdownMenu" >
+                        <li><a target="_blank" href="https://morr0.github.io/Pomodoro-Timer/" 
+                        class="px-4 py-2 block text-black hover:bg-grey-light text-gray-700 hover:text-blue-500">
+                            Pomodoro Timer</a></li>
+                        <li><a target="_blank" href="https://morr0.github.io/Rosary-Prayer-Counter/" 
+                        class="px-4 py-2 block text-black hover:bg-grey-light text-gray-700 hover:text-blue-500">
+                            Rosary App</a></li>
                     </div>
-                </a> -->
+                </a>
 
-                <a target="_blank" href="http://rami-apps.s3-website-ap-southeast-1.amazonaws.com/" 
+                <!-- <a target="_blank" href="http://rami-apps.s3-website-ap-southeast-1.amazonaws.com/" 
                             class="block mt-4 lg:inline-block lg:mt-0 text-gray-700 hover:text-blue-500 mr-4 font-bold">
-                                Rosary App</a>
+                                Rosary App</a> -->
 
                 <nuxt-link v-if="loggedIn" to="/blogger/create/" class="block text-gray-700 mt-4 lg:inline-block lg:mt-0 hover:text-blue-500 mr-4 font-bold">
                     Create
