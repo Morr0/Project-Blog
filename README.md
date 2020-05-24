@@ -1,12 +1,5 @@
 # Roadmap
 
-## 1.1 Targets:
-    - Basic CI/CD system (dev branch, master branch -> stable versions) [X]
-    - Convert the client to server-side rendered (Nuxt.js) [X]
-    - Ability to upload images/documents to cloud bucket (no preview mechanism on blog but to be viewed by opening link in newtab by first downloading it) [X]
-    - Ability to render image from URL [X]
-    - Beautify the viewed article [X]
-
 ## 1.2 Targets:
     - Polish the UI []
     - Like posts []
@@ -15,10 +8,10 @@
 
 ## 1.3 Targets:
     - Secure calling the backend []
-    - Secure the backend using Helmet []
     - Rate limit requests []
     - Unit testing every current server endpoint and base it for  future endpoints/function []
     - Reference images from cloud bucket into posts []
+    - Compress req/res []
 
 ## 1.4 Targets: 
     - Feedback system []
