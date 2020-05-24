@@ -28,17 +28,6 @@
                 <div class="w-1/5 h-12"></div>
             </div>
         </div>
-        <!-- <div v-if="dialogMode" class="flex justify-center items-center h-screen">
-            <div class="w-1/2 bg-white shadow-lg rounded p-4">
-                <input type="text" v-model="dialogText" id="text"
-                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" >
-                <button class="flex-shrink-0 bg-teal-500 hover:bg-teal-700 border-teal-500 
-                    hover:border-teal-700 text-sm border-4 text-white py-1 px-2 rounded" type="button" @click.prevent="updateDialog">
-                    Update</button>
-                <button class="flex-shrink-0 border-transparent border-4 text-teal-500 
-                    hover:text-teal-800 text-sm py-1 px-2 rounded" type="button" @click.prevent="closeDialog">Cancel</button>
-            </div>
-        </div> -->
     </div>
 </template>
 
@@ -73,9 +62,6 @@ export default {
             console.log(error);
             return this.$router.replace("/");
         }
-
-        // this.getImage();
-
     },
     async mounted(){
         try {
@@ -125,8 +111,5 @@ export default {
 
         
     },
-    computed: {
-        
-    }
 }
 </script>

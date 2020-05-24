@@ -13,7 +13,7 @@
                     <div class="text-gray-700 articleContent" v-else v-html="post.content">Content goes here</div>
                 </div>
                 <div class="flex items-center">
-                    <img v-if="individualPage" class="w-10 h-10 rounded-full mr-4 articleImg" @click.prevent="toAuthor" src="@/assets/svg/user.svg" alt="Profile picture">
+                    <ProfilePicture v-if="individualPage && author" class="w-10 h-10 rounded-full mr-4 articleImg" :image_url="author.image_url" />
                     <div class="text-sm">
                         <p v-if="author" class="text-gray-900 leading-none"><a href="" @click.prevent="toAuthor" class="articleAuthor">
                             {{author.name}}</a></p>
@@ -26,12 +26,14 @@
 </template>
 
 <script>
-import Icon from "./Icon.vue"
+import Icon from "@/components/Icon.vue"
+import ProfilePicture from "@/components/ProfilePicture.vue";
 
 export default {
     name: "Article",
     components: {
-        Icon
+        Icon,
+        ProfilePicture,
     },
     props: {
         post: {},
@@ -68,14 +70,12 @@ export default {
         if (this.post.updateDate) this.date = new Date(this.post.updateDate);
         document.date = this.date;
 
-        if (this.individualPage){
-            try {
-            const res = await fetch(`${this.$store.state.backend}/users/${this.post.author}`);
-                if (res.status === 200){
-                    this.author = await res.json();
-                }
-            } catch (error) {console.log(error);}
-        }
+        try {
+        const res = await fetch(`${this.$store.state.backend}/users/${this.post.author}`);
+            if (res.status === 200){
+                this.author = await res.json();
+            }
+        } catch (error) {console.log(error);}
     }
 }
 </script>

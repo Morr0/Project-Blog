@@ -1,6 +1,9 @@
 <template>
-    <img ref="image" :src="userImage"  alt="Profile Picture" @error.once="imageErrorLoading" 
+    <img v-if="dblclik && $store.state.sessionStorage.loggedIn" ref="image" :src="userImage"  alt="Profile Picture" @error.once="imageErrorLoading" 
     class="w-32 h-32 border rounded-full" @dblclick.prevent="dblclik">
+    <!-- If not with dblclik provided -->
+    <img v-else ref="image" :src="userImage"  alt="Profile Picture" @error.once="imageErrorLoading" 
+    class="w-32 h-32 border rounded-full">
 </template>
 
 <script>
