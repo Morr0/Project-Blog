@@ -13,7 +13,7 @@
                     <div class="text-gray-700 articleContent" v-else v-html="post.content">Content goes here</div>
                 </div>
                 <div class="flex items-center">
-                    <img class="w-10 h-10 rounded-full mr-4 articleImg" @click.prevent="toAuthor" src="@/assets/svg/user.svg" alt="Profile picture">
+                    <img v-if="individualPage" class="w-10 h-10 rounded-full mr-4 articleImg" @click.prevent="toAuthor" src="@/assets/svg/user.svg" alt="Profile picture">
                     <div class="text-sm">
                         <p v-if="author" class="text-gray-900 leading-none"><a href="" @click.prevent="toAuthor" class="articleAuthor">
                             {{author.name}}</a></p>
@@ -34,9 +34,9 @@ export default {
         Icon
     },
     props: {
-    post: {},
-    individualPage: Boolean,
-    minimised: Boolean
+        post: {},
+        individualPage: Boolean,
+        minimised: Boolean
     },
     computed: {
         loggedIn: function (){
@@ -68,12 +68,14 @@ export default {
         if (this.post.updateDate) this.date = new Date(this.post.updateDate);
         document.date = this.date;
 
-        try {
+        if (this.individualPage){
+            try {
             const res = await fetch(`${this.$store.state.backend}/users/${this.post.author}`);
-            if (res.status === 200){
-                this.author = await res.json();
-            }
-        } catch (error) {console.log(error);}
+                if (res.status === 200){
+                    this.author = await res.json();
+                }
+            } catch (error) {console.log(error);}
+        }
     }
 }
 </script>
