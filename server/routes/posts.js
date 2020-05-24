@@ -11,6 +11,10 @@ route.get("/", (req, res) => {
         if (error) return res.status(500).end();
         if (!data) return res.status(404).end();
 
+        // only send needed stuff for better network performance i.e. ignoring the description
+        data.forEach((element) => {
+            element.description = "";
+        });
         return res.status(200).json(data);
     }).sort({postDate: "desc"});
 });
@@ -34,6 +38,10 @@ route.get("/user/:id", (req, res) => {
         if (error) return res.status(500).end();
         if (!data) return res.status(404).end();
 
+        // only send needed stuff for better network performance i.e. ignoring the description
+        data.forEach((element) => {
+            element.description = "";
+        });
         return res.status(200).json(data);
     };
 
