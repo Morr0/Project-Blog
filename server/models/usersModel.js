@@ -42,4 +42,5 @@ const user = new dynamoose.Schema({
     }
 });
 
-module.exports = dynamoose.model("Users", user);
+const model = dynamoose.model("blog-users", user);
+module.exports = model;

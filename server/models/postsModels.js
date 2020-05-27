@@ -44,4 +44,5 @@ const post = new dynamoose.Schema({
     }
 });
 
-module.exports = dynamoose.model("Posts", post);
+const model = dynamoose.model("blog-posts", post);
+module.exports = model;
