@@ -9,8 +9,10 @@ const parser = require("body-parser");
 const cors = require("cors");
 const mongoose = require("mongoose");
 
+const AWS = require("aws-sdk");
+
 const session = require("express-session");
-const MongoStore = require("connect-mongo")(session);
+// const MongoStore = require("connect-mongo")(session);
 
 // Routes
 const usersRouter = require("./routes/users");
@@ -27,13 +29,18 @@ const {
     SESSION_LIFE = 300000, // 5 mins
     DB_URL,
     SECRET_KEY = "test",
+
 } = process.env;
 
 console.log(NODE_ENV);
 
 // To facilitate production ip from development ip
 let ORIGIN = "http://localhost:3000";
-if (NODE_ENV === "production") ORIGIN = JSON.parse(process.env.ORIGIN);
+if (NODE_ENV === "production"){
+    ORIGIN = JSON.parse(process.env.ORIGIN);
+} 
+
+require("./utils/db/dbconnection");
 
 console.log(`CORS: ${ORIGIN}`);
 
@@ -68,10 +75,10 @@ app.use(session({
         httpOnly: true,
         maxAge: Number.parseInt(SESSION_LIFE),
     },
-    store: new MongoStore({
-        mongooseConnection: mongoose.connection,
-        collection: "sessions"
-    }),
+    // store: new MongoStore({
+    //     mongooseConnection: mongoose.connection,
+    //     collection: "sessions"
+    // }),
 }));
 
 // Routing 
