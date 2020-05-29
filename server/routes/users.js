@@ -129,6 +129,8 @@ route.post("/login", checkLoggedIn, (req, res) => {
             }
         });
     } else return res.status(400).json({error: "Incomplete request"});
+
+    
 });
 
 route.post("/logout", (req, res) => {
@@ -145,7 +147,7 @@ route.post("/logout", (req, res) => {
     });
 });
 
-route.get("/:userId", (req, res) => {
+route.get("/:id", async (req, res) => {
     // models.User.findById(req.params.userId, (error, data) => {
     //     if (error) return res.status(500).end();
     //     if (!data) return res.status(404).end();
@@ -156,20 +158,32 @@ route.get("/:userId", (req, res) => {
     //         return res.status(200).json(data);
     //     }
     // });
-    res.end();
+
+    const user = await models.User.get({_id: req.params.id});
+    if (!user) return res.status(404).end();
+
+    user.email = user.password = undefined;
+    console.log(user);
+
+    return res.status(200).json(user);
 });
 
-route.put("/image/profile/:userId", uploader.single("picture"), (req, res) => {
+route.put("/image/profile/:id", uploader.single("picture"), async (req, res) => {
     // Updating the database with the url of the image
     // models.User.findByIdAndUpdate(req.session.userId, {image_url: req.file.location}, (error, data) => {
     //     if (error) return res.status(500);
 
     //     return res.status(200).end();
     // });
-    res.json();
+    if (req.session.userId !== req.params.id) return res.status(401).end();
+
+    const user = await models.User.update({_id: req.params.id});
+    if (!user) return res.status(400).end();
+
+    return res.status(200).end();
 });
 
-// route.put("/:userId", checkLoggedIn, (req, res) => {
+route.put("/:id", checkLoggedIn, async (req, res) => {
 //     console.log("Called");
 //     if (req.session.userId !== req.params.userId) return res.status(401).end();
 
@@ -179,6 +193,13 @@ route.put("/image/profile/:userId", uploader.single("picture"), (req, res) => {
 
 //         return res.status(200).json(data);
 //     });
-// });
+
+    if (req.session.userId !== req.params.id) return res.status(401).end();
+
+    const user = await models.User.update({_id: req.params.id}, req.body.user);
+    if (!user) return res.status(500).end();
+
+    return res.status(200).json(user);
+});
 
 module.exports = route;

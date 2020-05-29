@@ -25,10 +25,10 @@ const user = new dynamoose.Schema({
         type: String,
         default: ""
     },
-    creationTime: {
-        type: String,
-        default: Date.now,
-    },
+    // creationTime: {
+    //     type: String,
+    //     default: Date.now,
+    // },
     image_url: {
         type: String,
         default: ""
