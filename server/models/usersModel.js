@@ -26,7 +26,7 @@ const user = new dynamoose.Schema({
         default: ""
     },
     creationTime: {
-        type: Date,
+        type: String,
         default: Date.now,
     },
     image_url: {

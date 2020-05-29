@@ -23,12 +23,12 @@ const post = new dynamoose.Schema({
     },
     // When it goes from draft = false to true
     postDate: {
-        type: Date,
+        type: String,
         default: Date.now,
         "rangeKey": true,
     },
     updateDate: {
-        type: Date,
+        type: String,
         default: Date.now
     },
     hidden: {
