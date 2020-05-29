@@ -25,7 +25,7 @@ const post = new dynamoose.Schema({
     postDate: {
         type: String,
         default: Date.now,
-        "rangeKey": true,
+        // "rangeKey": true,
     },
     updateDate: {
         type: String,
@@ -38,10 +38,6 @@ const post = new dynamoose.Schema({
         type: Number,
         default: 0
     },
-    shares: {
-        type: Number,
-        default: 0
-    }
 });
 
 const model = dynamoose.model(process.env.NODE_ENV === "development"? "blog-test-posts": "blog-posts", post);

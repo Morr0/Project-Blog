@@ -3,6 +3,8 @@ const route = express.Router();
 
 const models = require("../models/DBModels");
 
+// TODO Error handling
+
 route.get("/", (req, res) => {
     // models.Post.find({
     //     draft: false,
@@ -20,45 +22,75 @@ route.get("/", (req, res) => {
 
     // return res.json(models.Post.get({_id: "5eafe2b465a90333abd042fa", "postDate": "x"}));
 
-    models.Post.scan().limit(1).exec((error, data) => {
-        console.log(error);
+    const {
+        amount = 4, // Amount of posts to display
+    } = req.headers;
+
+    models.Post.scan().limit(amount).exec((error, data) => {
         if (error) return res.status(500).end();
         if (!data) return res.status(404).end();
 
+        data.map(element => element.content = undefined);
         return res.status(200).json(data);
     });
 });
 
-route.get("/:id", (req, res) => {
-    models.Post.findById(req.params.id, (error, post) => {
-        if (error || !post) return res.status(404).end();
+route.get("/:id", async (req, res) => {
+    // models.Post.findById(req.params.id, (error, post) => {
+    //     if (error || !post) return res.status(404).end();
 
-        // Whether the requester is allowed to view this page
-        if (post.draft || post.hidden){
-            if (!req.session.userId) return res.status(401).end();
-            else if (req.session.userId != post.author) return res.status(401).end();
-        }
+    //     // Whether the requester is allowed to view this page
+    //     if (post.draft || post.hidden){
+    //         if (!req.session.userId) return res.status(401).end();
+    //         else if (req.session.userId != post.author) return res.status(401).end();
+    //     }
 
-        return res.status(200).json(post);
-    });
+    //     return res.status(200).json(post);
+    // });
+
+    const post = await models.Post.get({_id: req.params.id});
+    if (!post) return res.status(404).end();
+
+    if (post.draft || post.hidden){
+        if (!req.session.userId) return res.status(401).end();
+        else if (req.session.userId != post.author) return res.status(401).end();
+    }
+
+    return res.status(200).json(post);
 });
 
-route.get("/user/:id", (req, res) => {
-    const callback = (error, data) => {
-        if (error) return res.status(500).end();
-        if (!data) return res.status(404).end();
+route.get("/user/:id", async (req, res) => {
+    // const callback = (error, data) => {
+    //     if (error) return res.status(500).end();
+    //     if (!data) return res.status(404).end();
 
-        // only send needed stuff for better network performance i.e. ignoring the description
-        data.forEach((element) => {
-            element.description = "";
+    //     // only send needed stuff for better network performance i.e. ignoring the description
+    //     data.forEach((element) => {
+    //         element.description = "";
+    //     });
+    //     return res.status(200).json(data);
+    // };
+
+    // if (req.session.userId && req.session.userId === req.params.id){
+    //     models.Post.find({author: req.params.id}, callback).sort({postDate: "desc"});
+    // } else { // Return the non-hidden non-draft work of the user (publicly available posts)
+    //     models.Post.find({author: req.params.id, draft: false, hidden: false}, callback).sort({postDate: "desc"});
+    // }
+
+    let data = await models.Post.batchGet({_id: req.params.id});
+    if (req.session.userId && req.session.userId === req.params.id){ // If authorised to see all the user's documents when logged in
+        data.forEach(item => item.content = undefined);
+        return res.status(200).json(data);
+    } else { // Public posts
+        let returnables = [];
+        data.forEach((item) => {
+            if (!item.hidden && !item.draft){
+                item.content = undefined;
+                returnables.push(item);
+            }
         });
-        return res.status(200).json(data);
-    };
 
-    if (req.session.userId && req.session.userId === req.params.id){
-        models.Post.find({author: req.params.id}, callback).sort({postDate: "desc"});
-    } else { // Return the non-hidden non-draft work of the user (publicly available posts)
-        models.Post.find({author: req.params.id, draft: false, hidden: false}, callback).sort({postDate: "desc"});
+        return res.status(200).json(returnables);
     }
 });
 

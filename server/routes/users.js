@@ -13,6 +13,8 @@ const s3 = new aws.S3({
     secretAccessKey: process.env.AWS_PRIVATE_KEY,
 });
 
+// TODO Error Handling
+
 const uploader = multer({
     storage: multerS3({
         s3: s3,
@@ -53,15 +55,20 @@ function checkLoggedIn (req, res, next){
     next();
 }
 
-route.get("/loggedIn", (req, res) => {
+route.get("/loggedIn", async (req, res) => {
     // if (!req.session) return res.status(404).end();
     if (!req.session.userId) return res.status(404).end();
 
-    models.User.findById(req.session.userId, (error, data) => {
-        if (error) return res.status(500).end();
+    console.log("Logged");
+    const data = await models.User.get({_id: req.session.userId});
+    console.log(data);
+    console.log("LoggedAfter");
+    res.json();
+    // models.User.findById(req.session.userId, (error, data) => {
+    //     if (error) return res.status(500).end();
 
-        return res.status(200).json({id: data._id, name: data.name});
-    });
+    //     return res.status(200).json({id: data._id, name: data.name});
+    // });
 });
 
 route.get("/allowedToRegister", (req, res) => {
@@ -139,25 +146,27 @@ route.post("/logout", (req, res) => {
 });
 
 route.get("/:userId", (req, res) => {
-    models.User.findById(req.params.userId, (error, data) => {
-        if (error) return res.status(500).end();
-        if (!data) return res.status(404).end();
+    // models.User.findById(req.params.userId, (error, data) => {
+    //     if (error) return res.status(500).end();
+    //     if (!data) return res.status(404).end();
         
-        else {
-            if (!data) return res.status(404).end();
+    //     else {
+    //         if (!data) return res.status(404).end();
 
-            return res.status(200).json(data);
-        }
-    });
+    //         return res.status(200).json(data);
+    //     }
+    // });
+    res.end();
 });
 
 route.put("/image/profile/:userId", uploader.single("picture"), (req, res) => {
     // Updating the database with the url of the image
-    models.User.findByIdAndUpdate(req.session.userId, {image_url: req.file.location}, (error, data) => {
-        if (error) return res.status(500);
+    // models.User.findByIdAndUpdate(req.session.userId, {image_url: req.file.location}, (error, data) => {
+    //     if (error) return res.status(500);
 
-        return res.status(200).end();
-    });
+    //     return res.status(200).end();
+    // });
+    res.json();
 });
 
 // route.put("/:userId", checkLoggedIn, (req, res) => {
