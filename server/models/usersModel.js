@@ -28,13 +28,6 @@ const user = new dynamoose.Schema({
     creationTime: {
         type: Date,
         default: Date.now,
-        "rangeKey": true,
-    },
-    lastPostDate: {
-        type: Date
-    },
-    lastOnline: {
-        type: Date
     },
     image_url: {
         type: String,
@@ -42,5 +35,5 @@ const user = new dynamoose.Schema({
     }
 });
 
-const model = dynamoose.model("blog-users", user);
+const model = dynamoose.model(process.env.NODE_ENV === "development"? "blog-test-users": "blog-users", user);
 module.exports = model;

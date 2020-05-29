@@ -44,5 +44,5 @@ const post = new dynamoose.Schema({
     }
 });
 
-const model = dynamoose.model("blog-posts", post);
+const model = dynamoose.model(process.env.NODE_ENV === "development"? "blog-test-posts": "blog-posts", post);
 module.exports = model;

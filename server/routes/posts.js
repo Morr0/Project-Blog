@@ -4,19 +4,29 @@ const route = express.Router();
 const models = require("../models/DBModels");
 
 route.get("/", (req, res) => {
-    models.Post.find({
-        draft: false,
-        hidden: false
-    }, (error, data) => {
+    // models.Post.find({
+    //     draft: false,
+    //     hidden: false
+    // }, (error, data) => {
+    //     if (error) return res.status(500).end();
+    //     if (!data) return res.status(404).end();
+
+    //     // only send needed stuff for better network performance i.e. ignoring the description
+    //     data.forEach((element) => {
+    //         element.description = "";
+    //     });
+    //     return res.status(200).json(data);
+    // }).sort({postDate: "desc"});
+
+    // return res.json(models.Post.get({_id: "5eafe2b465a90333abd042fa", "postDate": "x"}));
+
+    models.Post.scan().limit(1).exec((error, data) => {
+        console.log(error);
         if (error) return res.status(500).end();
         if (!data) return res.status(404).end();
 
-        // only send needed stuff for better network performance i.e. ignoring the description
-        data.forEach((element) => {
-            element.description = "";
-        });
         return res.status(200).json(data);
-    }).sort({postDate: "desc"});
+    });
 });
 
 route.get("/:id", (req, res) => {
