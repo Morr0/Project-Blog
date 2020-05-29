@@ -59,7 +59,7 @@ route.get("/:id", async (req, res) => {
     return res.status(200).json(post);
 });
 
-route.get("/user/:id", async (req, res) => {
+route.get("/user/:id", (req, res) => {
     // const callback = (error, data) => {
     //     if (error) return res.status(500).end();
     //     if (!data) return res.status(404).end();
@@ -77,21 +77,25 @@ route.get("/user/:id", async (req, res) => {
     //     models.Post.find({author: req.params.id, draft: false, hidden: false}, callback).sort({postDate: "desc"});
     // }
 
-    let data = await models.Post.batchGet({_id: req.params.id});
-    if (req.session.userId && req.session.userId === req.params.id){ // If authorised to see all the user's documents when logged in
-        data.forEach(item => item.content = undefined);
-        return res.status(200).json(data);
-    } else { // Public posts
-        let returnables = [];
-        data.forEach((item) => {
-            if (!item.hidden && !item.draft){
-                item.content = undefined;
-                returnables.push(item);
-            }
-        });
+    // let data = await models.Post.batchGet({_id: req.params.id});
+    // Bear in mind this does only retrieve my user's items
+    models.Post.scan().exec((error, data) => {
+        if (req.session.userId && req.session.userId === req.params.id){ // If authorised to see all the user's documents when logged in
+            data.forEach(item => item.content = undefined);
+            return res.status(200).json(data);
+        } else { // Public posts
+            let returnables = [];
+            data.forEach((item) => {
+                if (!item.hidden && !item.draft){
+                    item.content = undefined;
+                    returnables.push(item);
+                }
+            });
 
-        return res.status(200).json(returnables);
-    }
+            return res.status(200).json(returnables);
+        }
+     });
+    
 });
 
 function checkLoggedIn(req, res, next){
