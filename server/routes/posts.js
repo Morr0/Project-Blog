@@ -105,15 +105,30 @@ function checkLoggedIn(req, res, next){
 }
 
 route.post("/", checkLoggedIn, (req, res) => {
-    const newArticle = new models.Post({
+    // const newArticle = new models.Post({
+    //     author: req.session.userId,
+    //     title: req.headers.title,
+    //     description: req.headers.description,
+    //     content: req.body,
+    //     draft: req.headers.draft,
+    //     hidden: req.headers.hidden,
+    // });
+    // newArticle.save((error, data) => {
+    //     if (error) return res.status(500).end();
+         
+    //     return res.status(200).json(data._id);
+    // });
+
+    const newArticle = {
         author: req.session.userId,
         title: req.headers.title,
         description: req.headers.description,
         content: req.body,
         draft: req.headers.draft,
         hidden: req.headers.hidden,
-    });
-    newArticle.save((error, data) => {
+    };
+
+    models.Post.create(newArticle, (error, data) => {
         if (error) return res.status(500).end();
          
         return res.status(200).json(data._id);
@@ -132,7 +147,13 @@ route.put("/:id", checkLoggedIn, (req, res) => {
 
     if (!req.headers.draft && !req.headers.hidden) toBeUpdated.postDate = Date.now();
 
-    models.Post.findByIdAndUpdate(req.params.id, toBeUpdated, (error) => {
+    // models.Post.findByIdAndUpdate(req.params.id, toBeUpdated, (error) => {
+    //     if (error) return res.status(500).end();
+            
+    //     res.status(200).end();
+    // });
+
+    models.Post.update({_id: req.params.id}, toBeUpdated, (error, post) => {
         if (error) return res.status(500).end();
             
         res.status(200).end();
@@ -140,7 +161,15 @@ route.put("/:id", checkLoggedIn, (req, res) => {
 });
 
 route.delete("/:id", checkLoggedIn, (req, res) => {
-    models.Post.findByIdAndRemove(req.params.id, (error, post) => {
+    // models.Post.findByIdAndRemove(req.params.id, (error, post) => {
+    //     if (error) return res.status(500).end();
+
+    //     if (!post) return res.status(400).end();
+
+    //     return res.status(200).end();
+    // });
+
+    models.Post.delete({_id: req.params.id}, (error, post) => {
         if (error) return res.status(500).end();
 
         if (!post) return res.status(400).end();
