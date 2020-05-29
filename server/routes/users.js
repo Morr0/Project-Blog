@@ -59,11 +59,8 @@ route.get("/loggedIn", async (req, res) => {
     // if (!req.session) return res.status(404).end();
     if (!req.session.userId) return res.status(404).end();
 
-    console.log("Logged");
     const data = await models.User.get({_id: req.session.userId});
-    console.log(data);
-    console.log("LoggedAfter");
-    res.json();
+    return res.status(200).json({id: data._id, name: data.name});
     // models.User.findById(req.session.userId, (error, data) => {
     //     if (error) return res.status(500).end();
 
@@ -71,66 +68,90 @@ route.get("/loggedIn", async (req, res) => {
     // });
 });
 
-route.get("/allowedToRegister", (req, res) => {
-    if (!req.session.userId) return res.status(ALLOWED_TO_REGISTER_USERS? 200: 401).end();
+// Currently not registering
+// route.get("/allowedToRegister", (req, res) => {
+//     if (!req.session.userId) return res.status(ALLOWED_TO_REGISTER_USERS? 200: 401).end();
 
-    return res.status(401);
-});
+//     return res.status(401);
+// });
 
-route.post("/register", checkLoggedIn, (req, res) => {
-    if (!ALLOWED_TO_REGISTER_USERS) return res.status(401).end();
+// route.post("/register", checkLoggedIn, (req, res) => {
+//     if (!ALLOWED_TO_REGISTER_USERS) return res.status(401).end();
 
-    if (req.headers.name && req.headers.email && req.headers.password){
-        // Check for email
-        models.User.findOne({email: req.headers.email}, (error, data) => {
-            if (error) return res.status(500).end();
+//     if (req.headers.name && req.headers.email && req.headers.password){
+//         // Check for email
+//         models.User.findOne({email: req.headers.email}, (error, data) => {
+//             if (error) return res.status(500).end();
             
-            // If user exists
-            if (data) return res.status(409).end();
-            else {
-                // Make a new password
-                let textPassword = req.headers.password;
-                bcrypt.hash(textPassword, salt).then((hash) => {
-                    // Storing in DB
-                    const user = new models.User({
-                        name: req.headers.name,
-                        email: req.headers.email,
-                        password: hash
-                    });
+//             // If user exists
+//             if (data) return res.status(409).end();
+//             else {
+//                 // Make a new password
+//                 let textPassword = req.headers.password;
+//                 bcrypt.hash(textPassword, salt).then((hash) => {
+//                     // Storing in DB
+//                     const user = new models.User({
+//                         name: req.headers.name,
+//                         email: req.headers.email,
+//                         password: hash
+//                     });
 
-                    user.save((error) => {
-                        if (error) return res.status(500).json(error);
+//                     user.save((error) => {
+//                         if (error) return res.status(500).json(error);
 
-                        return res.status(201).end();
-                    });
-                });                
-            }
-        });
-    } else return res.status(400).end();
-});
+//                         return res.status(201).end();
+//                     });
+//                 });                
+//             }
+//         });
+//     } else return res.status(400).end();
+// });
 
-route.post("/login", checkLoggedIn, (req, res) => {
+route.post("/login", checkLoggedIn, async (req, res) => {
+    // if (req.headers.email && req.headers.password){
+    //     models.User.findOne({email: req.headers.email}, (error, user) => {
+    //         if (error) return res.status(500).end();
+    //         // Password or email incorrect
+    //         if (!user) return res.status(404).end();
+
+    //         else {
+    //             bcrypt.compare(req.headers.password, user.password, (error, same) => {
+    //                 if (!error){
+    //                     // If login credentials are correct
+    //                     if (same){
+    //                         req.session.userId = user._id;
+    //                         res.status(202).json({id: user._id, name: user.name});
+    //                     } else return res.status(404).end();
+    //                 } else return res.status(500).json({error: error});
+    //             });
+    //         }
+    //     });
+    // } else return res.status(400).json({error: "Incomplete request"});
+
     if (req.headers.email && req.headers.password){
-        models.User.findOne({email: req.headers.email}, (error, user) => {
+        models.User.scan().filter("email").eq(req.headers.email).exec((error, user) => {
             if (error) return res.status(500).end();
             // Password or email incorrect
             if (!user) return res.status(404).end();
-
-            else {
-                bcrypt.compare(req.headers.password, user.password, (error, same) => {
-                    if (!error){
-                        // If login credentials are correct
-                        if (same){
-                            req.session.userId = user._id;
-                            res.status(202).json({id: user._id, name: user.name});
-                        } else return res.status(404).end();
-                    } else return res.status(500).json({error: error});
-                });
-            }
+            
+            // Hashing magic
+            user = user[0]; // returns array
+            bcrypt.compare(req.headers.password, user.password, (error, same) => {
+                if (!error){
+                    // If login credentials are correct
+                    if (same){
+                        req.session.userId = user._id;
+                        res.status(202).json({id: user._id, name: user.name});
+                    } else return res.status(404).end();
+                } else {
+                    console.log(error);
+                    return res.status(500).end();
+                }
+            });
         });
-    } else return res.status(400).json({error: "Incomplete request"});
-
-    
+    } else {
+        return res.status(400).end();
+    }
 });
 
 route.post("/logout", (req, res) => {
@@ -163,7 +184,6 @@ route.get("/:id", async (req, res) => {
     if (!user) return res.status(404).end();
 
     user.email = user.password = undefined;
-    console.log(user);
 
     return res.status(200).json(user);
 });
