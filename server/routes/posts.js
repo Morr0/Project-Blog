@@ -3,6 +3,8 @@ const route = express.Router();
 
 const models = require("../models/DBModels");
 
+const uuid = require("uuid").v1;
+
 // TODO Error handling
 
 route.get("/", (req, res) => {
@@ -119,7 +121,9 @@ route.post("/", checkLoggedIn, (req, res) => {
     //     return res.status(200).json(data._id);
     // });
 
+    console.log("Got knocked");
     const newArticle = {
+        _id: uuid(),
         author: req.session.userId,
         title: req.headers.title,
         description: req.headers.description,

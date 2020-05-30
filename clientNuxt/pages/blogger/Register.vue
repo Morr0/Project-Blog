@@ -89,7 +89,8 @@ export default {
                     "name": this.name,
                     "email": this.email,
                     "password": this.password
-                }
+                },
+                credentials: "include"
             }).then((res) => {
                 if (res.status === 409)
                     return alert("Your email is already registered");

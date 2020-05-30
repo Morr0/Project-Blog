@@ -57,7 +57,9 @@ function checkLoggedIn (req, res, next){
 
 route.get("/loggedIn", async (req, res) => {
     // if (!req.session) return res.status(404).end();
+    console.log(`Log checked: ${req.session.userId}`);
     if (!req.session.userId) return res.status(404).end();
+    console.log("Loggedin");
 
     const data = await models.User.get({_id: req.session.userId});
     return res.status(200).json({id: data._id, name: data.name});

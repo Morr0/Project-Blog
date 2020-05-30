@@ -53,7 +53,7 @@ export default {
     },
     async created(){
         try {
-            const res = await fetch(`${this.$store.state.backend}/users/${this.id}`);
+            const res = await fetch(`${this.$store.state.backend}/users/${this.id}`, {credentials: "include"});
             if (res.status !== 200) return this.$router.replace("/");
             else {
                 this.user = await res.json();
