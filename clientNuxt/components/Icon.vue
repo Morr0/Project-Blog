@@ -7,11 +7,13 @@
             <path fill-rule="evenodd" d="M11.293 1.293a1 1 0 011.414 0l2 2a1 1 0 010 1.414l-9 9a1 1 0 01-.39.242l-3 1a1 1 0 01-1.266-1.265l1-3a1 1 0 01.242-.391l9-9zM12 2l2 2-9 9-3 1 1-3 9-9z" clip-rule="evenodd"/>
             <path fill-rule="evenodd" d="M12.146 6.354l-2.5-2.5.708-.708 2.5 2.5-.707.708zM3 10v.5a.5.5 0 00.5.5H4v.5a.5.5 0 00.5.5H5v.5a.5.5 0 00.5.5H6v-1.5a.5.5 0 00-.5-.5H5v-.5a.5.5 0 00-.5-.5H3z" clip-rule="evenodd"/>
         </svg>
-        <svg v-if="hidden" class="bi bi-eye-slash-fill fill-current w-4" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+        <div v-if="hidden" title="This post is not available in the feed">
+            <svg class="bi bi-eye-slash-fill fill-current w-4" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
             <path d="M10.79 12.912l-1.614-1.615a3.5 3.5 0 01-4.474-4.474l-2.06-2.06C.938 6.278 0 8 0 8s3 5.5 8 5.5a7.029 7.029 0 002.79-.588zM5.21 3.088A7.028 7.028 0 018 2.5c5 0 8 5.5 8 5.5s-.939 1.721-2.641 3.238l-2.062-2.062a3.5 3.5 0 00-4.474-4.474L5.21 3.089z"/>
             <path d="M5.525 7.646a2.5 2.5 0 002.829 2.829l-2.83-2.829zm4.95.708l-2.829-2.83a2.5 2.5 0 012.829 2.829z"/>
             <path fill-rule="evenodd" d="M13.646 14.354l-12-12 .708-.708 12 12-.708.708z" clip-rule="evenodd"/>
-        </svg>
+            </svg>
+        </div>
         <img v-if="logo" src="@/assets/svg/logolg.svg"  alt="Rami Hikmat's Logo" class="logo fill-current h-auto w-12 mr-2" width="80" height="80" 
         viewBox="0 0 54 54" :title="$store.state.title" />
         <a href="https://github.com/Morr0" target="_blank">
