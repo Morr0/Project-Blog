@@ -127,8 +127,6 @@ route.post("/", checkLoggedIn, (req, res) => {
     //     return res.status(200).json(data._id);
     // });
 
-    console.log("Got knocked");
-    console.log(req.session.userId);
     // req.params.draft = req.params.draft? true: false;
     // req.params.hidden = req.params.hidden? true: false;
     const newArticle = {
@@ -137,8 +135,8 @@ route.post("/", checkLoggedIn, (req, res) => {
         title: req.headers.title,
         description: req.headers.description,
         content: req.body,
-        draft: Boolean(req.headers.draft),
-        hidden: Boolean(req.headers.hidden),
+        draft: stringToBoolean(req.headers.draft),
+        hidden: stringToBoolean(req.headers.hidden),
     };
 
     models.Post.create(newArticle, (error, data) => {
@@ -153,13 +151,15 @@ route.post("/", checkLoggedIn, (req, res) => {
 
 route.put("/:id", checkLoggedIn, (req, res) => {
     // Things that are to be updates, checks if they were included in HTTP header to be updated
+
+    console.log(`hidden: ${req.headers.hidden} and type: ${typeof req.headers.hidden}`);
     
     const toBeUpdated = {updateDate: String(Date.now())};
     if (req.headers.title) toBeUpdated.title = req.headers.title;
     if (req.headers.description) toBeUpdated.description = req.headers.description;
     if (req.body) toBeUpdated.content = req.body;
-    if (req.headers.hidden) toBeUpdated.hidden = Boolean(req.headers.hidden);
-    if (req.headers.draft) toBeUpdated.draft = Boolean(req.headers.draft);
+    if (req.headers.hidden) toBeUpdated.hidden = stringToBoolean(req.headers.hidden);
+    if (req.headers.draft) toBeUpdated.draft = stringToBoolean(req.headers.draft);
 
     if (!req.headers.draft && !req.headers.hidden) toBeUpdated.postDate = String(Date.now());
 
@@ -188,10 +188,19 @@ route.delete("/:id", checkLoggedIn, (req, res) => {
     models.Post.delete({_id: req.params.id}, (error, post) => {
         if (error) return res.status(500).end();
 
-        if (!post) return res.status(400).end();
+        // if (!post) return res.status(400).end();
 
         return res.status(200).end();
     });
 });
+
+// Utils
+
+// Returns false if undefined or null
+function stringToBoolean(str){
+    if (!str) return false;
+
+    return str.includes("true")? true: false;
+}
 
 module.exports = route;
