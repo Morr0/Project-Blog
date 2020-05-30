@@ -5,6 +5,7 @@
     - Like posts []
     - Floating like button on the left with the number of likes []
     - Editable labels(change name on double clicking with a dialog) []
+    - Make date in the viewer's country format []
 
 ## 1.3 Targets:
     - Secure calling the backend []

@@ -154,14 +154,14 @@ route.put("/:id", checkLoggedIn, (req, res) => {
 
     console.log(`hidden: ${req.headers.hidden} and type: ${typeof req.headers.hidden}`);
     
-    const toBeUpdated = {updateDate: String(Date.now())};
+    const toBeUpdated = {};
     if (req.headers.title) toBeUpdated.title = req.headers.title;
     if (req.headers.description) toBeUpdated.description = req.headers.description;
     if (req.body) toBeUpdated.content = req.body;
     if (req.headers.hidden) toBeUpdated.hidden = stringToBoolean(req.headers.hidden);
     if (req.headers.draft) toBeUpdated.draft = stringToBoolean(req.headers.draft);
 
-    if (!req.headers.draft && !req.headers.hidden) toBeUpdated.postDate = String(Date.now());
+    // if (!req.headers.draft && !req.headers.hidden) toBeUpdated.postDate = String(Date.now());
 
     // models.Post.findByIdAndUpdate(req.params.id, toBeUpdated, (error) => {
     //     if (error) return res.status(500).end();

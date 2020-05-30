@@ -67,7 +67,7 @@ export default {
         };
     },
     async mounted(){
-        if (this.post.updateDate) this.date = new Date(this.post.updateDate);
+        if (this.post.postDate) this.date = new Date(this.post.postDate);
         document.date = this.date;
 
         try {
