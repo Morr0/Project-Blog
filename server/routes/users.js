@@ -57,7 +57,6 @@ function checkLoggedIn (req, res, next){
 
 route.get("/loggedIn", async (req, res) => {
     // if (!req.session) return res.status(404).end();
-    console.log(`Log checked: ${req.session.userId}`);
     if (!req.session.userId) return res.status(404).end();
     console.log("Loggedin");
 
@@ -138,11 +137,13 @@ route.post("/login", checkLoggedIn, async (req, res) => {
             
             // Hashing magic
             user = user[0]; // returns array
+            console.log(user);
             bcrypt.compare(req.headers.password, user.password, (error, same) => {
                 if (!error){
                     // If login credentials are correct
                     if (same){
                         req.session.userId = user._id;
+                        console.log(req.session.userId);
                         res.status(202).json({id: user._id, name: user.name});
                     } else return res.status(404).end();
                 } else {

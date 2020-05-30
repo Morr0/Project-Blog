@@ -122,18 +122,24 @@ route.post("/", checkLoggedIn, (req, res) => {
     // });
 
     console.log("Got knocked");
+    console.log(req.session.userId);
+    // req.params.draft = req.params.draft? true: false;
+    // req.params.hidden = req.params.hidden? true: false;
     const newArticle = {
         _id: uuid(),
         author: req.session.userId,
         title: req.headers.title,
         description: req.headers.description,
         content: req.body,
-        draft: req.headers.draft,
-        hidden: req.headers.hidden,
+        draft: Boolean(req.headers.draft),
+        hidden: Boolean(req.headers.hidden),
     };
 
     models.Post.create(newArticle, (error, data) => {
-        if (error) return res.status(500).end();
+        if (error){ 
+            console.log(error);
+            return res.status(500).end();
+        }
          
         return res.status(200).json(data._id);
     });
@@ -142,14 +148,14 @@ route.post("/", checkLoggedIn, (req, res) => {
 route.put("/:id", checkLoggedIn, (req, res) => {
     // Things that are to be updates, checks if they were included in HTTP header to be updated
     
-    const toBeUpdated = {updateDate: Date.now()};
+    const toBeUpdated = {updateDate: String(Date.now())};
     if (req.headers.title) toBeUpdated.title = req.headers.title;
     if (req.headers.description) toBeUpdated.description = req.headers.description;
     if (req.body) toBeUpdated.content = req.body;
-    if (req.headers.hidden) toBeUpdated.hidden = req.headers.hidden;
-    if (req.headers.draft) toBeUpdated.draft = req.headers.draft;
+    if (req.headers.hidden) toBeUpdated.hidden = Boolean(req.headers.hidden);
+    if (req.headers.draft) toBeUpdated.draft = Boolean(req.headers.draft);
 
-    if (!req.headers.draft && !req.headers.hidden) toBeUpdated.postDate = Date.now();
+    if (!req.headers.draft && !req.headers.hidden) toBeUpdated.postDate = String(Date.now());
 
     // models.Post.findByIdAndUpdate(req.params.id, toBeUpdated, (error) => {
     //     if (error) return res.status(500).end();

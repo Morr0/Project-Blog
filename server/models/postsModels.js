@@ -20,19 +20,21 @@ const post = new dynamoose.Schema({
     },
     draft: {
         type: Boolean,
+        default: true,
     },
     // When it goes from draft = false to true
     postDate: {
         type: String,
-        default: Date.now,
+        default: String(Date.now()),
         // "rangeKey": true,
     },
     updateDate: {
         type: String,
-        default: Date.now
+        default: String(Date.now())
     },
     hidden: {
         type: Boolean,
+        default: false,
     },
     likes: {
         type: Number,
