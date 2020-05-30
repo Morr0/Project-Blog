@@ -32,8 +32,14 @@ route.get("/", (req, res) => {
         if (error) return res.status(500).end();
         if (!data) return res.status(404).end();
 
-        data.map(element => element.content = undefined);
-        return res.status(200).json(data);
+        let returnables = [];
+            data.forEach((item) => {
+                if (!item.hidden && !item.draft){
+                    item.content = undefined;
+                    returnables.push(item);
+                }
+            });
+        return res.status(200).json(returnables);
     });
 });
 
