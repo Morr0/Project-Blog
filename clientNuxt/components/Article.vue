@@ -12,8 +12,8 @@
                     <p class="text-gray-700 articleContent" v-if="!individualPage" v-html="post.description">Description goes here</p>
                     <div class="text-gray-700 articleContent" v-else v-html="post.content">Content goes here</div>
                 </div>
-                <div class="flex mb-16 relative">
-                    <div class="w-4/10 h-16">
+                <div class="flex mb-12">
+                    <div class="w-4/10 h-12">
                         <div class="flex items-center">
                             <ProfilePicture v-if="individualPage && author" class="w-10 h-10 rounded-full mr-4 articleImg" :image_url="author.image_url" />
                             <div class="text-sm">
@@ -23,11 +23,15 @@
                             </div>
                         </div>
                     </div>
-                    <div class="w-6/10 h-16 bg-gray-200 rounded-lg flex text-gray-900 align-middle w-1/2 ml-10 mt-5 relative">
-                        <p class="mt-5 ml-12">
-                            {{post.likes}} Likes || <a href="" @click.prevent="like" style="text-decoration: none;" 
+                    <div v-if="individualPage" class="w-6/10 h-12 block text-justify w-1/2 ml-10 mt-8 ">
+                        <p class="mb-4 ml-12 text-gray-900 ">
+                            {{post.likes}} Likes || 
+                            <a v-if="individualPage && !liked" href="" @click.prevent="like" style="text-decoration: none;" 
                             class="block mt-4 lg:inline-block lg:mt-0 text-gray-700 hover:text-blue-500 mr-4 font-bold">Like it</a>
                         </p>
+                    </div>
+                    <div v-else class="w-6/10 h-auto w-1/2 mb-4 ml-12 text-gray-900">
+                        {{post.likes}} Likes
                     </div>
                 </div>
                 
@@ -65,6 +69,8 @@ export default {
             // Client side rendering
             if (!this.post.likes)
                 this.post.likes = 0
+
+            this.liked = true;
             this.post.likes++;
         },
         clickedIcon: function (){
@@ -75,6 +81,7 @@ export default {
             loggedInEditPath: `/blogger/edit/${this.post._id}`,
             author: undefined,
             date: new Date(),
+            liked: false,
         };
     },
     async mounted(){
