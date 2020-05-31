@@ -28,7 +28,6 @@ export default {
         try {
             const isLoggedIn = await fetch(`${this.$store.state.backend}/users/loggedIn/`, {credentials: "include"});
             if (isLoggedIn.status !== 200){
-                console.log("Not logged in")
                 this.$store.commit("updateUser", {loggedIn: false, loggedInUserId: "", loggedInUser: ""});
             } else {
                 const user = await isLoggedIn.json();

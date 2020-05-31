@@ -17,3 +17,5 @@ const ddb = new dynamoose.aws.sdk.DynamoDB({
 });
 
 dynamoose.aws.ddb.set(ddb);
+
+module.exports = ddb;

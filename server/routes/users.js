@@ -60,6 +60,7 @@ route.get("/loggedIn", async (req, res) => {
     if (!req.session.userId) return res.status(404).end();
 
     const data = await models.User.get({_id: req.session.userId});
+    data.email = data.password = undefined;
     return res.status(200).json({id: data._id, name: data.name});
     // models.User.findById(req.session.userId, (error, data) => {
     //     if (error) return res.status(500).end();

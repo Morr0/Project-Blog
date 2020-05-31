@@ -40,7 +40,8 @@ if (NODE_ENV === "production"){
     ORIGIN = JSON.parse(process.env.ORIGIN);
 } 
 
-require("./utils/db/dbconnection");
+// Initial DB Connection MUST KEEP
+const ddb = require("./utils/db/dbconnection");
 
 console.log(`CORS: ${ORIGIN}`);
 
@@ -65,6 +66,8 @@ app.use(cors({
     credentials: true,
 }));
 
+
+const DynamoDBStore = require("connect-dynamodb")(session);
 app.use(session({
     secret: SECRET_KEY,
     resave: true,
@@ -79,6 +82,12 @@ app.use(session({
     //     mongooseConnection: mongoose.connection,
     //     collection: "sessions"
     // }),
+    // store: new DynamoDBStore({
+    //     table: NODE_ENV === "development"? "blog-test-sessions": "blog-sessions",
+    //     AWSConfigJSON: ddb.config,
+    //     readCapacityUnits: 1,
+    //     writeCapacityUnits: 1
+    // })
 }));
 
 // Routing 
