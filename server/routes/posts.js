@@ -194,7 +194,7 @@ route.delete("/:id", checkLoggedIn, (req, res) => {
     });
 });
 
-route.get("/like/:id", async (req, res) => {
+route.put("/like/:id", async (req, res) => {
     // Get the current post, increment the likes and update the table
     // THIS IS INEFFICIENT BECAUSE OF DID NOT FIND A WAY TO AUTO_INCREMENT IN DYNAMOOSE
     const post = await models.Post.get({_id: req.params.id});

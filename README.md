@@ -2,7 +2,7 @@
 
 ## 1.2 Targets:
     - Polish the UI []
-    - Like posts []
+    - Like posts [X]
     - Floating like button on the left with the number of likes []
     - Editable labels(change name on double clicking with a dialog) []
     - Make date in the viewer's country format []

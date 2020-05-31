@@ -1,5 +1,5 @@
 <template>
-  <div class="border w-full sm:flex sm:items-center min-w-full sm:flex-col">
+  <div class="border w-full sm:flex sm:items-center min-w-full sm:flex-col mb-8">
         <div class="max-w-sm w-full sm:max-w-full sm:flex flex-grow min-w-full">
             <div class="border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t 
             lg:border-gray-400 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal
@@ -12,14 +12,25 @@
                     <p class="text-gray-700 articleContent" v-if="!individualPage" v-html="post.description">Description goes here</p>
                     <div class="text-gray-700 articleContent" v-else v-html="post.content">Content goes here</div>
                 </div>
-                <div class="flex items-center">
-                    <ProfilePicture v-if="individualPage && author" class="w-10 h-10 rounded-full mr-4 articleImg" :image_url="author.image_url" />
-                    <div class="text-sm">
-                        <p v-if="author" class="text-gray-900 leading-none"><a href="" @click.prevent="toAuthor" class="articleAuthor">
-                            {{author.name}}</a></p>
-                        <p class="text-gray-600">{{date.toLocaleDateString("en-au")}}</p>
+                <div class="flex mb-16 relative">
+                    <div class="w-4/10 h-16">
+                        <div class="flex items-center">
+                            <ProfilePicture v-if="individualPage && author" class="w-10 h-10 rounded-full mr-4 articleImg" :image_url="author.image_url" />
+                            <div class="text-sm">
+                                <p v-if="author" class="text-gray-900 leading-none"><a href="" @click.prevent="toAuthor" class="articleAuthor">
+                                    {{author.name}}</a></p>
+                                <p class="text-gray-600">{{date.toLocaleDateString("en-au")}}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="w-6/10 h-16 bg-gray-200 rounded-lg flex text-gray-900 align-middle w-1/2 ml-10 mt-5 relative">
+                        <p class="mt-5 ml-12">
+                            {{post.likes}} Likes || <a href="" @click.prevent="like" style="text-decoration: none;" 
+                            class="block mt-4 lg:inline-block lg:mt-0 text-gray-700 hover:text-blue-500 mr-4 font-bold">Like it</a>
+                        </p>
                     </div>
                 </div>
+                
             </div>
         </div>
   </div>
