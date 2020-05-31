@@ -12,8 +12,8 @@
                     <p class="text-gray-700 articleContent" v-if="!individualPage" v-html="post.description">Description goes here</p>
                     <div class="text-gray-700 articleContent" v-else v-html="post.content">Content goes here</div>
                 </div>
-                <div class="flex mb-12">
-                    <div class="w-4/10 h-12">
+                <div class="flex ">
+                    <div class="w-4/10 h-auto">
                         <div class="flex items-center">
                             <ProfilePicture v-if="individualPage && author" class="w-10 h-10 rounded-full mr-4 articleImg" :image_url="author.image_url" />
                             <div class="text-sm">
