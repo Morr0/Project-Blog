@@ -19,7 +19,7 @@
                             <div class="text-sm">
                                 <p v-if="author" class="text-gray-900 leading-none"><a href="" @click.prevent="toAuthor" class="articleAuthor">
                                     {{author.name}}</a></p>
-                                <p class="text-gray-600">{{date.toLocaleDateString("en-au")}}</p>
+                                <p class="text-gray-600">{{date.toUTCString()}}</p>
                             </div>
                         </div>
                     </div>

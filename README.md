@@ -3,9 +3,9 @@
 ## 1.2 Targets:
     - Polish the UI []
     - Like posts [X]
-    - Floating like button on the left with the number of likes []
+    - like button on the left with the number of likes [X]
     - Editable labels(change name on double clicking with a dialog) []
-    - Make date in the viewer's country format []
+    - Make date in the viewer's country format [X]
 
 ## 1.3 Targets:
     - Secure calling the backend []
