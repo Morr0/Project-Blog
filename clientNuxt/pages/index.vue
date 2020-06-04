@@ -19,25 +19,26 @@ export default {
     components: {
         Articles
     },
-    data(){
-        return {
-            posts: undefined,
-        };
-    },
-    async created(){
+    async asyncData(context){
+        let posts = undefined;
+
         try {
-            const isLoggedIn = await fetch(`${this.$store.state.backend}/users/loggedIn/`, {credentials: "include"});
+            const isLoggedIn = await fetch(`${context.store.state.backend}/users/loggedIn/`, {credentials: "include"});
             if (isLoggedIn.status !== 200){
-                this.$store.commit("updateUser", {loggedIn: false, loggedInUserId: "", loggedInUser: ""});
+                context.store.commit("updateUser", {loggedIn: false, loggedInUserId: "", loggedInUser: ""});
             } else {
                 const user = await isLoggedIn.json();
-                this.$store.commit("updateUser", {loggedIn: true, loggedInUserId: user.id, loggedInUser: user.name});
+                context.store.commit("updateUser", {loggedIn: true, loggedInUserId: user.id, loggedInUser: user.name});
             }
 
-            const res = await fetch(`${this.$store.state.backend}/posts/`);
-            this.posts = await res.json();
+            const res = await fetch(`${context.store.state.backend}/posts/`);
+            posts = await res.json();
         } catch (error){
             console.log(error);
+        }
+
+        return {
+            posts,
         }
     },
 }

@@ -43,38 +43,72 @@ export default {
     },
     data(){
         return {
-            id: this.$route.params.id,
-            user: undefined,
-            posts: undefined,
+            // id: this.$route.params.id,
+            // user: undefined,
+            // posts: undefined,
 
             dialogMode: false,
             dialogText: "",
         };
     },
-    async created(){
+    async asyncData(context){
+        const id = context.params.id;
+        let posts, user = undefined;
+
+        // TODO clean code
         try {
-            const res = await fetch(`${this.$store.state.backend}/users/${this.id}`, {credentials: "include"});
-            if (res.status !== 200) return this.$router.replace("/");
+            const res = await fetch(`${context.store.state.backend}/users/${id}`, {credentials: "include"});
+            if (res.status !== 200) return context.router.replace("/");
             else {
-                this.user = await res.json();
+                user = await res.json();
             }
         } catch (error) {
             console.log(error);
-            return this.$router.replace("/");
+            return context.router.replace("/");
         }
-    },
-    async mounted(){
+
         try {
-            const res = await fetch(`${this.$store.state.backend}/posts/user/${this.id}`, {credentials: "include"});
+            const res = await fetch(`${context.store.state.backend}/posts/user/${id}`, {credentials: "include"});
 
             if (res.status === 200){
-                this.posts = await res.json();
+                posts = await res.json();
             }
         } catch (error) {
             console.log(error);
-            return this.$router.replace("/");
+            return context.router.replace("/");
         }
+
+        return {
+            id,
+            posts,
+            user,
+        }
+
     },
+    // async created(){
+    //     try {
+    //         const res = await fetch(`${this.$store.state.backend}/users/${this.id}`, {credentials: "include"});
+    //         if (res.status !== 200) return this.$router.replace("/");
+    //         else {
+    //             this.user = await res.json();
+    //         }
+    //     } catch (error) {
+    //         console.log(error);
+    //         return this.$router.replace("/");
+    //     }
+    // },
+    // async mounted(){
+    //     try {
+    //         const res = await fetch(`${this.$store.state.backend}/posts/user/${this.id}`, {credentials: "include"});
+
+    //         if (res.status === 200){
+    //             this.posts = await res.json();
+    //         }
+    //     } catch (error) {
+    //         console.log(error);
+    //         return this.$router.replace("/");
+    //     }
+    // },
     methods: {
         directToView: function (){
             this.$router.replace(`/post/${post._id}`);

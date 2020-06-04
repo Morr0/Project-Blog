@@ -7,7 +7,7 @@
     - Editable labels(change name on double clicking with a dialog) []
     - Make date in the viewer's country format [X]
     - Link previewing capabilities []
-    - Optimise API calls to happen from the nuxt server rather than from the client []
+    - Optimise API calls to happen from the nuxt server rather than from the client [X]
 
 ## 1.3 Targets:
     - Secure calling the backend []
