@@ -3,7 +3,7 @@
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
       <Navbar class="inav" />
       <nuxt class="icontent" />
-      <Footer class="ifooter" />
+      <!-- <Footer class="ifooter" /> -->
   </div>
 </template>
 

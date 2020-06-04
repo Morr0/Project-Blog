@@ -21,7 +21,8 @@
                     Posts
                 </nuxt-link> -->
 
-                <!-- Drop down styling issues -->
+
+
                 <a class="mr-4 text-gray-700 hover:text-blue-500 w-12 relative drop font-bold">
                     Apps
                     <div class="dropdownMenu" >
@@ -33,6 +34,22 @@
                             Rosary App</a></li>
                     </div>
                 </a>
+
+
+
+                <a class="mr-4 text-gray-700 hover:text-blue-500 w-12 relative drop font-bold">
+                    Contact
+                    <div class="dropdownMenu" >
+                        <li title="Pomodoro Timer"><a target="_blank" href="https://www.linkedin.com/in/rami-hikmat/" 
+                        class="px-4 py-2 block text-black hover:bg-grey-light text-gray-700 hover:text-blue-500">
+                            Linkedin</a></li>
+                        <li title="Rosary App"><a target="_blank" href="https://github.com/Morr0" 
+                        class="px-4 py-2 block text-black hover:bg-grey-light text-gray-700 hover:text-blue-500">
+                            Github</a></li>
+                    </div>
+                </a>
+
+
 
                 <!-- <a target="_blank" href="http://rami-apps.s3-website-ap-southeast-1.amazonaws.com/" 
                             class="block mt-4 lg:inline-block lg:mt-0 text-gray-700 hover:text-blue-500 mr-4 font-bold">
