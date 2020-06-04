@@ -1,17 +1,20 @@
 <template>
   <div>
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
-      <Navbar />
-      <nuxt />
+      <Navbar/>
+      <nuxt class="content" />
+      <Footer/>
   </div>
 </template>
 
 <script>
-import Navbar from "@/components/Navbar";
+import Navbar from "@/components/layout/Navbar.vue";
+import Footer from "@/components/layout/Footer.vue";
 
 export default {
     components: {
         Navbar,
+        Footer,
     },
     head: { // HARD CODED STUFF
         title: "Rami Hikmat's",
@@ -39,4 +42,9 @@ export default {
     a {
         text-decoration: underline;
     }
+
+    /* .layout {
+        min-height: 100%;
+        
+    } */
 </style>
