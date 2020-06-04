@@ -19,26 +19,23 @@ export default {
     components: {
         Article
     },
-    data: function(){
-        return {
-            id: this.$route.params.id,
-            post: {},
-        }
-    },
-    async created(){
+    async asyncData(context){
+        const id = context.params.id;
+        let post = undefined;
+        
         try {
-            const res = await fetch(`${this.$store.state.backend}/posts/${this.id}`, {credentials: "include"});
-            if (res.status !== 200) return this.$router.replace("/");
+            const res = await fetch(`${context.store.state.backend}/posts/${id}`, {credentials: "include"});
+            if (res.status !== 200) return context.route.replace("/");
 
-            this.post = await res.json();
+            post = await res.json();
         } catch(error){
             console.log(error);
-            return this.$router.replace("/");
+            return context.route.replace("/");
         }
-    }
+
+        return {
+            post,
+        }
+    },
 }
 </script>
-
-<style>
-
-</style>
