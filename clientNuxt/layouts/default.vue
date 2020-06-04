@@ -1,9 +1,9 @@
 <template>
-  <div>
+  <div class="entire">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
-      <Navbar/>
-      <nuxt class="content" />
-      <Footer/>
+      <Navbar class="inav" />
+      <nuxt class="icontent" />
+      <Footer class="ifooter" />
   </div>
 </template>
 
@@ -43,8 +43,25 @@ export default {
         text-decoration: underline;
     }
 
-    /* .layout {
-        min-height: 100%;
-        
-    } */
+    .entire {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+        grid-template-areas: 
+        "header"
+        "main"
+        "footer";
+    }
+
+    .inav {
+        grid-area: "header";
+    }
+
+    .icontent {
+        grid-area: "main";
+    }
+
+    .ifooter {
+        grid-area: "footer";
+    }
 </style>

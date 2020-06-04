@@ -42,13 +42,6 @@ export default {
 
     padding: 4rem;
 } */
-.footer {
-    padding-left: 4rem;
-    position: sticky;
-    bottom: 0%;
-    clear: both;
-}
-
 .footer a {
     text-decoration: none;
 }
