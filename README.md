@@ -1,19 +1,11 @@
 # Roadmap
 
-## 1.2 Targets:
-    - Polish the UI []
-    - Like posts [X]
-    - like button on the left with the number of likes [X]
-    - Editable labels(change name on double clicking with a dialog) []
-    - Make date in the viewer's country format [X]
-    - Link previewing capabilities []
-    - Optimise API calls to happen from the nuxt server rather than from the client [X]
-
 ## 1.3 Targets:
-    - Secure calling the backend []
-    - Rate limit requests []
+    - Serverlessify the backend into AWS Lambda []
+    - Link previewing capabilities []
     - Unit testing every current server endpoint and base it for  future endpoints/function []
     - Reference images from cloud bucket into posts []
+    - Store favicon in S3 []
     - Compress req/res []
     - Sharing with embed []
 
