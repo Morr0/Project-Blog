@@ -17,7 +17,7 @@
                         <div class="flex items-center">
                             <ProfilePicture v-if="individualPage && author" class="w-10 h-10 rounded-full mr-4 articleImg" :image_url="author.image_url" />
                             <div class="text-sm">
-                                <p v-if="author" class="text-gray-900 leading-none"><a href="" @click.prevent="toAuthor" class="articleAuthor">
+                                <p v-if="author" class="text-gray-900 leading-none"><a :href="toAuthor"  class="articleAuthor">
                                     {{author.name}}</a></p>
                                 <p class="text-gray-600">{{date.toUTCString()}}</p>
                             </div>
@@ -59,11 +59,14 @@ export default {
         loggedIn: function (){
             return (this.post.author === this.$store.state.sessionStorage.loggedInUserId);
         },
+        toAuthor: function (){
+            return `/blogger/${this.author._id}`;
+        },
     },
     methods: {
-        toAuthor: function (){
-            this.$router.replace(`/blogger/${this.author._id}`);
-        },
+        // toAuthor: function (){
+        //     this.$router.replace(`/blogger/${this.author._id}`);
+        // },
         like: function (){
             try {fetch(`${this.$store.state.backend}/posts/like/${this.post._id}`, { method: "PUT", credentials: "include"});} catch(error) {return console.log(error);}
             // Client side rendering
@@ -99,6 +102,10 @@ export default {
 </script>
 
 <style scoped>
+img {
+    cursor: default;
+}
+
 .articleTitle {
     text-decoration: none;
     
@@ -136,10 +143,6 @@ export default {
 
 .articleContent a:hover {
     @apply text-blue-500;
-}
-
-.articleImg {
-    cursor: pointer;
 }
 
 .articleAuthor {

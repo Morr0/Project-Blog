@@ -22,7 +22,7 @@
                 </nuxt-link> -->
 
                 <!-- Drop down styling issues -->
-                <a href="" class="mr-4 text-gray-700 hover:text-blue-500 w-12 relative drop font-bold">
+                <a class="mr-4 text-gray-700 hover:text-blue-500 w-12 relative drop font-bold">
                     Apps
                     <div class="dropdownMenu" >
                         <li title="Pomodoro Timer"><a target="_blank" href="https://morr0.github.io/Pomodoro-Timer/" 
@@ -80,5 +80,6 @@ export default {
 <style scoped>
     a {
         text-decoration: none;
+        cursor: pointer;
     }
 </style>
