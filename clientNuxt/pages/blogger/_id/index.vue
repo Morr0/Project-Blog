@@ -74,8 +74,6 @@ export default {
             return context.router.replace("/");
         }
 
-        console.log(user.image_url);
-
         return {
             id,
             posts,

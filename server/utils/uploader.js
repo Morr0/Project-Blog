@@ -20,16 +20,19 @@ const uploader = multer({
             cb(null, {fieldName: file.fieldname});
         },
         key: function (req, file, cb){
-            // If user not signed in or a different user
-            if (!req.session.userId) return cb(new Error());
-            if (req.headers._id !== req.session.userId) return cb(new Error());
+            try {
+                // If user not signed in or a different user
+                if (!req.session.userId) return cb(new Error());
+                if (req.headers._id !== req.session.userId) return cb(new Error());
 
-            // Finding the file extension dynamically
-            const splitFile = file.originalname.split(".");
-            const fileExtension = splitFile[splitFile.length - 1];
+                // Finding the file extension dynamically
+                const splitFile = file.originalname.split(".");
+                const fileExtension = splitFile[splitFile.length - 1];
 
-            console.log("Image upload");
-            cb(null, `${req.session.userId}-profile.${fileExtension}`);
+                cb(null, `${req.session.userId}-profile.${fileExtension}`);
+            } catch (error){
+                next(new Error(error));
+            }
         }
     })
 });

@@ -123,7 +123,7 @@ route.get("/:id", async (req, res) => {
 route.put("/image/profile/:id", uploader.single("picture"), async (req, res) => {
     if (req.session.userId !== req.params.id) return res.status(401).end();
 
-    const user = await models.User.update({_id: req.params.id});
+    const user = await models.User.update({_id: req.params.id}, {image_url: req.file.location});
     if (!user) return res.status(400).end();
 
     return res.status(200).end();
