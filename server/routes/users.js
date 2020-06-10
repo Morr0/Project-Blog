@@ -105,6 +105,8 @@ route.get("/loggedIn", async (req, res) => {
 */
 
 route.post("/login", checkLoggedIn, async (req, res) => {
+    console.log(`Login request\n${req.headers}`);
+
     if (req.headers.email && req.headers.password){
         models.User.scan().filter("email").eq(req.headers.email).exec((error, user) => {
             if (error) return res.status(500).end();

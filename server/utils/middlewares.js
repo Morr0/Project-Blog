@@ -4,6 +4,7 @@ const helmet = require("helmet");
 const parser = require("body-parser");
 const cors = require("cors");
 const session = require("express-session");
+const dynamoDBClient = require("./db/dbconnection");
 
 
 module.exports = function (app, env){
@@ -14,11 +15,11 @@ module.exports = function (app, env){
     }));
 
     app.use(cors({
-        origin: env.ORIGIN,
+        origin: JSON.parse(env.ORIGIN),
         credentials: true,
     }));
 
-
+    var DynamoDBStore = require('connect-dynamodb')({session: session});
     app.use(session({
         secret: env.SECRET_KEY,
         resave: true,
@@ -29,5 +30,10 @@ module.exports = function (app, env){
             httpOnly: true,
             maxAge: Number.parseInt(env.SESSION_LIFE),
         },
+        store: new DynamoDBStore({
+            client: dynamoDBClient,
+            table: "blog-sessions",
+            hashKey: "_id",
+        }),
     }));
 }
