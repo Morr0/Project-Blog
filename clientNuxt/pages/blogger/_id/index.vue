@@ -90,7 +90,7 @@ export default {
         },
         // Called when a file chooser's input changes
         selectedImage: function (){
-            console.log(this.$refs.imageUpload.files);
+            if (!this.$store.state.sessionStorage.loggedIn) return console.log("Bye");
 
             // To prevent bugs on empty files
             if (this.$refs.imageUpload.files.length > 0){
@@ -101,6 +101,9 @@ export default {
                     method: "PUT",
                     body: formData,
                     credentials: "include",
+                    headers: {
+                        _id: this.$store.state.sessionStorage.loggedInUserId,
+                    },
                 }).then((res) => {
                     if (res.status === 200) return this.$router.go();
                     
