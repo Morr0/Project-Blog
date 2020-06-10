@@ -14,7 +14,7 @@
             <path fill-rule="evenodd" d="M13.646 14.354l-12-12 .708-.708 12 12-.708.708z" clip-rule="evenodd"/>
             </svg>
         </div>
-        <img v-if="logo" src="@/assets/svg/logolg.svg"  alt="Rami Hikmat's Logo" class="logo fill-current h-24 sm:h-16 w-24 sm:w-16 mr-2" width="80" height="80" 
+        <img v-if="logo" src="https://rami-blog-statics.s3.amazonaws.com/5eadf925d22bd807c992328a-profile.svg"  alt="Rami Hikmat's Logo" class="logo fill-current h-24 sm:h-16 w-24 sm:w-16 mr-2" width="80" height="80" 
         viewBox="0 0 54 54" :title="$store.state.title" />
         <a href="https://github.com/Morr0" target="_blank">
             <img v-if="githubLogo" src="@/assets/svg/GitHub-Mark.svg" width="50" height="50" alt="Github.com" 

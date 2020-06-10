@@ -1,7 +1,7 @@
 # Roadmap
 
 ## 1.3 Targets:
-    - Store favicon in S3 []
+    - Store favicon in S3 [X]
     - Reference images from cloud bucket into posts []
     - Serverlessify the backend into AWS Lambda []
     - Link previewing capabilities []

@@ -15,7 +15,7 @@ export default {
       { hid: "og:description", name: "og:title", content: "This is a personal site where I host my portfolio and blog. My name is Rami Hikmat."},
     ],
     link: [
-      { rel: 'shortcut icon', href: "/favicon.ico" }
+      { rel: 'shortcut icon', href: "https://rami-blog-statics.s3.amazonaws.com/5eadf925d22bd807c992328a-profile.svg" }
     ]
   },
   /*

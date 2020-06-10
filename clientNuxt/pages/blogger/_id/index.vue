@@ -43,10 +43,6 @@ export default {
     },
     data(){
         return {
-            // id: this.$route.params.id,
-            // user: undefined,
-            // posts: undefined,
-
             dialogMode: false,
             dialogText: "",
         };
@@ -78,6 +74,8 @@ export default {
             return context.router.replace("/");
         }
 
+        console.log(user.image_url);
+
         return {
             id,
             posts,
@@ -85,37 +83,7 @@ export default {
         }
 
     },
-    // async created(){
-    //     try {
-    //         const res = await fetch(`${this.$store.state.backend}/users/${this.id}`, {credentials: "include"});
-    //         if (res.status !== 200) return this.$router.replace("/");
-    //         else {
-    //             this.user = await res.json();
-    //         }
-    //     } catch (error) {
-    //         console.log(error);
-    //         return this.$router.replace("/");
-    //     }
-    // },
-    // async mounted(){
-    //     try {
-    //         const res = await fetch(`${this.$store.state.backend}/posts/user/${this.id}`, {credentials: "include"});
-
-    //         if (res.status === 200){
-    //             this.posts = await res.json();
-    //         }
-    //     } catch (error) {
-    //         console.log(error);
-    //         return this.$router.replace("/");
-    //     }
-    // },
     methods: {
-        directToView: function (){
-            this.$router.replace(`/post/${post._id}`);
-        },
-        directToEdit: function (){
-            this.$router.replace(`/blogger/edit/${post._id}`);
-        },
         // Clicks the hidden file chooser
         dblClickProfPicture: function (){
             this.$refs.imageUpload.click();
