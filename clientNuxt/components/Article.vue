@@ -60,13 +60,11 @@ export default {
             return (this.post.author === this.$store.state.sessionStorage.loggedInUserId);
         },
         toAuthor: function (){
-            return `/blogger/${this.author._id}`;
+            // return `/blogger/${this.author._id}`;
+            return "https://ramihikmat.net";
         },
     },
     methods: {
-        // toAuthor: function (){
-        //     this.$router.replace(`/blogger/${this.author._id}`);
-        // },
         like: function (){
             try {fetch(`${this.$store.state.backend}/posts/like/${this.post._id}`, { method: "PUT", credentials: "include"});} catch(error) {return console.log(error);}
             // Client side rendering
@@ -79,7 +77,8 @@ export default {
         clickedIcon: function (){
             if (this.$store.state.sessionStorage.loggedInUserId === this.post.author) return this.$router.replace(this.loggedInEditPath);
         }
-    },data: function(){
+    },
+    data: function(){
         return {
             loggedInEditPath: `/blogger/edit/${this.post._id}`,
             author: undefined,
