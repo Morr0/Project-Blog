@@ -2,25 +2,25 @@
 
 ## 1.3 Targets:
     - Store favicon in S3 [X]
-    - Reference images from cloud bucket into posts []
-    - Serverlessify the backend into AWS Lambda []
-    - Link previewing capabilities []
-    - Compress req/res []
+    - Feedback/Request/Ask system []
+    - Email from feedback and potential futures []
 
 ## 1.4 Targets: 
-    - Feedback/Request/Ask system []
-    - Notification from feedback and potential futures []
+    - Reconsider the way posts are described (think twice about html vs md) []
     - Make the UI modular and future-proof (mobile-first)(add footer) []
+    - Minutes estimator of the post []
 
 ## 1.5 Targets:
-    - Minutes estimator of the post []
+    - Reference images from cloud bucket into posts []
     - PWA support []
     - Ability to install on Android []
+    - Serverlessify the backend into AWS Lambda []
 
 ## 1.6 Targets:
     - Comment system []
     - Notify on comments []
     - Secure comments []
+    - Link previewing capabilities []
 
 ## 1.7 Targets:
     - Dark/Light mode the site dynamically []
@@ -52,3 +52,4 @@
 ## Maybes:
     - RSS Feed
     - Custom scrollbar
+    - Compress req/res
