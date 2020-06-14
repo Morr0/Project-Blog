@@ -7,11 +7,13 @@ const contact = new dynamoose.Schema({
     },
     type: {
         type: String,
-        default: "Feedback",
+        required: true,
     },
     email: {
         type: String,
-        required: true,
+    },
+    question: {
+        type: String,
     },
     
 }, {timestamps: true});
