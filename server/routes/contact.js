@@ -7,6 +7,8 @@ const contact = require("../models/DBModels").Contact;
 
 const sanitizer = require("../utils/sanitizer");
 
+const emailer = require("../utils/emailer");
+
 route.post("/feedback", (req, res) => {
     if (!req.headers.question) return res.status(400).end();
 
@@ -16,7 +18,11 @@ route.post("/feedback", (req, res) => {
         question: sanitizer(req.headers.question),
     }
 
-    contact.create(item);
+    contact.create(item, (error, data) => {
+        if (!error) { // Send an email to me if no error
+            emailer("rami@ramihikmat.net", "Feedback from the blog", sanitizer(req.headers.question));
+        }
+    });
     return res.status(200).end();
 });
 
@@ -31,7 +37,12 @@ route.post("/contact", (req, res) => {
         question: sanitizer(req.headers.question),
     }
 
-    contact.create(item);
+    contact.create(item, (error, data) => {
+        if (!error) { // Send an email to me if no error
+            emailer("rami@ramihikmat.net", `Contact from the blog by email: ${sanitizer(req.headers.email)}`,
+             sanitizer(req.headers.question));
+        }
+    });
     return res.status(200).end();
 });
 
