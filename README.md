@@ -2,7 +2,7 @@
 
 ## 1.3 Targets:
     - Store favicon in S3 [X]
-    - Feedback/Request/Ask system []
+    - Feedback/Request/Ask system [X]
     - Email from feedback and potential futures []
 
 ## 1.4 Targets: 
