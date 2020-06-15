@@ -39,6 +39,7 @@ export default {
   buildModules: [
     // Doc: https://github.com/nuxt-community/nuxt-tailwindcss
     '@nuxtjs/tailwindcss',
+    '@nuxtjs/pwa',
   ],
   /*
   ** Nuxt.js modules
@@ -58,5 +59,16 @@ export default {
     */
     extend (config, ctx) {
     }
-  }
+  },
+  pwa: {
+    meta: {
+      title: "Rami Hikmat's",
+      author: "Rami Hikmat",
+    },
+    manifest: {
+      name: 'Rami Hikmat',
+      short_name: 'Rami',
+      lang: 'en',
+    },
+  },
 }
