@@ -3,7 +3,7 @@
 ## 1.3 Targets:
     - Store favicon in S3 [X]
     - Feedback/Request/Ask system [X]
-    - Email from feedback and potential futures []
+    - Email from feedback and potential futures [X]
 
 ## 1.4 Targets: 
     - Reconsider the way posts are described (think twice about html vs md) []
