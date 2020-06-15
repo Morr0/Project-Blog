@@ -42,7 +42,8 @@ export default {
     methods: {
         submit: function (){
 
-            // Validation
+            const validEmail = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            if (!validEmail.test(this.email)) return alert("Please provide a correct email");
 
             const headers = {
                 question: this.content,
@@ -50,12 +51,15 @@ export default {
 
             if (this.reason === "askcontact") headers.email = this.email;
 
-            console.log(headers);
-
             fetch(`${this.$store.state.backend}/contact/${this.reason === "feedback"? "feedback": "contact"}/`, {
                 headers: headers,
                 method: "POST",
             });
+
+            if (this.reason === "feedback")
+                alert("Thanks for sending me your feedback. Will definitely study your feedback.👍👍");
+            else 
+                alert("Thanks for contacting me. Will get to you as soon as possible.👍👍");
         }
     }
 }
