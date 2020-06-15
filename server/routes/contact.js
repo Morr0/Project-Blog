@@ -5,13 +5,15 @@ const uuid = require("uuid").v1;
 
 const contact = require("../models/DBModels").Contact;
 
+const sanitizer = require("../utils/sanitizer");
+
 route.post("/feedback", (req, res) => {
     if (!req.headers.question) return res.status(400).end();
 
     const item = {
         _id: uuid(),
         type: "Feedback",
-        question: req.headers.question,
+        question: sanitizer(req.headers.question),
     }
 
     contact.create(item);
@@ -25,8 +27,8 @@ route.post("/contact", (req, res) => {
     const item = {
         _id: uuid(),
         type: "Contact",
-        email: req.headers.email,
-        question: req.headers.question,
+        email: sanitizer(req.headers.email),
+        question: sanitizer(req.headers.question),
     }
 
     contact.create(item);
