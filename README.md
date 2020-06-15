@@ -1,10 +1,5 @@
 # Roadmap
 
-## 1.3 Targets:
-    - Store favicon in S3 [X]
-    - Feedback/Request/Ask system [X]
-    - Email from feedback and potential futures [X]
-
 ## 1.4 Targets: 
     - Reconsider the way posts are described (think twice about html vs md) []
     - Make the UI modular and future-proof (mobile-first)(add footer) []

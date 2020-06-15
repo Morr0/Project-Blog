@@ -13,3 +13,8 @@
     - like button on the left with the number of likes [X]
     - Make date in the viewer's country format [X]
     - Optimise API calls to happen from the nuxt server rather than from the client [X]
+
+## 1.3 Targets:
+    - Store favicon in S3 [X]
+    - Feedback/Request/Ask system [X]
+    - Email from feedback and potential futures [X]

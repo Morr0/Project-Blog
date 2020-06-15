@@ -14,14 +14,6 @@
                 </div>
                 <div class="flex ">
                     <div class="w-4/10 h-auto">
-                        <div class="flex items-center">
-                            <ProfilePicture v-if="individualPage && author" class="w-10 h-10 rounded-full mr-4 articleImg" :image_url="author.image_url" />
-                            <div class="text-sm">
-                                <p v-if="author" class="text-gray-900 leading-none"><a :href="toAuthor"  class="articleAuthor">
-                                    {{author.name}}</a></p>
-                                <p class="text-gray-600">{{date.toUTCString()}}</p>
-                            </div>
-                        </div>
                     </div>
                     <div v-if="individualPage" class="w-6/10 h-12 block text-justify w-1/2 ml-10 mt-8 ">
                         <p class="mb-4 ml-12 text-gray-900 ">
@@ -59,10 +51,6 @@ export default {
         loggedIn: function (){
             return (this.post.author === this.$store.state.sessionStorage.loggedInUserId);
         },
-        toAuthor: function (){
-            // return `/blogger/${this.author._id}`;
-            return "https://ramihikmat.net";
-        },
     },
     methods: {
         like: function (){
@@ -81,7 +69,6 @@ export default {
     data: function(){
         return {
             loggedInEditPath: `/blogger/edit/${this.post._id}`,
-            author: undefined,
             date: new Date(),
             liked: false,
         };
@@ -90,12 +77,12 @@ export default {
         if (this.post.postDate) this.date = new Date(this.post.postDate);
         document.date = this.date;
 
-        try {
-        const res = await fetch(`${this.$store.state.backend}/users/${this.post.author}`, {credentials: "include"});
-            if (res.status === 200){
-                this.author = await res.json();
-            }
-        } catch (error) {console.log(error);}
+        // try {
+        // const res = await fetch(`${this.$store.state.backend}/users/${this.post.author}`, {credentials: "include"});
+        //     if (res.status === 200){
+        //         this.author = await res.json();
+        //     }
+        // } catch (error) {console.log(error);}
     }
 }
 </script>
