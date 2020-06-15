@@ -24,7 +24,7 @@
                 </a>
 
                 <a class="mr-4 text-gray-700 hover:text-blue-500 w-12 relative drop font-bold">
-                    About
+                    Me
                     <div class="dropdownMenu" >
                         <li title="Portfolio"><a target="_blank" href="https://ramihikmat.net" 
                         class="px-4 py-2 block text-black hover:bg-grey-light text-gray-700 hover:text-blue-500">
@@ -35,6 +35,12 @@
                         <li title="Rosary App"><a target="_blank" href="https://github.com/Morr0" 
                         class="px-4 py-2 block text-black hover:bg-grey-light text-gray-700 hover:text-blue-500">
                             Github</a></li>
+                        <li title="Portfolio"><a target="_blank" href="/askcontact" 
+                        class="px-4 py-2 block text-black hover:bg-grey-light text-gray-700 hover:text-blue-500">
+                            Ask/Contact</a></li>
+                        <li title="Pomodoro Timer"><a target="_blank" href="/feedback" 
+                        class="px-4 py-2 block text-black hover:bg-grey-light text-gray-700 hover:text-blue-500">
+                            Give Feedback</a></li>
                     </div>
                 </a>
 
@@ -66,7 +72,7 @@ export default {
     methods: {
         goToAccount: function (){
             this.$router.replace(`/blogger/${this.$store.state.sessionStorage.loggedInUserId}`);
-        }
+        },
     }
 }
 </script>
