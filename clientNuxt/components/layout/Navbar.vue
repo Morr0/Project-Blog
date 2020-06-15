@@ -35,12 +35,12 @@
                         <li title="Rosary App"><a target="_blank" href="https://github.com/Morr0" 
                         class="px-4 py-2 block text-black hover:bg-grey-light text-gray-700 hover:text-blue-500">
                             Github</a></li>
-                        <li title="Portfolio"><a target="_blank" href="/askcontact" 
+                        <li title="Portfolio"><nuxt-link to="/askcontact/"
                         class="px-4 py-2 block text-black hover:bg-grey-light text-gray-700 hover:text-blue-500">
-                            Ask/Contact</a></li>
-                        <li title="Pomodoro Timer"><a target="_blank" href="/feedback" 
+                            Ask/Contact</nuxt-link></li>
+                        <li title="Pomodoro Timer"><nuxt-link to="/feedback/"
                         class="px-4 py-2 block text-black hover:bg-grey-light text-gray-700 hover:text-blue-500">
-                            Give Feedback</a></li>
+                            Give Feedback</nuxt-link></li>
                     </div>
                 </a>
 

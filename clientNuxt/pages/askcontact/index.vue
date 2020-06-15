@@ -1,13 +1,13 @@
 <template>
-    <Form reason="askcontact" />
+    <AskContactFeedbackForm reason="askcontact" />
 </template>
 
 <script>
-import Form from "@/components/views/AskContactFeedbackForm.vue";
+import AskContactFeedbackForm from "@/components/views/AskContactFeedbackForm.vue";
 
 export default {
     components: {
-        Form,
+        AskContactFeedbackForm,
     }
 }
 </script>
