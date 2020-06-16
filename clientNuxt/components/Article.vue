@@ -30,9 +30,17 @@
             </div>
         </div>
   </div> -->
-  <div class="">
-      <!-- <v-flex></v-flex> -->
-  </div>
+  <v-card>
+      <v-card-title>{{post.title}}</v-card-title>
+      
+      <v-card-subtitle>
+          x minutes read since {{post.postDate}}
+      </v-card-subtitle>
+
+      <v-card-text>
+          {{post.description}}
+      </v-card-text>
+  </v-card>
 </template>
 
 <script>

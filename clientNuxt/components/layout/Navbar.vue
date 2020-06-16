@@ -46,7 +46,7 @@
   <!-- </client-only> -->
 
   <div class="">
-      <v-toolbar app>
+      <v-app-bar>
           <v-toolbar-title>Rami Hikmat</v-toolbar-title>
           <v-spacer></v-spacer>
 
@@ -78,7 +78,7 @@
           <v-btn icon>
             <v-icon>mdi-github</v-icon>
           </v-btn>
-      </v-toolbar>
+      </v-app-bar>
   </div>
 </template>
 
