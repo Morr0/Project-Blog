@@ -1,9 +1,7 @@
-const usersRouter = require("../routes/users");
 const postsRouter = require("../routes/posts");
 const contactsRouter = require("../routes/contact");
 
 module.exports = function (app){
-    app.use("/users", usersRouter);
     app.use("/posts", postsRouter);
     app.use("/contact", contactsRouter);
 
