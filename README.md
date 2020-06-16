@@ -4,7 +4,7 @@
     - Reconsider the way posts are described (think twice about html vs md) [X]
     - Make the UI modular and future-proof (mobile-first)(add footer) []
     - Loading spinner []
-    - Minutes estimator of the post []
+    - Minutes estimator of the post [X]
 
 ## 1.5 Targets:
     - Reference images from cloud bucket into posts []

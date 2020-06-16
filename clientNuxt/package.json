@@ -11,7 +11,8 @@
     "generate": "nuxt generate"
   },
   "dependencies": {
-    "marked": "^1.1.0"
+    "marked": "^1.1.0",
+    "reading-time": "^1.2.0"
   },
   "devDependencies": {
     "@nuxtjs/dotenv": "^1.4.0",

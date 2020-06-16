@@ -7,6 +7,7 @@
                 <div class="mb-8 content-center">
                     <div class="text-gray-900 font-bold text-xl mb-2 inline-flex flex-grow">
                         <nuxt-link class="hover:text-blue-500 articleTitle" :to="`/post/${post._id}`">{{post.title}}</nuxt-link>
+                        <span v-if="post.content"> {{this.timeToRead.text}}</span>
                     </div>
                     <p class="text-gray-700 articleContent" v-if="!individualPage" v-html="post.description">Description goes here</p>
                     <div class="text-gray-700 articleContent" v-else v-html="content">Content goes here</div>
@@ -33,6 +34,7 @@
 
 <script>
 import marked from "marked";
+import readingTime from "reading-time";
 
 export default {
     name: "Article",
@@ -44,6 +46,9 @@ export default {
     computed: {
         content: function(){
             return marked(this.post.content);
+        },
+        timeToRead: function(){
+            return readingTime(this.content);
         }
     },
     methods: {
@@ -66,13 +71,6 @@ export default {
     async mounted(){
         if (this.post.postDate) this.date = new Date(this.post.postDate);
         document.date = this.date;
-
-        // try {
-        // const res = await fetch(`${this.$store.state.backend}/users/${this.post.author}`, {credentials: "include"});
-        //     if (res.status === 200){
-        //         this.author = await res.json();
-        //     }
-        // } catch (error) {console.log(error);}
     }
 }
 </script>
