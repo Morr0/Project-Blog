@@ -10,7 +10,7 @@
                         <div @click.prevent="clickedIcon"><Icon class="mt-1 ml-2" :draft="post.draft" :hidden="post.hidden" :editable="loggedIn" /></div>
                     </div>
                     <p class="text-gray-700 articleContent" v-if="!individualPage" v-html="post.description">Description goes here</p>
-                    <div class="text-gray-700 articleContent" v-else v-html="post.content">Content goes here</div>
+                    <div class="text-gray-700 articleContent" v-else v-html="content">Content goes here</div>
                 </div>
                 <div class="flex ">
                     <div class="w-4/10 h-auto">
@@ -36,6 +36,8 @@
 import Icon from "@/components/Icon.vue"
 import ProfilePicture from "@/components/ProfilePicture.vue";
 
+import marked from "marked";
+
 export default {
     name: "Article",
     components: {
@@ -51,6 +53,9 @@ export default {
         loggedIn: function (){
             return (this.post.author === this.$store.state.sessionStorage.loggedInUserId);
         },
+        content: function(){
+            return marked(this.post.content);
+        }
     },
     methods: {
         like: function (){
@@ -87,118 +92,3 @@ export default {
 }
 </script>
 
-<style scoped>
-img {
-    cursor: default;
-}
-
-.articleTitle {
-    text-decoration: none;
-    
-    @apply text-3xl;
-}
-
-.articleDescription {
-    word-wrap: break-word;
-}
-
-.articleContent {
-    @apply p-3;
-    @apply text-gray-900;
-
-    text-overflow: clip;
-    word-wrap: break-word;
-}
-
-.articleContent h3, h4, h5, h6, p, span, blockquote{
-    @apply text-lg;
-}
-
-.articleContent h1 {
-    @apply text-2xl;
-}
-
-.articleContent h2  {
-    @apply text-xl;
-}
-
-.articleContent a {
-    @apply text-gray-600;
-    text-decoration: wavy;
-}
-
-.articleContent a:hover {
-    @apply text-blue-500;
-}
-
-.articleAuthor {
-    text-decoration: none;
-}
-
-.articleContent blockquote,pre {
-    display: inline-block;
-    @apply bg-gray-200;
-    font-style: oblique;
-}
-
-/* Copied from quill/dist/quill.snow.css */
-.articleContent pre {
-    border: 1px;
-    border-radius: 1%;
-    @apply p-3;
-    background-color: #23241f;
-    color: #f8f8f2;
-    /* overflow: scroll; */
-    width: 100%;
-    height: auto;
-    border-color: unset;
-
-    overflow-x: scroll;
-    overflow-y: hidden;
-
-    /* Scrollbar */
-    /* scrollbar */
-
-}
-
-.articleContent pre.ql-syntax {
-    border: 1px;
-    border-radius: 1%;
-    @apply p-3;
-    background-color: #23241f;
-    color: #f8f8f2;
-    /* overflow: scroll; */
-    width: 100%;
-    height: auto;
-    border-color: unset;
-
-    overflow-x: scroll;
-    overflow-y: hidden;
-
-    /* Scrollbar */
-    /* scrollbar */
-
-}
-
-.articleContent img {
-    /* width: 100%;
-    height: fit-content;
-    object-fit: scale-down; */
-    /* object-position: center; */
-    
-}
-
-.articleContent iframe {
-    width: 100%;
-    height: 100%;
-    
-    /* padding-bottom: 56.25%; */
-    /* height: 400px; */
-    /* object-fit: scale-down;
-    image-rendering: pixelated;
-    border: none; */
-    
-}
-
-/* TODO add tabs and lists styling */
-</style>

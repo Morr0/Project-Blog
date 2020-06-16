@@ -73,8 +73,12 @@ route.post("/login", checkLoggedIn, async (req, res) => {
     console.log(`Login request\n${req.headers}`);
 
     if (req.headers.email && req.headers.password){
+        console.log(req.headers.email);
         models.User.scan().filter("email").eq(req.headers.email).exec((error, user) => {
-            if (error) return res.status(500).end();
+            if (error){
+                console.log(error);
+                return res.status(500).end();
+            } 
             // Password or email incorrect
             if (!user) return res.status(404).end();
             
@@ -84,6 +88,7 @@ route.post("/login", checkLoggedIn, async (req, res) => {
                 if (!error){
                     // If login credentials are correct
                     if (same){
+                        console.log("Logged in");
                         req.session.userId = user._id;
                         res.status(202).json({id: user._id, name: user.name});
                     } else return res.status(404).end();

@@ -1,14 +1,14 @@
 # Roadmap
 
 ## 1.4 Targets: 
-    - Reconsider the way posts are described (think twice about html vs md) []
+    - Reconsider the way posts are described (think twice about html vs md) [X]
     - Make the UI modular and future-proof (mobile-first)(add footer) []
     - Loading spinner []
     - Minutes estimator of the post []
 
 ## 1.5 Targets:
     - Reference images from cloud bucket into posts []
-    - PWA support []
+    - PWA support [X]
     - Ability to install on Android []
     - Serverlessify the backend into AWS Lambda []
 
