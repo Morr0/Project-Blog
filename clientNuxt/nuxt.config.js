@@ -26,7 +26,6 @@ export default {
   ** Global CSS
   */
   css: [
-    "@/assets/css/custom.css",
   ],
   /*
   ** Plugins to load before mounting the App
@@ -38,7 +37,6 @@ export default {
   */
   buildModules: [
     // Doc: https://github.com/nuxt-community/nuxt-tailwindcss
-    '@nuxtjs/tailwindcss',
     '@nuxtjs/pwa',
   ],
   /*
@@ -49,6 +47,7 @@ export default {
     // Doc: https://github.com/nuxt-community/dotenv-module
     '@nuxtjs/dotenv',
     "nuxt-vuex-localstorage",
+    '@nuxtjs/vuetify',
   ],
   /*
   ** Build configuration
