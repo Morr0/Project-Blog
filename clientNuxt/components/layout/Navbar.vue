@@ -7,9 +7,6 @@
         </div>
         <div class="flex flex-grow sm:flex sm:flex-row-reverse flex-wrap justify-center sm:flex-grow-0 sm:items-center sm:w-auto">
             <div class="text-lg items-end lg:flex-grow">
-                <a v-if="loggedIn" @click.prevent="goToAccount" href="" class="block mt-4 lg:inline-block lg:mt-0 text-gray-700 hover:text-blue-500 mr-4 font-bold">
-                    {{this.$store.state.sessionStorage.loggedInUser || "Account"}}
-                </a>
 
                 <a class="mr-4 text-gray-700 hover:text-blue-500 w-12 relative drop font-bold">
                     Apps
@@ -56,16 +53,6 @@ export default {
     components: {
         Icon,
     },
-    computed: {
-        loggedIn: function (){
-            return this.$store.state.sessionStorage.loggedIn;
-        },
-    },
-    methods: {
-        goToAccount: function (){
-            this.$router.replace(`/blogger/${this.$store.state.sessionStorage.loggedInUserId}`);
-        },
-    }
 }
 </script>
 

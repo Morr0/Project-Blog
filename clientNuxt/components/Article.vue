@@ -7,7 +7,6 @@
                 <div class="mb-8 content-center">
                     <div class="text-gray-900 font-bold text-xl mb-2 inline-flex flex-grow">
                         <nuxt-link class="hover:text-blue-500 articleTitle" :to="`/post/${post._id}`">{{post.title}}</nuxt-link>
-                        <div @click.prevent="clickedIcon"><Icon class="mt-1 ml-2" :draft="post.draft" :hidden="post.hidden" :editable="loggedIn" /></div>
                     </div>
                     <p class="text-gray-700 articleContent" v-if="!individualPage" v-html="post.description">Description goes here</p>
                     <div class="text-gray-700 articleContent" v-else v-html="content">Content goes here</div>
@@ -34,7 +33,6 @@
 
 <script>
 import Icon from "@/components/Icon.vue"
-import ProfilePicture from "@/components/ProfilePicture.vue";
 
 import marked from "marked";
 
@@ -42,7 +40,6 @@ export default {
     name: "Article",
     components: {
         Icon,
-        ProfilePicture,
     },
     props: {
         post: {},
@@ -50,9 +47,6 @@ export default {
         minimised: Boolean
     },
     computed: {
-        loggedIn: function (){
-            return (this.post.author === this.$store.state.sessionStorage.loggedInUserId);
-        },
         content: function(){
             return marked(this.post.content);
         }
@@ -67,13 +61,9 @@ export default {
             this.liked = true;
             this.post.likes++;
         },
-        clickedIcon: function (){
-            if (this.$store.state.sessionStorage.loggedInUserId === this.post.author) return this.$router.replace(this.loggedInEditPath);
-        }
     },
     data: function(){
         return {
-            loggedInEditPath: `/blogger/edit/${this.post._id}`,
             date: new Date(),
             liked: false,
         };

@@ -23,14 +23,6 @@ export default {
         let posts = undefined;
 
         try {
-            const isLoggedIn = await fetch(`${context.store.state.backend}/users/loggedIn/`, {credentials: "include"});
-            if (isLoggedIn.status !== 200){
-                context.store.commit("updateUser", {loggedIn: false, loggedInUserId: "", loggedInUser: ""});
-            } else {
-                const user = await isLoggedIn.json();
-                context.store.commit("updateUser", {loggedIn: true, loggedInUserId: user.id, loggedInUser: user.name});
-            }
-
             const res = await fetch(`${context.store.state.backend}/posts/`);
             posts = await res.json();
         } catch (error){

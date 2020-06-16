@@ -16,11 +16,3 @@ export const state = () => ({
     title: "Rami's",
     backend: VUE_APP_BACKEND,
 });
-
-export const mutations = {
-    updateUser(state, data){
-        state.sessionStorage.loggedIn = data.loggedIn;
-        state.sessionStorage.loggedInUserId = data.loggedInUserId;
-        state.sessionStorage.loggedInUser = data.loggedInUser;
-    }
-};
