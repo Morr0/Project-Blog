@@ -1,12 +1,17 @@
 <template>
-  <div class="entire">
+  <v-app class="entire">
       <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
       <link href="https://cdn.jsdelivr.net/npm/@mdi/font@5.x/css/materialdesignicons.min.css" rel="stylesheet">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+
       <Navbar class="inav" />
-      <nuxt class="icontent" />
+      <v-content>
+          <nuxt class="icontent" />
+      </v-content>
+      
       <!-- <Footer class="ifooter" /> -->
-  </div>
+  </v-app>
 </template>
 
 <script>

@@ -1,6 +1,6 @@
 <template>
   <!-- <client-only placeholder="Loading..."> -->
-    <nav class="flex items-center justify-between flex-wrap p-6 bg-gray-100 sticky">
+    <!-- <nav class="flex items-center justify-between flex-wrap p-6 bg-gray-100 sticky">
         <div class="flex items-center flex-shrink-0 text-gray-900 mr-6">
             <Icon :logo="true" />
             <span class="font-extrabold text-3xl text-gray-800 hover:text-blue-500 tracking-tight"><nuxt-link to="/">Rami Hikmat's</nuxt-link></span>
@@ -42,8 +42,44 @@
                 </a>
             </div>
         </div>
-    </nav>
+    </nav> -->
   <!-- </client-only> -->
+
+  <div class="">
+      <v-toolbar app>
+          <v-toolbar-title>Rami Hikmat</v-toolbar-title>
+          <v-spacer></v-spacer>
+
+          <v-menu open-on-hover offset-y>
+              <template v-slot:activator="{ on, attrs }">
+                <v-btn
+                color="primary"
+                dark
+                v-bind="attrs"
+                v-on="on"
+                >
+                Apps
+                </v-btn>
+              </template>
+              <v-list>
+                  <v-list-item>
+                      <v-list-item-title>Hello world</v-list-item-title>
+                  </v-list-item>
+              </v-list>
+          </v-menu>
+
+
+          <v-btn icon>
+            <v-icon>mdi-account-circle</v-icon>
+          </v-btn>
+          <v-btn icon>
+            <v-icon>mdi-linkedin</v-icon>
+          </v-btn>
+          <v-btn icon>
+            <v-icon>mdi-github</v-icon>
+          </v-btn>
+      </v-toolbar>
+  </div>
 </template>
 
 <script>
@@ -55,10 +91,3 @@ export default {
     },
 }
 </script>
-
-<style scoped>
-    a {
-        text-decoration: none;
-        cursor: pointer;
-    }
-</style>

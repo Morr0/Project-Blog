@@ -1,5 +1,5 @@
 <template>
-  <div class="border w-full sm:flex sm:items-center min-w-full sm:flex-col mb-8">
+  <!-- <div class="border w-full sm:flex sm:items-center min-w-full sm:flex-col mb-8">
         <div class="max-w-sm w-full sm:max-w-full sm:flex flex-grow min-w-full">
             <div class="border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t 
             lg:border-gray-400 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal
@@ -29,6 +29,9 @@
                 
             </div>
         </div>
+  </div> -->
+  <div class="">
+      <!-- <v-flex></v-flex> -->
   </div>
 </template>
 
