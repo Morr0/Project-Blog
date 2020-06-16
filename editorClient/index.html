@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Editor</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+        }
+    </style>
+</head>
+<body>
+    <form>
+        <input type="text" id="title" placeholder="Title" required>
+        <input type="text" id="description" placeholder="Description" required>
+        <textarea id="editor" cols="30" rows="10" placeholder="Md here" required></textarea>
+        <input type="text" id="lambdaLink" placeholder="Lambda endpoint">
+        <button type="submit" id="submit">Submit</button>
+    </form>
+
+    <script>
+        const title = document.getElementById("title");
+        const description = document.getElementById("description");
+        const editor = document.getElementById("editor");
+        const lambdaLink = document.getElementById("lambdaLink");
+        const submit = document.getElementById("submit");
+
+        submit.onclick = async (event) => {
+            event.preventDefault();
+            
+            try {
+                const res = fetch(lambdaLink.innerText, {
+                    method: "POST",
+                    headers: {
+                        title: title.innerText,
+                        description: description.innerText,
+                        content: editor.innerText
+                    },
+                })
+            } catch (error){
+                alert(error);
+            }
+
+        }
+    </script>
+</body>
+</html>
