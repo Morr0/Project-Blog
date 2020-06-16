@@ -43,14 +43,6 @@
                             Give Feedback</nuxt-link></li>
                     </div>
                 </a>
-
-
-                <nuxt-link v-if="loggedIn" to="/blogger/create/" class="block text-gray-700 mt-4 lg:inline-block lg:mt-0 hover:text-blue-500 mr-4 font-bold">
-                    Create
-                </nuxt-link>
-                <nuxt-link v-if="loggedIn" to="/blogger/logout/" class="block mt-4 lg:inline-block lg:mt-0 text-gray-700 hover:text-blue-500 mr-4 font-bold">
-                    Logout
-                </nuxt-link>
             </div>
         </div>
     </nav>
