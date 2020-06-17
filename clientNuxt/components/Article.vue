@@ -39,11 +39,11 @@
           {{post.timeToRead}} minutes read since {{postDate}}
       </v-card-subtitle>
 
-      <v-card-text v-if="individualPage">
-          {{post.description}}
+      <v-card-text v-if="individualPage" v-html="content">
+          
       </v-card-text>
-      <v-card-text v-else v-html="content">
-
+      <v-card-text v-else >
+        {{post.description}}
       </v-card-text>
 
   </v-card>

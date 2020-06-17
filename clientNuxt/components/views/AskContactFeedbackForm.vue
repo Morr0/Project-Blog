@@ -1,5 +1,5 @@
 <template>
-    <div class="w-full max-w-md mx-auto">
+    <!-- <div class="w-full max-w-md mx-auto">
         <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" @submit.prevent="submit">
             <div v-if="reason === `askcontact`" class="mb-4">
                 <label class="block text-gray-700 text-sm font-bold mb-2" for="email">
@@ -24,7 +24,29 @@
                 </nuxt-link>
             </div>
         </form>
-    </div>
+    </div> -->
+    <v-flex>
+        <form>
+            <v-text-field
+            v-if="reason === `askcontact`"
+            v-model="email"
+            error-messages="Please provide an E-mail address to contact you back"
+            label="E-mail"
+            required></v-text-field>
+            <v-col cols="12" md="6">
+                <v-textarea
+                
+                v-model="content"
+                error-message="Please provide something..."
+                name="input-7-4"
+                :label="reason === `feedback`? `Type Feedback here please...`: `Ask/Contact here please...`"
+                counter
+                ></v-textarea>
+            </v-col>
+
+            <v-btn class="mr-4" @click="submit">submit</v-btn>
+        </form>
+    </v-flex>
 </template>
 
 <script>
