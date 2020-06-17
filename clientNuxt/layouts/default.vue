@@ -4,13 +4,12 @@
       <link href="https://cdn.jsdelivr.net/npm/@mdi/font@5.x/css/materialdesignicons.min.css" rel="stylesheet">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-
       <Navbar class="inav" />
       <v-main>
-          <nuxt class="icontent" />
+          <nuxt />
       </v-main>
       
-      <!-- <Footer class="ifooter" /> -->
+      <Footer />
   </v-app>
 </template>
 
