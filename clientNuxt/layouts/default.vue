@@ -6,9 +6,9 @@
 
 
       <Navbar class="inav" />
-      <v-content>
+      <v-main>
           <nuxt class="icontent" />
-      </v-content>
+      </v-main>
       
       <!-- <Footer class="ifooter" /> -->
   </v-app>
@@ -40,35 +40,3 @@ export default {
     },
 }
 </script>
-
-<style>
-    body {
-        @apply bg-gray-100;
-    }
-
-    a {
-        text-decoration: underline;
-    }
-
-    .entire {
-        display: grid;
-        grid-template-columns: 1fr;
-        grid-template-rows: auto;
-        grid-template-areas: 
-        "header"
-        "main"
-        "footer";
-    }
-
-    .inav {
-        grid-area: "header";
-    }
-
-    .icontent {
-        grid-area: "main";
-    }
-
-    .ifooter {
-        grid-area: "footer";
-    }
-</style>

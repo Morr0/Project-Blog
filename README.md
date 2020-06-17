@@ -50,6 +50,9 @@
     - Up button when scrolling down the post []
     - Study which section is most likeable and most time spent in []
 
+## 1.15 Targets:
+    - Highlight text and persist it []
+
 ## Maybes:
     - RSS Feed
     - Custom scrollbar

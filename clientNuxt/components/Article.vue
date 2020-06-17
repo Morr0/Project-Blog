@@ -30,16 +30,22 @@
             </div>
         </div>
   </div> -->
-  <v-card>
-      <v-card-title>{{post.title}}</v-card-title>
+  <v-card elevation="3" hover>
+      <v-card-title>
+          {{post.title}}
+      </v-card-title>
       
       <v-card-subtitle>
           {{post.timeToRead}} minutes read since {{postDate}}
       </v-card-subtitle>
 
-      <v-card-text>
+      <v-card-text v-if="individualPage">
           {{post.description}}
       </v-card-text>
+      <v-card-text v-else v-html="content">
+
+      </v-card-text>
+
   </v-card>
 </template>
 
@@ -91,119 +97,3 @@ export default {
     }
 }
 </script>
-
-<style scoped>
-img {
-    cursor: default;
-}
-
-.articleTitle {
-    text-decoration: none;
-    
-    @apply text-3xl;
-}
-
-.articleDescription {
-    word-wrap: break-word;
-}
-
-.articleContent {
-    @apply p-3;
-    @apply text-gray-900;
-
-    text-overflow: clip;
-    word-wrap: break-word;
-}
-
-.articleContent h3, h4, h5, h6, p, span, blockquote{
-    @apply text-lg;
-}
-
-.articleContent h1 {
-    @apply text-2xl;
-}
-
-.articleContent h2  {
-    @apply text-xl;
-}
-
-.articleContent a {
-    @apply text-gray-600;
-    text-decoration: wavy;
-}
-
-.articleContent a:hover {
-    @apply text-blue-500;
-}
-
-.articleAuthor {
-    text-decoration: none;
-}
-
-.articleContent blockquote,pre {
-    display: inline-block;
-    @apply bg-gray-200;
-    font-style: oblique;
-}
-
-/* Copied from quill/dist/quill.snow.css */
-.articleContent pre {
-    border: 1px;
-    border-radius: 1%;
-    @apply p-3;
-    background-color: #23241f;
-    color: #f8f8f2;
-    /* overflow: scroll; */
-    width: 100%;
-    height: auto;
-    border-color: unset;
-
-    overflow-x: scroll;
-    overflow-y: hidden;
-
-    /* Scrollbar */
-    /* scrollbar */
-
-}
-
-.articleContent pre.ql-syntax {
-    border: 1px;
-    border-radius: 1%;
-    @apply p-3;
-    background-color: #23241f;
-    color: #f8f8f2;
-    /* overflow: scroll; */
-    width: 100%;
-    height: auto;
-    border-color: unset;
-
-    overflow-x: scroll;
-    overflow-y: hidden;
-
-    /* Scrollbar */
-    /* scrollbar */
-
-}
-
-.articleContent img {
-    /* width: 100%;
-    height: fit-content;
-    object-fit: scale-down; */
-    /* object-position: center; */
-    
-}
-
-.articleContent iframe {
-    width: 100%;
-    height: 100%;
-    
-    /* padding-bottom: 56.25%; */
-    /* height: 400px; */
-    /* object-fit: scale-down;
-    image-rendering: pixelated;
-    border: none; */
-    
-}
-
-/* TODO add tabs and lists styling */
-</style>
