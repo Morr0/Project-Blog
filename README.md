@@ -17,6 +17,7 @@
     - Notify on comments []
     - Secure comments []
     - Link previewing capabilities []
+    - Links for hidden posts []
 
 ## 1.7 Targets:
     - Dark/Light mode the site dynamically (no reload) []
@@ -52,6 +53,8 @@
 
 ## 1.15 Targets:
     - Highlight text and persist it []
+    - Hello bar (frontend) []
+    - Dynamically change data of hello bar []
 
 ## Maybes:
     - RSS Feed

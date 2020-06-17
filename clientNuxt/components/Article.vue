@@ -30,23 +30,33 @@
             </div>
         </div>
   </div> -->
-  <v-card elevation="3" hover>
-      <v-card-title>
-          {{post.title}}
-      </v-card-title>
-      
-      <v-card-subtitle>
-          {{post.timeToRead}} minutes read since {{postDate}}
-      </v-card-subtitle>
+  <v-layout row wrap>
+      <v-flex>
+        <v-container>
+            <v-card elevation="3" hover :to="`/post/${post._id}`">
+                <v-card-title>
+                    <!-- <v-btn block x-large text :href="`/post/${post._id}`" class="text-wrap"> -->
+                        {{post.title}}
+                    <!-- </v-btn> -->
+                </v-card-title>
+                
+                <v-card-subtitle>
+                    <!-- {{post.timeToRead}} minutes read --> since {{postDate}}
+                </v-card-subtitle>
 
-      <v-card-text v-if="individualPage" v-html="content">
-          
-      </v-card-text>
-      <v-card-text v-else >
-        {{post.description}}
-      </v-card-text>
+                <v-card-text v-if="individualPage">
+                    <v-container  v-html="content" fluid>
 
-  </v-card>
+                    </v-container>
+                </v-card-text>
+                <v-card-text v-else >
+                    {{post.description}}
+                </v-card-text>
+
+            </v-card>
+        </v-container>
+    </v-flex>
+  </v-layout>
 </template>
 
 <script>

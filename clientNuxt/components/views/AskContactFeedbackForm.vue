@@ -25,28 +25,30 @@
             </div>
         </form>
     </div> -->
-    <v-flex>
-        <form>
-            <v-text-field
-            v-if="reason === `askcontact`"
-            v-model="email"
-            error-messages="Please provide an E-mail address to contact you back"
-            label="E-mail"
-            required></v-text-field>
-            <v-col cols="12" md="6">
-                <v-textarea
-                
-                v-model="content"
-                error-message="Please provide something..."
-                name="input-7-4"
-                :label="reason === `feedback`? `Type Feedback here please...`: `Ask/Contact here please...`"
-                counter
-                ></v-textarea>
-            </v-col>
+    <v-container class="my-20">
+        <v-flex>
+            <form>
+                <v-text-field
+                v-if="reason === `askcontact`"
+                v-model="email"
+                error-messages="Please provide an E-mail address to contact you back"
+                label="E-mail"
+                required></v-text-field>
+                <v-col cols="12" md="6">
+                    <v-textarea
+                    
+                    v-model="content"
+                    error-message="Please provide something..."
+                    name="input-7-4"
+                    :label="reason === `feedback`? `Type Feedback here please...`: `Ask/Contact here please...`"
+                    counter
+                    ></v-textarea>
+                </v-col>
 
-            <v-btn class="mr-4" @click="submit">submit</v-btn>
-        </form>
-    </v-flex>
+                <v-btn class="mr-4" @click="submit">submit</v-btn>
+            </form>
+        </v-flex>
+    </v-container>
 </template>
 
 <script>
