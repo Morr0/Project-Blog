@@ -34,7 +34,7 @@
       <v-card-title>{{post.title}}</v-card-title>
       
       <v-card-subtitle>
-          x minutes read since {{post.postDate}}
+          {{post.timeToRead}} minutes read since {{postDate}}
       </v-card-subtitle>
 
       <v-card-text>
@@ -46,6 +46,9 @@
 <script>
 import marked from "marked";
 import readingTime from "reading-time";
+import moment from "moment";
+
+moment.locale("en-au");
 
 export default {
     name: "Article",
@@ -60,6 +63,9 @@ export default {
         },
         timeToRead: function(){
             return readingTime(this.content);
+        },
+        postDate: function (){
+            return moment.parseZone(this.post.postDate).format('L').toString();
         }
     },
     methods: {
