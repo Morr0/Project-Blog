@@ -1,34 +1,24 @@
 <template>
-  <v-layout >
-      <v-flex>
-        <v-container v-if="individualPage">
-            <v-card elevation="3" hover>
-                <v-card-title>
-                    <!-- <v-btn block x-large text :href="`/post/${post._id}`" class="text-wrap"> -->
-                        {{post.title}}
-                    <!-- </v-btn> -->
+    <v-container >
+        <v-card v-if="individualPage" elevation="3" hover>
+            <v-responsive>
+                <v-card-title class="display-2">
+                    {{post.title}}
                 </v-card-title>
                 
                 <v-card-subtitle>
                     <!-- {{post.timeToRead}} minutes read --> since {{postDate}}
                 </v-card-subtitle>
 
-                <v-card-text>
-                    <v-container  v-html="content" fluid>
-
-                    </v-container>
-                </v-card-text>
-            </v-card>
-        </v-container>
-        <v-container v-else wrap>
-            <v-card  :to="`/post/${post._id}`" wrap>
-                <v-responsive>
-                    <v-card-title>
-                    <!-- <v-btn block x-large text :href="`/post/${post._id}`" class="text-wrap"> -->
-                        {{post.title}}
-                    <!-- </v-btn> -->
+                <v-card-text v-html="content" fluid></v-card-text>
+            </v-responsive>
+        </v-card>
+        <v-card v-else :to="`/post/${post._id}`" wrap>
+            <v-responsive>
+                <v-card-title>
+                    {{post.title}}
                 </v-card-title>
-                
+
                 <v-card-subtitle>
                     <!-- {{post.timeToRead}} minutes read --> since {{postDate}}
                 </v-card-subtitle>
@@ -36,11 +26,9 @@
                 <v-card-text>
                     {{post.description}}
                 </v-card-text>
-                </v-responsive>
-            </v-card>
-        </v-container>
-    </v-flex>
-  </v-layout>
+            </v-responsive>
+        </v-card>
+    </v-container>
 </template>
 
 <script>

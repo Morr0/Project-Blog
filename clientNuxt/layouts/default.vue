@@ -6,7 +6,13 @@
 
       <Navbar />
       <v-main>
-          <nuxt />
+          <v-content>
+              <v-layout row wrap class="align-center">
+                  <v-flex xs12 sm8 md8 lg8>
+                      <nuxt />
+                  </v-flex>
+              </v-layout>
+          </v-content>
       </v-main>
       <Footer />
   </v-app>
