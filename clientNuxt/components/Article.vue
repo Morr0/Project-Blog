@@ -34,9 +34,6 @@
 <script>
 import marked from "marked";
 import readingTime from "reading-time";
-import moment from "moment";
-
-moment.locale("en-au");
 
 export default {
     name: "Article",
@@ -53,7 +50,7 @@ export default {
             return readingTime(this.content);
         },
         postDate: function (){
-            return moment.parseZone(this.post.postDate).format('L').toString();
+            return (new Date(this.post.postDate)).toLocaleDateString("en-au");
         }
     },
     methods: {
