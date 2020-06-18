@@ -11,7 +11,7 @@ export default {
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { hid: 'description', name: 'description', content: "This is a personal site where I host my portfolio and blog. My name is Rami Hikmat." },
       { hid: "og:title", name: "og:title", content: "Rami Hikmat's Blog"},
-      { hid: "og:url", name: "og:title", content: "https://ramihikmat.net"},
+      { hid: "og:url", name: "og:title", content: "https://blog.ramihikmat.net"},
       { hid: "og:description", name: "og:title", content: "This is a personal site where I host my portfolio and blog. My name is Rami Hikmat."},
     ],
     link: [

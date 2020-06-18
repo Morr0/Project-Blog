@@ -20,8 +20,8 @@
     "@nuxtjs/tailwindcss": "^1.0.0",
     "@nuxtjs/vuetify": "^1.11.2",
     "js-cookie": "^2.2.1",
-    "moment": "^2.26.0",
-    "nuxt": "^2.0.0",
+    "moment": "^2.27.0",
+    "nuxt": "^2.13.0",
     "nuxt-vuex-localstorage": "^1.2.6",
     "vue2-editor": "^2.10.2"
   }

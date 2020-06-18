@@ -8,9 +8,7 @@
     - Scroll up the page in a up button [X]
 
 ## 1.5 Targets:
-    - Reference images from cloud bucket into posts []
     - PWA support [X]
-    - Ability to install on Android []
     - Serverlessify the backend into AWS Lambda []
 
 ## 1.6 Targets:
