@@ -2,9 +2,10 @@
 
 ## 1.4 Targets: 
     - Reconsider the way posts are described (think twice about html vs md) [X]
-    - Make the UI modular and future-proof (mobile-first)(add footer) []
+    - Make the UI modular and future-proof (mobile-first)(add footer) [X]
     - Loading spinner [X]
     - Minutes estimator of the post [X]
+    - Scroll up the page in a up button [X]
 
 ## 1.5 Targets:
     - Reference images from cloud bucket into posts []
@@ -56,7 +57,13 @@
     - Hello bar (frontend) []
     - Dynamically change data of hello bar []
 
+## 1.16 Targets:
+    - Topic system (each post is of one/many topics) []
+    - Recommend reads based on topics []
+
+## 1.17 Targets:
+    - Sharing []
+
 ## Maybes:
     - RSS Feed
-    - Custom scrollbar
     - Compress req/res

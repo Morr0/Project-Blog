@@ -10,11 +10,27 @@
               <v-layout column wrap class="align-center">
                   <v-flex xs12 sm6 md6 lg6 class="justify-center align-center">
                       <nuxt />
+                      <v-fab-transition>
+                        <v-btn
+                        v-show="fabShow"
+                        bottom
+                        right
+                        fixed
+                        fab
+                        @click="scrollUp"
+                        style="margin-bottom: 3.8rem;margin-left: 2rem;"
+                        >
+                            <v-icon>mdi-chevron-up</v-icon>
+                        </v-btn>
+                      </v-fab-transition>
                   </v-flex>
               </v-layout>
           </v-container>
+          
       </v-main>
       <Footer />
+
+      
   </v-app>
 </template>
 
@@ -42,5 +58,31 @@ export default {
         }
         ],
     },
+    data(){
+        return {
+            fabShow: false,
+        };
+    },
+    methods: {
+        scrollUp: function (){
+            window.scrollTo({
+                top: 0, 
+                left: 0,
+                behavior: "smooth",
+            });
+            this.fabShow = false;
+        },
+        scrolling: function (){
+            if (window.scrollY > 200){
+                this.fabShow = true;
+            } else {
+                this.fabShow = false;
+            }
+        }
+    },
+    mounted(){
+        this.scrolling(); // Just in case loading in the middle of the window
+        window.addEventListener('scroll', this.scrolling);
+    }
 }
 </script>
