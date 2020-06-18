@@ -31,3 +31,5 @@ app.listen(PORT);
 
 require("./utils/middlewares")(app, env); // Middleware handling
 require("./utils/routing")(app); // Routing and error handling
+
+module.exports = app;

@@ -6,8 +6,8 @@ require("dotenv").config();
 
 // AWS
 const s3 = new aws.S3({
-    accessKeyId: process.env.AWS_KEY,
-    secretAccessKey: process.env.AWS_PRIVATE_KEY,
+    // accessKeyId: process.env.AWS_KEY,
+    // secretAccessKey: process.env.AWS_PRIVATE_KEY,
 });
 
 const uploader = multer({
