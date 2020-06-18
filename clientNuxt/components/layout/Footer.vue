@@ -2,11 +2,21 @@
     <v-footer app>
         Rami Hikmat
         <v-spacer></v-spacer>
-        <v-btn text href="/askcontact">
-            Ask/Contact
-        </v-btn>
-        <v-btn text href="/feedback">
-            Feedback
-        </v-btn>
+        <AskContactFeedbackForm />
     </v-footer>
 </template>
+
+<script>
+import AskContactFeedbackForm from "@/components/views/AskContactFeedbackForm.vue";
+
+export default {
+    components: {
+        AskContactFeedbackForm
+    },
+    data(){
+        return {
+            showDialog: false,
+        };
+    }
+}
+</script>

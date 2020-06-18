@@ -10,7 +10,7 @@
                     <!-- {{post.timeToRead}} minutes read --> since {{postDate}}
                 </v-card-subtitle>
 
-                <v-card-text v-html="content" fluid></v-card-text>
+                <v-card-text v-html="content" fluid class="align-center justify-center"></v-card-text>
             </v-responsive>
         </v-card>
         <v-card v-else :to="`/post/${post._id}`" wrap>
