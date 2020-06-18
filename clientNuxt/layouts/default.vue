@@ -6,13 +6,13 @@
 
       <Navbar />
       <v-main>
-          <v-content>
-              <v-layout row wrap class="align-center">
-                  <v-flex xs12 sm8 md8 lg8>
+          <v-container fill-height fluid> 
+              <v-layout column wrap class="align-center">
+                  <v-flex xs12 sm6 md6 lg6 class="justify-center align-center">
                       <nuxt />
                   </v-flex>
               </v-layout>
-          </v-content>
+          </v-container>
       </v-main>
       <Footer />
   </v-app>
