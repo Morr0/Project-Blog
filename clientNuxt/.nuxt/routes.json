@@ -1,0 +1,14 @@
+[
+  {
+    "name": "post-id",
+    "path": "/post/:id?",
+    "component": "C:\\\\Projects\\\\Project Blog\\\\Project-Blog\\\\clientNuxt\\\\pages\\\\post\\\\_id\\\\index.vue",
+    "chunkName": "pages/post/_id/index"
+  },
+  {
+    "name": "index",
+    "path": "/",
+    "component": "C:\\\\Projects\\\\Project Blog\\\\Project-Blog\\\\clientNuxt\\\\pages\\\\index.vue",
+    "chunkName": "pages/index"
+  }
+]
