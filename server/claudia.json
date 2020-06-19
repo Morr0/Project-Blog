@@ -1,0 +1,10 @@
+{
+  "lambda": {
+    "role": "server-executor",
+    "name": "server",
+    "region": "ap-southeast-2"
+  },
+  "api": {
+    "id": "srfr1mo7k4"
+  }
+}

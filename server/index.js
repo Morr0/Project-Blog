@@ -7,7 +7,7 @@ const app = express();
 
 // Constants
 const env = {
-    NODE_ENV = "development",
+    NODE_ENV = "production",
     PORT = 3400,
 } = process.env;
 
