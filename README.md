@@ -47,7 +47,6 @@
 
 ## 1.14 Targets:
     - Table of contents in a post []
-    - Up button when scrolling down the post []
     - Study which section is most likeable and most time spent in []
 
 ## 1.15 Targets:

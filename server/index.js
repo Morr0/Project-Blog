@@ -9,10 +9,6 @@ const app = express();
 const env = {
     NODE_ENV = "development",
     PORT = 3400,
-    SESSION_LIFE = 300000, // 5 mins
-    DB_URL,
-    SECRET_KEY = "test",
-
 } = process.env;
 
 
