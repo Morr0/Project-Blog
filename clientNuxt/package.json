@@ -10,7 +10,9 @@
     "start": "nuxt start",
     "generate": "nuxt generate"
   },
-  "dependencies": {},
+  "dependencies": {
+    "axios": "^0.19.2"
+  },
   "devDependencies": {
     "@nuxtjs/dotenv": "^1.4.0",
     "@nuxtjs/pwa": "^3.0.0-beta.20",
