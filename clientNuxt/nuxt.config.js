@@ -1,3 +1,4 @@
+const axios = require("axios");
 
 export default {
   mode: 'universal',
@@ -70,4 +71,17 @@ export default {
       lang: 'en',
     },
   },
+  generate: {
+      routes: function (){
+          return axios.get("http://localhost:3400/posts/")
+          .then((res) => {
+              return res.data.map((post) => {
+                return {
+                    route: `/post/${post._id}`,
+                    payload: post,
+                }
+              });
+          })
+      }
+  }
 }

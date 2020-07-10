@@ -3,12 +3,14 @@
     "name": "post-id",
     "path": "/post/:id?",
     "component": "C:\\\\Projects\\\\Project Blog\\\\Project-Blog\\\\clientNuxt\\\\pages\\\\post\\\\_id\\\\index.vue",
-    "chunkName": "pages/post/_id/index"
+    "chunkName": "pages/post/_id/index",
+    "_name": "_0dd8ce60"
   },
   {
     "name": "index",
     "path": "/",
     "component": "C:\\\\Projects\\\\Project Blog\\\\Project-Blog\\\\clientNuxt\\\\pages\\\\index.vue",
-    "chunkName": "pages/index"
+    "chunkName": "pages/index",
+    "_name": "_50dae71a"
   }
 ]
