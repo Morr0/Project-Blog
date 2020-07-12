@@ -81,7 +81,8 @@ export default {
                     payload: post,
                 }
               });
-          })
-      }
-  }
+          });
+      },
+      dir: "./dist/site/"
+  },
 }

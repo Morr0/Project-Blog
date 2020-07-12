@@ -2,7 +2,7 @@
   <div class="">
       <v-app-bar>
           <v-toolbar-title>
-              <v-btn text x-large href="/">Rami Hikmat</v-btn>
+              <v-btn text x-large href="./">Rami Hikmat</v-btn>
           </v-toolbar-title>
           <v-spacer></v-spacer>
 
