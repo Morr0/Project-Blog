@@ -36,14 +36,4 @@ route.get("/:id", async (req, res) => {
     return res.status(200).json(post);
 });
 
-route.put("/like/:id", async (req, res) => {
-    // Get the current post, increment the likes and update the table
-    // THIS IS INEFFICIENT BECAUSE OF DID NOT FIND A WAY TO AUTO_INCREMENT IN DYNAMOOSE
-    const post = await models.Post.get({_id: req.params.id});
-    if (!post) return res.status(400).end();
-
-    await models.Post.update({_id: req.params.id}, {likes: ++post.likes});
-    return res.status(200).end();
-});
-
 module.exports = route;
