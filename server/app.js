@@ -1,4 +1,4 @@
-module.exports = function (){
+module.exports = function (server){
     // Imports
     const express = require("express");
 
@@ -8,24 +8,17 @@ module.exports = function (){
 
     // Constants
     const env = {
-        NODE_ENV = "production",
         PORT = 3400,
     } = process.env;
 
-
-    // To facilitate production frontend from development's
-    console.log(NODE_ENV);
-    let ORIGIN = "http://localhost:3000";
-    if (NODE_ENV === "production"){
-        ORIGIN = JSON.parse(process.env.ORIGIN);
-    } 
-    console.log(`CORS: ${ORIGIN}`);
+    console.log("Starting");
 
     // Initial DB Connection MUST KEEP
     require("./utils/db/dbconnection");
 
-    app.listen(PORT);
+    // True when passed by index.js for local testing
+    if (server) app.listen(PORT);
 
-    require("./utils/middlewares")(app, env); // Middleware handling
+    require("./utils/middlewares")(app); // Middleware handling
     require("./utils/routing")(app); // Routing and error handling
 }
