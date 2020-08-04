@@ -1,24 +1,25 @@
-module.exports = function (server){
-    // Imports
-    const express = require("express");
+// Imports
+const express = require("express");
 
-    // Inits
-    require("dotenv").config();
-    const app = express();
+// Inits
+require("dotenv").config();
+const app = express();
 
-    // Constants
-    const env = {
-        PORT = 3400,
-    } = process.env;
+// Constants
+const env = {
+    PORT = 3400,
+    DEV = false
+} = process.env;
 
-    console.log("Starting");
+console.log("Starting");
 
-    // Initial DB Connection MUST KEEP
-    require("./utils/db/dbconnection");
+// Initial DB Connection MUST KEEP
+require("./utils/db/dbconnection");
 
-    // True when passed by index.js for local testing
-    if (server) app.listen(PORT);
+// True when passed by index.js for local testing
+if (env.DEV) app.listen(PORT);
 
-    require("./utils/middlewares")(app); // Middleware handling
-    require("./utils/routing")(app); // Routing and error handling
-}
+require("./utils/middlewares")(app); // Middleware handling
+require("./utils/routing")(app); // Routing and error handling
+
+module.exports = app;

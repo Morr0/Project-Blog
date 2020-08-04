@@ -4,6 +4,9 @@ const contactsRouter = require("../routes/contact");
 module.exports = function (app){
     app.use("/posts", postsRouter);
     app.use("/contact", contactsRouter);
+    app.use("/", (req, res) => {
+        return res.send("Hello world");
+    });
 
     // Incorrect URL handler
     app.use((req, res) => {
